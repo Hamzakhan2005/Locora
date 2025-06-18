@@ -1,5 +1,6 @@
 import "./globals.css";
 import { inter, notoSans } from "./fonts";
+import { AuthProvider } from "./context/AuthContext";
 
 export default function RootLayout({ children }) {
   return (
@@ -8,7 +9,9 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
       className={`${inter.className} ${notoSans.className}`}
     >
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

@@ -1,12 +1,24 @@
 import mongoose from "mongoose";
 
 const helpSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   title: String,
   description: String,
   category: String,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   location: String,
-  createdAt: { type: Date, default: Date.now },
+  type: {
+    type: String,
+    enum: ["need", "offer"],
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export default mongoose.model("Help", helpSchema);
