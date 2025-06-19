@@ -5,6 +5,12 @@ import { useAuth } from "@/context/AuthContext";
 import { createHelpRequest } from "@/utils/api";
 import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Input from "@mui/joy/Input";
+import Textarea from "@mui/joy/Textarea";
+import Select, { selectClasses } from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 
 export default function CreateHelpPage() {
   const {
@@ -32,52 +38,71 @@ export default function CreateHelpPage() {
   };
 
   return (
-    <div className="">
+    <div className="w-[100%] h-[100%] overflow-x-hidden">
       <Navbar />
-      <h2 className="">Create Help Post</h2>
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          name="title"
-          placeholder="Title"
-          className=""
-          {...register("title", { required: true })}
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          className=""
-          {...register("description", { required: true })}
-          required
-        />
-        <input
-          name="category"
-          placeholder="Category"
-          className=""
-          {...register("category", { required: true })}
-          required
-        />
-        <input
-          name="location"
-          placeholder="Location"
-          className=""
-          {...register("location", { required: true })}
-        />
-        <select
-          name="type"
-          className=""
-          {...register("type", { required: true })}
+      <div className="w-[97vw] px-[2vw] py-[2vh] mx-[1vw] my-[1vh] flex flex-col  justify-center items-center">
+        <h2 className="">Create Help Post</h2>
+        <form
+          className="w-[60vw] h-[50vh] flex flex-col items-center justify-between"
+          onSubmit={handleSubmit(onSubmit)}
         >
-          <option value="need">Need Help</option>
-          <option value="offer">Offer Help</option>
-        </select>
-        <input
-          type="submit"
-          className=""
-          disabled={isSubmitting}
-          value={isSubmitting ? "Creating..." : "Create Post"}
-        />
-      </form>
+          <Input
+            name="title"
+            placeholder="Title"
+            className="bg-transparent text-[#fff] w-[30vw]"
+            {...register("title", { required: true })}
+            required
+          />
+          <Textarea
+            name="description"
+            placeholder="Description"
+            className="bg-transparent text-[#fff] w-[30vw]"
+            {...register("description", { required: true })}
+            required
+          />
+          <Input
+            name="category"
+            placeholder="Category"
+            className="bg-transparent text-[#fff] w-[30vw]"
+            {...register("category", { required: true })}
+            required
+          />
+          <Input
+            name="location"
+            placeholder="Location"
+            className="bg-transparent text-[#fff] w-[30vw]"
+            {...register("location", { required: true })}
+          />
+          <Select
+            name="type"
+            className="bg-transparent text-[#fff] w-[30vw]"
+            placeholder="State type of Help"
+            indicator={<KeyboardArrowDown />}
+            sx={{
+              width: 240,
+              [`& .${selectClasses.indicator}`]: {
+                transition: "0.2s",
+                [`&.${selectClasses.expanded}`]: {
+                  transform: "rotate(-180deg)",
+                },
+              },
+            }}
+            {...register("type", { required: true })}
+          >
+            <Option value="need">Need Help</Option>
+            <Option value="offer">Offer Help</Option>
+          </Select>
+          <Input
+            type="submit"
+            className="bg-[#14bd28] text-[#fff] w-[30vw]"
+            disabled={isSubmitting}
+            color="success"
+            variant="solid"
+            value={isSubmitting ? "Creating..." : "Create Post"}
+          />
+        </form>
+      </div>
+
       <Footer />
     </div>
   );

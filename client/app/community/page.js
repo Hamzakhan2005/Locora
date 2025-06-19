@@ -2,6 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { getHelps } from "../utils/api";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import Typography from "@mui/joy/Typography";
+import Sheet from "@mui/joy/Sheet";
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState([]);
@@ -28,20 +37,71 @@ export default function CommunityPage() {
 
   return (
     <div className="max-w-3xl mx-auto mt-10 px-4">
-      <h2 className="text-2xl font-bold mb-4">Community Posts</h2>
-      {posts.length === 0 ? (
-        <p className="text-gray-600">No posts yet.</p>
-      ) : (
-        posts.map((post) => (
-          <div key={post._id} className="border p-4 rounded mb-4 shadow">
-            <h3 className="font-semibold text-lg">{post.title}</h3>
-            <p className="mt-1">{post.description}</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Category: {post.category} | Type: {post.type}
-            </p>
-          </div>
-        ))
-      )}
+      <Navbar />
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Community Posts</h2>
+        {posts.length === 0 ? (
+          <p className="text-gray-600">No posts yet.</p>
+        ) : (
+          posts.map((post) => (
+            <div key={post._id} className="border p-4 rounded mb-4 shadow">
+              <Box
+                sx={{
+                  width: "100%",
+                  position: "relative",
+                  overflow: { xs: "auto", sm: "initial" },
+                }}
+              >
+                <Card
+                  orientation="horizontal"
+                  sx={{
+                    width: "100%",
+                    flexWrap: "wrap",
+                    [`& > *`]: {
+                      "--stack-point": "500px",
+                      minWidth:
+                        "clamp(0px, (calc(var(--stack-point) - 2 * var(--Card-padding) - 2 * var(--variant-borderWidth, 0px)) + 1px - 100%) * 999, 100%)",
+                    },
+                    // make the card resizable for demo
+                    overflow: "auto",
+                    resize: "horizontal",
+                  }}
+                >
+                  <CardContent>
+                    <Typography sx={{ fontSize: "xl", fontWeight: "lg" }}>
+                      {post.title}
+                    </Typography>
+                    <Typography
+                      level="body-sm"
+                      textColor="text.tertiary"
+                      sx={{ fontWeight: "lg" }}
+                    >
+                      {post.description}
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 1.5,
+                        "& > button": { flex: 1 },
+                      }}
+                    >
+                      <Button variant="outlined" color="neutral">
+                        Chat
+                      </Button>
+                      <Button variant="solid" color="primary">
+                        Follow
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Box>
+            </div>
+          ))
+        )}
+        <div></div>
+      </div>
+      <Footer />
     </div>
   );
 }
