@@ -39,7 +39,7 @@ export const loginWithPhone = async (phone, password) => {
   }
 };
 
-export const register = async (userData) => {
+export const registerUser = async (userData) => {
   try {
     const response = await api.post("/auth/register", userData);
     return response.data;

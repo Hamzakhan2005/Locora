@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Navbar() {
   return (
-    <div className="nav-main mb-[1rem] flex flex-row items-center border-b-1 border-b-indigo-500">
+    <div className="nav-main text-[#fff] mb-[1rem] flex flex-row items-center border-b-1 border-b-indigo-500">
       <h2 className="w-1/5">Locora</h2>
       <div className="nav-links w-2/5 flex gap-[1rem] justify-center ">
         <Button variant="ghost" className="border-none bg-transparent">

@@ -3,87 +3,82 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { createHelpRequest } from "@/utils/api";
+import { useForm } from "react-hook-form";
+import Navbar from "@/components/Navbar";
 
 export default function CreateHelpPage() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm();
   const router = useRouter();
-  const { user } = useAuth();
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    category: "",
-    location: "",
-    type: "need",
-  });
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const onSubmit = async (data) => {
+    const { title, description, location, category } = data;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.title || !form.description || !form.location || !form.category) {
+    if (!title || !description || !location || !category) {
       alert("All fields are required");
       return;
     }
 
     try {
-      await createHelpRequest(form);
+      await createHelpRequest(data);
       router.push("/");
     } catch (err) {
       alert(err.message || "Error creating help post");
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10">
-      <h2 className="text-2xl font-bold mb-4">Create Help Post</h2>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+    <div className="">
+      <Navbar />
+      <h2 className="">Create Help Post</h2>
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
         <input
           name="title"
           placeholder="Title"
-          className="w-full p-2 border rounded"
-          onChange={handleChange}
+          className=""
+          {...register("title", { required: true })}
           required
         />
         <textarea
           name="description"
           placeholder="Description"
-          className="w-full p-2 border rounded"
-          onChange={handleChange}
+          className=""
+          {...register("description", { required: true })}
           required
         />
         <input
           name="category"
           placeholder="Category"
-          className="w-full p-2 border rounded"
-          onChange={handleChange}
+          className=""
+          {...register("category", { required: true })}
           required
         />
         <input
           name="location"
           placeholder="Location"
-          className="w-full p-2 border rounded"
-          onChange={handleChange}
+          className=""
+          {...register("location", { required: true })}
         />
         <select
           name="type"
-          className="w-full p-2 border rounded"
-          onChange={handleChange}
+          className=""
+          {...register("type", { required: true })}
         >
           <option value="need">Need Help</option>
           <option value="offer">Offer Help</option>
         </select>
-        <button
+        <input
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? "Creating..." : "Create Post"}
-        </button>
+          className=""
+          disabled={isSubmitting}
+          value={isSubmitting ? "Creating..." : "Create Post"}
+        />
       </form>
+      <Footer />
     </div>
   );
 }
