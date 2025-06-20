@@ -4,8 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from "../utils/api";
 import { useForm } from "react-hook-form";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Link from "@mui/joy/Link";
+import FormLabel from "@mui/joy/FormLabel";
+import Input from "@mui/joy/Input";
 
 export default function SignupPage() {
   const {
@@ -42,89 +45,78 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="">
+    <div className="text-[#fff] w-[100%] h-[100%] overflow-x-hidden">
       <Navbar />
-      <div className="">
-        <div className="">⭐ LocalHelp</div>
-        <button onClick={() => router.push("/signin")} className="">
-          Sign in
-        </button>
-      </div>
+      <div className="w-[97vw] h-[90vh] px-[2vw] py-[2vh] mx-[1vw] my-[1vh] flex flex-col  items-center">
+        <div className="h-[20vh]">
+          <h1>Welcome To Locora</h1>
 
-      <div className="">
-        <h1 className="">Create an Account</h1>
+          <p>Already a helper?</p>
+          <Link href="/signin" variant="plain">
+            Sign in
+          </Link>
+        </div>
 
         {error && <div className="">{error}</div>}
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
-            <label className="">Name</label>
-            <input
+        <div className=" flex flex-row justify-center items-center">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className=" w-[60vw] h-[20vh] flex flex-col items-center justify-between"
+          >
+            <FormLabel className="text-[#fff]">Name</FormLabel>
+            <Input
               type="text"
               placeholder="Enter your name"
-              className=""
+              className="bg-transparent text-[#fff] w-[30vw] m-[0.5rem]"
               {...register("name", { required: true })}
               required
             />
-          </div>
 
-          <div className="">
-            <label className="">Email (Optional if phone provided)</label>
-            <input
+            <FormLabel className="text-[#fff]">
+              Email (Optional if phone provided)
+            </FormLabel>
+            <Input
               type="email"
               placeholder="Enter your email"
-              className=""
+              className="bg-transparent text-[#fff] w-[30vw] m-[0.5rem]"
               {...register("email")}
             />
-          </div>
 
-          <div className="">
-            <label className="">Phone (Optional if email provided)</label>
-            <input
+            <FormLabel className="text-[#fff]">
+              Phone (Optional if email provided)
+            </FormLabel>
+            <Input
               type="tel"
               placeholder="Enter your phone number"
-              className=""
+              className="bg-transparent text-[#fff] w-[30vw] m-[0.5rem]"
               {...register("phone")}
             />
-          </div>
 
-          <div className="mb-4">
-            <label className="">Password</label>
-            <input
+            <FormLabel className="text-[#fff]">Password</FormLabel>
+            <Input
               type="password"
               placeholder="Create a password"
-              className=""
+              className="bg-transparent text-[#fff] w-[30vw] m-[0.5rem]"
               {...register("password", { required: true })}
               required
             />
-          </div>
 
-          <div className="">
-            <label className="">Location</label>
-            <input
+            <FormLabel className="text-[#fff]">Location</FormLabel>
+            <Input
               type="text"
               placeholder="Enter your location"
-              className=""
+              className="bg-transparent text-[#fff] w-[30vw] m-[0.5rem]"
               {...register("location", { required: true })}
               required
             />
-          </div>
 
-          <input
-            type="submit"
-            className=""
-            disabled={isSubmitting}
-            value={isSubmitting ? "Creating account..." : "Sign up"}
-          />
-        </form>
-
-        <div className="">
-          <p className="">
-            Already have an account?{" "}
-            <a href="/signin" className="">
-              Sign in
-            </a>
-          </p>
+            <Input
+              type="submit"
+              className="bg-[#14bd28] text-[#fff] w-[30vw]"
+              disabled={isSubmitting}
+              value={isSubmitting ? "Creating account..." : "Sign up"}
+            />
+          </form>
         </div>
       </div>
       <Footer />

@@ -36,15 +36,15 @@ export default function CommunityPage() {
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 px-4">
+    <div className=" w-[100%] overflow-x-hidden">
       <Navbar />
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Community Posts</h2>
+      <div className="w-[98vw] my-[2vh] mx-[1vh] py-[1vh] px-[1vw] flex flex-col justify-center  items-center">
+        <h2 className="">Community Posts</h2>
         {posts.length === 0 ? (
           <p className="text-gray-600">No posts yet.</p>
         ) : (
           posts.map((post) => (
-            <div key={post._id} className="border p-4 rounded mb-4 shadow">
+            <div key={post._id} className=" w-[50vw] ">
               <Box
                 sx={{
                   width: "100%",
@@ -57,17 +57,21 @@ export default function CommunityPage() {
                   sx={{
                     width: "100%",
                     flexWrap: "wrap",
+                    backgroundColor: "#000",
+                    height: "15vh",
+                    width: "50vw",
+                    margin: "1vh",
                     [`& > *`]: {
                       "--stack-point": "500px",
                       minWidth:
                         "clamp(0px, (calc(var(--stack-point) - 2 * var(--Card-padding) - 2 * var(--variant-borderWidth, 0px)) + 1px - 100%) * 999, 100%)",
                     },
                     // make the card resizable for demo
-                    overflow: "auto",
-                    resize: "horizontal",
+                    // overflow: "auto",
+                    // resize: "horizontal",
                   }}
                 >
-                  <CardContent>
+                  <CardContent className="flex flex-col justify-between">
                     <Typography sx={{ fontSize: "xl", fontWeight: "lg" }}>
                       {post.title}
                     </Typography>
@@ -90,7 +94,7 @@ export default function CommunityPage() {
                         Chat
                       </Button>
                       <Button variant="solid" color="primary">
-                        Follow
+                        Help
                       </Button>
                     </Box>
                   </CardContent>

@@ -190,12 +190,16 @@ export default function Navbar() {
             </Typography>
             <Box sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Button
+                <a
                   key={page}
-                  sx={{ my: 2, mr: 2, color: "white", display: "block" }}
+                  href={`#${page.toLowerCase().replace(/\s/g, "")}`}
                 >
-                  {page}
-                </Button>
+                  <Button
+                    sx={{ my: 2, mr: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
+                </a>
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }} />

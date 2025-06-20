@@ -13,7 +13,10 @@ import {
 
 export default function HomePage() {
   return (
-    <main className="home-main flex w-[100%]  flex-col   overflow-x-hidden">
+    <main
+      className="home-main flex w-[100%]  flex-col   overflow-x-hidden"
+      id="home"
+    >
       <Navbar />
       <div className="px-40 mb-[2rem] flex flex-col justify-center py-5 justify-center items-center">
         <div
@@ -49,7 +52,7 @@ export default function HomePage() {
             </div>
           </label>
         </div>
-        <div className="home-about w-[80vw] mb-[2rem]">
+        <div className="home-about w-[80vw] mb-[2rem]" id="about">
           <h1>How Locora Works</h1>
           <p>
             Create Help Page: Provide a form for users to submit requests for
@@ -61,7 +64,7 @@ export default function HomePage() {
             with designing these screens?
           </p>
         </div>
-        <div className="w-[80vw] flex items-start flex-col">
+        <div className="w-[80vw] flex items-start flex-col" id="services">
           <Button
             variant="secondary"
             className="bg-[#14bd28] border-none p-[0.5rem] mb-[1rem]"
