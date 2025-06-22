@@ -6,12 +6,16 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, sparse: true },
   password: String,
   location: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Ensure user has either email or phone
-userSchema.pre('save', function(next) {
+userSchema.pre("save", function (next) {
   if (!this.email && !this.phone) {
-    return next(new Error('User must have either email or phone'));
+    return next(new Error("User must have either email or phone"));
   }
   next();
 });

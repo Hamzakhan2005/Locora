@@ -26,7 +26,7 @@ export default function HomePage() {
           }}
         >
           <div
-            className="flex flex-col gap-2 !text-white  "
+            className="flex flex-col gap-2 !text-white  text-center"
             style={{ color: "white" }}
           >
             <h1 className="!text-white font-bold text-[3rem]">
@@ -37,20 +37,6 @@ export default function HomePage() {
               resources, and help each other out.
             </h2>
           </div>
-          <label className="flex flex-col  h-14 w-[30%] border-none">
-            <div className="flex w-full  flex-1   rounded-xl h-full">
-              <input
-                placeholder="Search or post in 12345"
-                className="border-none form-input flex w-full  overflow-hidden rounded-xl text-[#111418] focus:outline-0 focus:ring-0 border border-[#dbe0e6] bg-white focus:border-[#dbe0e6] h-full placeholder:text-[#60758a] px-[15px] rounded-r-none border-r-0 pr-2 rounded-l-none border-l-0 pl-2 text-sm font-normal  @[480px]:text-base @[480px]:font-normal @[480px]:"
-                // value=""
-              />
-              <div className="flex bg-white-500 items-center justify-center rounded-r-xl">
-                <button className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 p-4">
-                  <span className="truncate">Go</span>
-                </button>
-              </div>
-            </div>
-          </label>
         </div>
         <div className="home-about w-[80vw] mb-[2rem]" id="about">
           <h1>How Locora Works</h1>

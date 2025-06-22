@@ -57,6 +57,15 @@ export const createHelpRequest = async (helpData) => {
   }
 };
 
+export const getUserProfile = async () => {
+  try {
+    const response = await api.get("/user/me");
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: "Failed to fetch profile" };
+  }
+};
+
 export const getHelps = async () => {
   try {
     const response = await api.get("/help");

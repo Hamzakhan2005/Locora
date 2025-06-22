@@ -23,6 +23,8 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import Table from "@mui/joy/Table";
+import { useEffect } from "react";
+import { getUserProfile } from "../utils/api";
 
 function createData(title, answer) {
   return { title, answer };
@@ -70,7 +72,25 @@ const cards = [
 ];
 
 export default function ProfilePage() {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
   const [selectedCard, setSelectedCard] = useState(0);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getUserProfile();
+        setUser(data);
+      } catch (err) {
+        setError(err.message || "Something went wrong");
+      }
+    };
+
+    fetchUser();
+  }, []);
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!user) return <div>Loading...</div>;
+
   return (
     <div className="overflow-x-hidden">
       <Navbar />
@@ -80,9 +100,9 @@ export default function ProfilePage() {
             src=""
             className="w-[5rem] h-[5rem]  bg-[#2c7f41] rounded-full"
           />
-          <h3 className="m-0">Priya Sharma</h3>
-          <p className="m-0">Software Engineer</p>
-          <p className="m-0">Joined 2025</p>
+          <h3 className="m-0">{user.name}</h3>
+          <p className="m-0">{user.role || "User"}</p>
+          <p className="m-0">Joined {new Date(user.createdAt).getFullYear()}</p>
         </div>
         <div className="w-[98vw] h-[50vh] py-[2vh] ">
           <Tabs defaultValue="About" className="w-[97vw] pl-[1vw]">

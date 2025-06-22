@@ -22,7 +22,12 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import MoreIcon from "@mui/icons-material/MoreVert";
 
-const pages = ["Home", "Services", "About Us", "Contact"];
+const pages = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "About Us", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -110,8 +115,12 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link href={"/profile"}>Profile</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link href={"/settings"}>Settings</Link>
+      </MenuItem>
     </Menu>
   );
 
@@ -171,35 +180,25 @@ export default function Navbar() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar className="bg-[#1d4026]">
-            {/* <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton> */}
             <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{ mr: 45, display: { xs: "none", sm: "block" } }}
             >
-              LOCORA
+              <Link href={"/"} className="text-[#fff] no-underline">
+                LOCORA
+              </Link>
             </Typography>
             <Box sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <a
-                  key={page}
-                  href={`#${page.toLowerCase().replace(/\s/g, "")}`}
-                >
+                <Link key={page.name} href={page.path} passHref>
                   <Button
                     sx={{ my: 2, mr: 2, color: "white", display: "block" }}
                   >
-                    {page}
+                    {page.name}
                   </Button>
-                </a>
+                </Link>
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }} />
@@ -252,34 +251,6 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      {/* <h2 className="w-1/5">Locora</h2>
-      <div className="nav-links w-2/5 flex gap-[1rem] justify-center ">
-        <Button variant="ghost" className="border-none bg-transparent">
-          Home
-        </Button>
-        <Button variant="ghost" className="border-none bg-transparent">
-          Services
-        </Button>
-        <Button variant="ghost" className="border-none bg-transparent">
-          About Us
-        </Button>
-        <Button variant="ghost" className="border-none bg-transparent">
-          Contact
-        </Button>
-      </div>
-      <div className="nav-buttons w-2/5 flex flex-row gap-[1rem] justify-end">
-        <Input
-          type="email"
-          placeholder="Email"
-          className="border-none bg-[#2C7F41]"
-        />
-        <Button variant="secondary" className="bg-[#14bd28] border-none">
-          Post a Need
-        </Button>
-        <Button variant="outline" className="bg-[#14bd28] border-none">
-          Login
-        </Button>
-      </div> */}
     </div>
   );
 }
