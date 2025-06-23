@@ -6,6 +6,7 @@ dotenv.config();
 import authRoutes from "./routes/auth.js";
 import helpRoutes from "./routes/help.js";
 import userRoutes from "./routes/user.js";
+import commentRoutes from "./routes/comment.js";
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/help", helpRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/comments", commentRoutes);
 
 // Connect DB and start server
 const PORT = process.env.PORT || 5000;

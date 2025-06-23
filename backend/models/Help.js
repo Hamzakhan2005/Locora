@@ -15,6 +15,10 @@ const helpSchema = new mongoose.Schema({
     enum: ["need", "offer"],
     required: true,
   },
+  isSpam: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

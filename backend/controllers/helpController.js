@@ -43,3 +43,35 @@ export const geMyHelp = async (req, res) => {
     res.status(500).json({ message: "Error fetching user posts", error });
   }
 };
+
+export const deletePost = async (req, res) => {
+  const help = await Help.findById(req.params.id);
+
+  if (!help) return res.status(404).json({ message: "Post not found" });
+
+  // Admin can delete anything
+  if (req.user.role === "admin") {
+    await help.deleteOne();
+    return res.json({ message: "Post deleted by admin" });
+  }
+
+  // Users can delete only their own posts
+  if (help.user.toString() === req.user._id.toString()) {
+    await help.deleteOne();
+    return res.json({ message: "Post deleted by owner" });
+  }
+
+  res.status(403).json({ message: "You can only delete your own posts" });
+};
+export const spamPost = async (req, res) => {
+  try {
+    const post = await Help.findById(req.params.id);
+    if (!post) return res.status(404).json({ message: "Post not found" });
+
+    post.isSpam = true;
+    await post.save();
+    res.json({ message: "Post marked as spam" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
