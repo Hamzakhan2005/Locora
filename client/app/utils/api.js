@@ -57,6 +57,10 @@ export const createHelpRequest = async (helpData) => {
   }
 };
 
+export const logoutUser = () => {
+  localStorage.removeItem("token");
+};
+
 export const getUserProfile = async () => {
   try {
     const response = await api.get("/user/me");

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export default function ServicesPage() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden text-[#ecf39e]">
       <Navbar />
       <div className="w-[98vw] my-[2vh] mx-[1vh] py-[1vh] px-[1vw] flex flex-col justify-center  items-center"></div>
       <Footer />

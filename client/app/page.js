@@ -1,6 +1,12 @@
+"use client";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
+import Button from "@mui/material/Button";
+import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+
 import {
   Card,
   CardAction,
@@ -12,9 +18,22 @@ import {
 } from "@/components/ui/card";
 
 export default function HomePage() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleHelpClick = () => {
+    if (!user) {
+      router.push("/login");
+    } else {
+      router.push("/community");
+    }
+  };
+  const handleServicesClick = () => {
+    router.push("/services");
+  };
   return (
     <main
-      className="home-main flex w-[100%]  flex-col   overflow-x-hidden"
+      className="home-main flex text-[#ecf39e] w-[100%]  flex-col   overflow-x-hidden"
       id="home"
     >
       <Navbar />
@@ -26,21 +45,29 @@ export default function HomePage() {
           }}
         >
           <div
-            className="flex flex-col gap-2 !text-white  text-center"
-            style={{ color: "white" }}
+            className="flex flex-col gap-2 !text-white  text-center items-center"
+            style={{ color: "#ecf39e" }}
           >
-            <h1 className="!text-white font-bold text-[3rem]">
+            <h1 className="font-display !text-white font-bold text-[3rem]">
               Welcome to Neighborly
             </h1>
             <h2 className="!text-white text-[1rem] font-normal ">
               A place for you to connect with your neighbors, share local
               resources, and help each other out.
             </h2>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleHelpClick}
+              className="no-underline text-[#ecf39e]"
+            >
+              Help Someone !!
+            </Button>
           </div>
         </div>
-        <div className="home-about w-[80vw] mb-[2rem]" id="about">
-          <h1>How Locora Works</h1>
-          <p>
+        <div className="home-about  w-[80vw] mb-[2rem]" id="about">
+          <h1 className="font-display ">How Locora Works</h1>
+          <p className="">
             Create Help Page: Provide a form for users to submit requests for
             help or assistance. Would you like to proceed with designing these
             screens? Create Help Page: Provide a form for users to submit
@@ -52,13 +79,15 @@ export default function HomePage() {
         </div>
         <div className="w-[80vw] flex items-start flex-col" id="services">
           <Button
-            variant="secondary"
-            className="bg-[#14bd28] border-none p-[0.5rem] mb-[1rem]"
+            variant="contained"
+            color="success"
+            onClick={handleServicesClick}
+            className="bg-[#fff] border-none p-[0.5rem] m-[1rem]"
           >
             Explore Services
           </Button>
-          <div className="flex w-full gap-[1rem] mb-[1rem]">
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+          <div className="flex w-full gap-[1rem] mt-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3>Post your need</h3>
               </CardHeader>
@@ -69,7 +98,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3>Connect with Helpers</h3>
               </CardHeader>
@@ -80,7 +109,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3>Get Assistance</h3>
               </CardHeader>
@@ -95,16 +124,16 @@ export default function HomePage() {
         </div>
         <div className="w-[80vw] flex flex-col">
           <div>
-            <h1>Common Needs we can help with</h1>
+            <h1 className="font-display">Common Needs we can help with</h1>
             <p>
               Its for a desktop keep in mind it's for an Indian use so very easy
               and user friendly
             </p>
           </div>
           <div className="flex flex-row gap-[1rem]">
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
-                <h3>Post your need</h3>
+                <h3 className="font-display">Post your need</h3>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>
@@ -113,9 +142,9 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
-                <h3>Connect with Helpers</h3>
+                <h3 className="font-display">Connect with Helpers</h3>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>
@@ -124,9 +153,9 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
-                <h3>Get Assistance</h3>
+                <h3 className="font-display">Get Assistance</h3>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>
@@ -135,9 +164,9 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#3A5B47] w-[20%] p-[1rem]">
+            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
               <CardHeader>
-                <h3>Get Assistance</h3>
+                <h3 className="font-display">Get Assistance</h3>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>

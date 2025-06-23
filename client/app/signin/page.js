@@ -62,7 +62,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="text-[#fff] w-[100%] h-[100%] overflow-x-hidden">
+    <div className="text-[#ecf39e] w-[100%] h-[100%] overflow-x-hidden">
       <Navbar />
       <div className="w-[97vw] px-[2vw] py-[2vh] mx-[1vw] my-[1vh] flex flex-col  justify-center items-center">
         <h1 className="">Welcome Back</h1>
@@ -73,24 +73,24 @@ export default function LoginPage() {
             onSubmit={handleEmailSubmit(handleEmailLogin)}
             className="w-[60vw] h-[20vh] flex flex-col items-center justify-between mb-6"
           >
-            <FormLabel className="text-[#fff]">Email</FormLabel>
+            <FormLabel className="text-[#ecf39e]">Email</FormLabel>
             <Input
               type="email"
               placeholder="Enter your email"
-              className="bg-transparent text-[#fff] w-[30vw]"
+              className="bg-transparent text-[#ecf39e] w-[30vw]"
               {...registerEmail("email", { required: true })}
               required
             />
             <Input
               type="password"
               placeholder="Enter your password"
-              className="bg-transparent text-[#fff] w-[30vw]"
+              className="bg-transparent text-[#ecf39e] w-[30vw]"
               required
               {...registerEmail("password", { required: true })}
             />
             <Input
               type="submit"
-              className="bg-[#14bd28] text-[#fff] w-[30vw]"
+              className="bg-[#14bd28] text-[#ecf39e] w-[30vw]"
               disabled={emailSubmitting}
               value={emailSubmitting ? "Submitting" : "Submit"}
             />
@@ -102,24 +102,24 @@ export default function LoginPage() {
             onSubmit={handlePhoneSubmit(handlePhoneLogin)}
             className="w-[60vw] h-[20vh] flex flex-col items-center justify-between mb-[2rem]"
           >
-            <FormLabel className="text-[#fff]">Phone number</FormLabel>
+            <FormLabel className="text-[#ecf39e]">Phone number</FormLabel>
             <Input
               type="tel"
               placeholder="Enter your phone number"
               required
-              className="bg-transparent text-[#fff] w-[30vw]"
+              className="bg-transparent text-[#ecf39e] w-[30vw]"
               {...registerPhone("phone", { required: true })}
             />
             <Input
               type="password"
               required
               placeholder="Enter your password"
-              className="bg-transparent text-[#fff] w-[30vw]"
+              className="bg-transparent text-[#ecf39e] w-[30vw]"
               {...registerPhone("password", { required: true })}
             />
             <Input
               type="submit"
-              className="bg-[#14bd28] text-[#fff] w-[30vw]"
+              className="bg-[#14bd28] text-[#ecf39e] w-[30vw]"
               disabled={phoneSubmitting}
               value={phoneSubmitting ? "Submitting" : "Submit"}
             />

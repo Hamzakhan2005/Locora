@@ -1,5 +1,6 @@
 import "./globals.css";
-import { inter, notoSans } from "./fonts";
+import { karla, workSans } from "./fonts";
+
 import { AuthProvider } from "./context/AuthContext";
 
 export default function RootLayout({ children }) {
@@ -7,7 +8,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.className} ${notoSans.className}`}
+      className={`${karla.className} ${workSans.className}`}
     >
       <body suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>

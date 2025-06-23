@@ -19,13 +19,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { getUserProfile } from "../utils/api";
+import { useEffect } from "react";
 
 import MoreIcon from "@mui/icons-material/MoreVert";
 
 const pages = [
   { name: "Home", path: "/" },
   { name: "Services", path: "/services" },
-  { name: "About Us", path: "/about" },
+  { name: "About Us", path: "/aboutus" },
   { name: "Contact", path: "/contact" },
 ];
 
@@ -73,10 +75,24 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [user, setUser] = useState(null);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getUserProfile();
+        if (data != null) {
+          setIsLoggedIn(true);
+        } // Save user info if needed
+        // User is authenticated
+      } catch (err) {
+        setIsLoggedIn(false); // Not authenticated
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -115,12 +131,25 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link href={"/profile"}>Profile</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link href={"/settings"}>Settings</Link>
-      </MenuItem>
+      {isLoggedIn ? (
+        <>
+          <MenuItem onClick={handleMenuClose}>
+            <Link href="/profile">Profile</Link>
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <Link href="/settings">Settings</Link>
+          </MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={handleMenuClose}>
+            <Link href="/login">Login</Link>
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <Link href="/signup">Sign Up</Link>
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
@@ -176,17 +205,20 @@ export default function Navbar() {
     </Menu>
   );
   return (
-    <div className="nav-main text-[#fff] mb-[1rem] flex flex-row items-center border-b-1 border-b-indigo-500">
+    <div className="nav-main text-[#ecf39e] mb-[1rem] flex flex-row items-center border-b-1 border-b-indigo-500">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar className="bg-[#1d4026]">
+          <Toolbar className="bg-[#31572c]">
             <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{ mr: 45, display: { xs: "none", sm: "block" } }}
             >
-              <Link href={"/"} className="text-[#fff] no-underline">
+              <Link
+                href={"/"}
+                className="text-[#ecf39e] no-underline font-display"
+              >
                 LOCORA
               </Link>
             </Typography>
@@ -194,7 +226,8 @@ export default function Navbar() {
               {pages.map((page) => (
                 <Link key={page.name} href={page.path} passHref>
                   <Button
-                    sx={{ my: 2, mr: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, mr: 2, color: "#ecf39e", display: "block" }}
+                    className="font-display"
                   >
                     {page.name}
                   </Button>
@@ -212,15 +245,6 @@ export default function Navbar() {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
 
               <IconButton
                 size="large"

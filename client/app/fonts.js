@@ -1,12 +1,13 @@
-import { Inter, Noto_Sans } from 'next/font/google'
+import { Karla, Work_Sans } from "next/font/google";
 
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
+export const karla = Karla({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"], // Adjust as per your need
+  display: "swap",
+});
 
-export const notoSans = Noto_Sans({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
-})
+export const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});

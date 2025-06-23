@@ -38,7 +38,7 @@ export default function CreateHelpPage() {
   };
 
   return (
-    <div className="w-[100%] h-[100%] overflow-x-hidden">
+    <div className="w-[100%] h-[100%] overflow-x-hidden text-[#ecf39e]">
       <Navbar />
       <div className="w-[97vw] px-[2vw] py-[2vh] mx-[1vw] my-[1vh] flex flex-col  justify-center items-center">
         <h2 className="">Create Help Post</h2>
