@@ -23,9 +23,16 @@ export default function HomePage() {
 
   const handleHelpClick = () => {
     if (!user) {
-      router.push("/login");
+      router.push("/signin");
     } else {
       router.push("/community");
+    }
+  };
+  const handleNeedClick = () => {
+    if (!user) {
+      router.push("/signin");
+    } else {
+      router.push("/create");
     }
   };
   const handleServicesClick = () => {
@@ -62,6 +69,14 @@ export default function HomePage() {
               className="no-underline text-[#ecf39e]"
             >
               Help Someone !!
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleNeedClick}
+              className="no-underline text-[#ecf39e]"
+            >
+              Need Help !!
             </Button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import Comment from "../models/Comment.js";
 import Help from "../models/Help.js";
+import { connectedUsers } from "../server.js";
 
 export const addComment = async (req, res) => {
   const { text } = req.body;
@@ -19,6 +20,15 @@ export const addComment = async (req, res) => {
     });
 
     await comment.save();
+
+    const ownerSocket = connectedUsers.get(helpPost.user.toString());
+    if (ownerSocket && helpPost.user.toString() !== req.user._id.toString()) {
+      ownerSocket.emit("notification", {
+        type: "comment",
+        message: `Someone commented on your post: "${text}"`,
+        postId: helpId,
+      });
+    }
 
     res.status(201).json({ message: "Comment added", comment });
   } catch (err) {

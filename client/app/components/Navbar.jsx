@@ -21,6 +21,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getUserProfile } from "../utils/api";
 import { useEffect } from "react";
+import { useNotification } from "../context/NotificationContext";
 
 import MoreIcon from "@mui/icons-material/MoreVert";
 
@@ -77,6 +78,12 @@ export default function Navbar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [user, setUser] = useState(null);
+  const { notifications } = useNotification();
+  const [notifAnchor, setNotifAnchor] = useState(null);
+
+  const handleNotifOpen = (e) => setNotifAnchor(e.currentTarget);
+  const handleNotifClose = () => setNotifAnchor(null);
+  const notifOpen = Boolean(notifAnchor);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -143,7 +150,7 @@ export default function Navbar() {
       ) : (
         <>
           <MenuItem onClick={handleMenuClose}>
-            <Link href="/login">Login</Link>
+            <Link href="/signin">Login</Link>
           </MenuItem>
           <MenuItem onClick={handleMenuClose}>
             <Link href="/signup">Sign Up</Link>
@@ -245,6 +252,16 @@ export default function Navbar() {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
+              <IconButton
+                size="large"
+                aria-label="show new notifications"
+                color="inherit"
+                onClick={handleNotifOpen}
+              >
+                <Badge badgeContent={notifications.length} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
 
               <IconButton
                 size="large"
@@ -274,6 +291,33 @@ export default function Navbar() {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
+        <Menu
+          anchorEl={notifAnchor}
+          open={notifOpen}
+          onClose={handleNotifClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <MenuItem disabled>
+            <strong>Notifications</strong>
+          </MenuItem>
+          {notifications.length === 0 && (
+            <MenuItem disabled>No notifications</MenuItem>
+          )}
+          {notifications.map((notif, index) => (
+            <MenuItem
+              key={index}
+              onClick={() => {
+                if (notif.postId) {
+                  window.location.href = `/post/${notif.postId}`;
+                }
+                handleNotifClose();
+              }}
+            >
+              {notif.message}
+            </MenuItem>
+          ))}
+        </Menu>
       </Box>
     </div>
   );

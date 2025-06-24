@@ -2,6 +2,9 @@ import "./globals.css";
 import { karla, workSans } from "./fonts";
 
 import { AuthProvider } from "./context/AuthContext";
+import { SocketProvider } from "./context/SocketContext";
+import { NotificationProvider } from "./context/NotificationContext";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
   return (
@@ -11,7 +14,14 @@ export default function RootLayout({ children }) {
       className={`${karla.className} ${workSans.className}`}
     >
       <body suppressHydrationWarning>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <SocketProvider>
+            <NotificationProvider>
+              <Toaster position="top-right" />
+              {children}
+            </NotificationProvider>
+          </SocketProvider>
+        </AuthProvider>
       </body>
     </html>
   );
