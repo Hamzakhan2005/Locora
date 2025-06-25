@@ -1,6 +1,7 @@
 import Help from "../models/Help.js";
 import User from "../models/User.js";
 import { connectedUsers } from "../server.js"; // import socket map
+import ChatRoom from "../models/ChatRoom.js";
 
 // CREATE A HELP POST
 export const createHelp = async (req, res) => {
@@ -97,29 +98,44 @@ export const spamPost = async (req, res) => {
   }
 };
 
-// ✅ ACCEPT HELP
 export const acceptHelp = async (req, res) => {
   const postId = req.params.id;
 
   try {
     const helpPost = await Help.findById(postId).populate("user");
-
     if (!helpPost) return res.status(404).json({ message: "Post not found" });
 
-    // 🔔 Notify the post creator that someone accepted their request
     const postOwnerId = helpPost.user._id.toString();
-    if (postOwnerId !== req.user.id) {
+    const helperId = req.user.id;
+
+    // Check if chat room exists
+    let room = await ChatRoom.findOne({
+      helpPost: postId,
+      participants: { $all: [postOwnerId, helperId] },
+    });
+
+    if (!room) {
+      room = new ChatRoom({
+        helpPost: postId,
+        participants: [postOwnerId, helperId],
+      });
+      await room.save();
+    }
+
+    // 🔔 Notify post owner
+    if (postOwnerId !== helperId) {
       const socket = connectedUsers.get(postOwnerId);
       if (socket) {
         socket.emit("notification", {
           type: "accept",
           message: `${req.user.name} accepted your help request.`,
           postId: helpPost._id,
+          roomId: room._id,
         });
       }
     }
 
-    res.json({ message: "You accepted this help request" });
+    res.json({ message: "Accepted", roomId: room._id });
   } catch (err) {
     res
       .status(500)

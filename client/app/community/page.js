@@ -11,11 +11,24 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
+import SwipeableChatDrawer from "@/components/SwipeableChatDrawer";
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const handleOpenChat = (post) => {
+    setSelectedPost(post);
+    setIsChatOpen(true);
+  };
+
+  const handleCloseChat = () => {
+    setIsChatOpen(false);
+    setSelectedPost(null);
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -90,9 +103,14 @@ export default function CommunityPage() {
                         "& > button": { flex: 1 },
                       }}
                     >
-                      <Button variant="outlined" color="neutral">
+                      <Button
+                        variant="outlined"
+                        color="neutral"
+                        onClick={() => handleOpenChat(post)}
+                      >
                         Chat
                       </Button>
+
                       <Button variant="solid" color="primary">
                         Help
                       </Button>
@@ -106,6 +124,12 @@ export default function CommunityPage() {
         <div></div>
       </div>
       <Footer />
+      <SwipeableChatDrawer
+        open={isChatOpen}
+        onClose={handleCloseChat}
+        onOpen={() => {}}
+        post={selectedPost}
+      />
     </div>
   );
 }

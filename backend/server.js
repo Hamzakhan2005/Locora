@@ -10,6 +10,7 @@ import authRoutes from "./routes/auth.js";
 import helpRoutes from "./routes/help.js";
 import userRoutes from "./routes/user.js";
 import commentRoutes from "./routes/comment.js";
+import chatRoutes from "./routes/chat.js";
 
 const app = express();
 dotenv.config();
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/help", helpRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/chat", chatRoutes);
 
 const connectedUsers = new Map();
 
