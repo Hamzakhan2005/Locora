@@ -99,46 +99,32 @@ export const spamPost = async (req, res) => {
 };
 
 export const acceptHelp = async (req, res) => {
-  const postId = req.params.id;
+  const helpId = req.params.id;
+  const helperId = req.user.id;
 
   try {
-    const helpPost = await Help.findById(postId).populate("user");
-    if (!helpPost) return res.status(404).json({ message: "Post not found" });
+    const helpPost = await Help.findById(helpId).populate("user");
+    if (!helpPost) {
+      return res.status(404).json({ message: "Help post not found" });
+    }
 
-    const postOwnerId = helpPost.user._id.toString();
-    const helperId = req.user.id;
+    // TODO: Add any backend logic to mark as accepted (if needed)
 
-    // Check if chat room exists
-    let room = await ChatRoom.findOne({
-      helpPost: postId,
-      participants: { $all: [postOwnerId, helperId] },
-    });
+    const creatorId = helpPost.user._id.toString();
+    const socket = connectedUsers.get(creatorId);
 
-    if (!room) {
-      room = new ChatRoom({
-        helpPost: postId,
-        participants: [postOwnerId, helperId],
+    if (socket) {
+      socket.emit("notification", {
+        type: "help-accepted",
+        postId: helpId,
+        message: `Someone offered to help on your post "${helpPost.title}"`,
       });
-      await room.save();
     }
 
-    // 🔔 Notify post owner
-    if (postOwnerId !== helperId) {
-      const socket = connectedUsers.get(postOwnerId);
-      if (socket) {
-        socket.emit("notification", {
-          type: "accept",
-          message: `${req.user.name} accepted your help request.`,
-          postId: helpPost._id,
-          roomId: room._id,
-        });
-      }
-    }
-
-    res.json({ message: "Accepted", roomId: room._id });
+    res.status(200).json({ message: "Help offer sent" });
   } catch (err) {
     res
       .status(500)
-      .json({ message: "Error accepting help", error: err.message });
+      .json({ message: "Failed to accept help", error: err.message });
   }
 };

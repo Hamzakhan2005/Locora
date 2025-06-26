@@ -19,12 +19,21 @@ export const getMyChatRooms = async (req, res) => {
 };
 
 export const getOrCreateRoom = async (req, res) => {
+  console.log("📩 getOrCreateRoom called");
+  console.log("➡️ Requested postId:", req.params.postId);
+  console.log("👤 User ID:", req.user.id);
   const { postId } = req.params;
   const userId = req.user.id;
 
+  console.log("📩 getOrCreateRoom called");
+  console.log("➡️ Requested postId:", postId);
+  console.log("👤 User ID:", userId);
+
   try {
     const helpPost = await Help.findById(postId).populate("user");
+
     if (!helpPost) {
+      console.log("❌ Help post not found in DB");
       return res.status(404).json({ message: "Help post not found" });
     }
 
@@ -41,13 +50,15 @@ export const getOrCreateRoom = async (req, res) => {
         participants: [posterId, userId],
       });
       await room.save();
+      console.log("✅ New room created:", room._id);
+    } else {
+      console.log("✅ Existing room found:", room._id);
     }
 
     res.json(room);
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Failed to fetch or create room", error: err.message });
+    console.error("❌ Error in getOrCreateRoom:", err.message);
+    res.status(500).json({ message: "Failed to fetch or create room" });
   }
 };
 

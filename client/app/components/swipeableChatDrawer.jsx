@@ -24,9 +24,13 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
     const fetchRoomAndJoin = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`/api/chat/room/${post._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        console.log("📦 Token being used:", token);
+        const res = await axios.get(
+          `http://localhost:5000/api/chat/room/${post._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         const roomId = res.data._id;
 
@@ -38,7 +42,7 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
 
         // Store roomId locally (use useState)
         setRoomId(roomId);
-
+        console.log("✅ Joined room:", roomId);
         // Listen for incoming messages
         socket.on("message", (msg) => {
           setMessages((prev) => [...prev, msg]);
@@ -68,37 +72,15 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    if (!socket || !post?._id) return;
-
-    // Join chat room
-    socket.emit("joinRoom", post._id);
-
-    // Fetch existing messages
-    socket.emit("getMessages", post._id);
-
-    // Listen for incoming messages
-    socket.on("message", (msg) => {
-      setMessages((prev) => [...prev, msg]);
-      scrollToBottom();
-    });
-
-    // Initial message list
-    socket.on("messageHistory", (msgs) => {
-      setMessages(msgs);
-      scrollToBottom();
-    });
-
-    // Cleanup
-    return () => {
-      socket.emit("leaveRoom", post._id);
-      socket.off("message");
-      socket.off("messageHistory");
-    };
-  }, [socket, post?._id]);
-
   const handleSend = () => {
-    if (input.trim() === "" || !roomId || !socket) return;
+    console.log("📨 Sending message:", input);
+    console.log("🆔 Room ID:", roomId);
+    console.log("🔌 Socket available:", !!socket);
+
+    if (input.trim() === "" || !roomId || !socket) {
+      console.log("❌ Cannot send — missing input or room or socket");
+      return;
+    }
 
     socket.emit("sendMessage", {
       roomId,

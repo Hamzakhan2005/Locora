@@ -11,6 +11,9 @@ import helpRoutes from "./routes/help.js";
 import userRoutes from "./routes/user.js";
 import commentRoutes from "./routes/comment.js";
 import chatRoutes from "./routes/chat.js";
+import ChatRoom from "./models/ChatRoom.js";
+import Message from "./models/Message.js";
+import Help from "./models/Help.js";
 
 const app = express();
 dotenv.config();
@@ -53,6 +56,87 @@ io.on("connection", (socket) => {
   const userId = socket.user.id;
   connectedUsers.set(userId, socket);
   console.log(`User connected: ${userId}`);
+
+  // 🧠 JOIN ROOM
+  socket.on("joinRoom", (roomId) => {
+    socket.join(roomId);
+    console.log(`User ${userId} joined room ${roomId}`);
+  });
+
+  // ❌ Leave room
+  socket.on("leaveRoom", (roomId) => {
+    socket.leave(roomId);
+    console.log(`User ${userId} left room ${roomId}`);
+  });
+
+  // 📜 Get message history
+  socket.on("getMessages", async (roomId) => {
+    try {
+      const messages = await Message.find({ room: roomId })
+        .populate("sender", "name")
+        .sort("timestamp");
+
+      const formatted = messages.map((msg) => ({
+        _id: msg._id,
+        text: msg.content,
+        sender: msg.sender,
+        timestamp: msg.timestamp,
+        fromSelf: msg.sender._id.toString() === userId,
+      }));
+
+      socket.emit("messageHistory", formatted);
+    } catch (err) {
+      console.error("getMessages error:", err.message);
+    }
+  });
+
+  // 💬 Send message
+  socket.on("sendMessage", async ({ roomId, postId, text }) => {
+    try {
+      const helpPost = await Help.findById(postId).populate("user");
+      if (!helpPost) return;
+
+      const room = await ChatRoom.findById(roomId);
+      if (!room) return;
+
+      const message = new Message({
+        room: roomId,
+        sender: userId,
+        content: text,
+      });
+      await message.save();
+
+      const formattedMessage = {
+        _id: message._id,
+        text: message.content,
+        sender: { _id: userId },
+        timestamp: message.timestamp,
+        fromSelf: false,
+      };
+
+      // 🔔 Notify all other participants in the room
+      room.participants.forEach((participantId) => {
+        const pid = participantId.toString();
+        const socketToNotify = connectedUsers.get(pid);
+
+        if (pid !== userId && socketToNotify) {
+          socketToNotify.emit("message", {
+            ...formattedMessage,
+            fromSelf: false,
+          });
+        }
+
+        if (pid === userId) {
+          socket.emit("message", {
+            ...formattedMessage,
+            fromSelf: true,
+          });
+        }
+      });
+    } catch (err) {
+      console.error("sendMessage error:", err.message);
+    }
+  });
 
   socket.on("disconnect", () => {
     connectedUsers.delete(userId);

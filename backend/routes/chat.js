@@ -10,8 +10,8 @@ import { protect } from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/rooms", protect, getMyChatRooms);
-router.get("/:roomId/messages", protect, getMessages);
-router.get("/room/:postId", protect, getOrCreateRoom);
+router.get("/room/:postId", protect, getOrCreateRoom); // More specific FIRST
+router.get("/:roomId/messages", protect, getMessages); // Less specific second
 
 router.post("/:postId", protect, sendMessage); // send message per post
 

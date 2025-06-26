@@ -29,6 +29,22 @@ export default function CommunityPage() {
     setIsChatOpen(false);
     setSelectedPost(null);
   };
+  const handleHelp = async (post) => {
+    try {
+      const token = localStorage.getItem("token");
+      await fetch(`http://localhost:5000/api/help/${post._id}/accept`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert("Help offer sent!");
+    } catch (err) {
+      console.error("Help accept error:", err);
+      alert("Failed to offer help");
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -111,7 +127,11 @@ export default function CommunityPage() {
                         Chat
                       </Button>
 
-                      <Button variant="solid" color="primary">
+                      <Button
+                        variant="solid"
+                        color="primary"
+                        onClick={() => handleHelp(post)}
+                      >
                         Help
                       </Button>
                     </Box>
