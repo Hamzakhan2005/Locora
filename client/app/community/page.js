@@ -32,13 +32,16 @@ export default function CommunityPage() {
   const handleHelp = async (post) => {
     try {
       const token = localStorage.getItem("token");
-      await fetch(`http://localhost:5000/api/help/${post._id}/accept`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await fetch(
+        `http://locora-production-9b3e.up.railway.app/api/help/${post._id}/accept`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       alert("Help offer sent!");
     } catch (err) {
       console.error("Help accept error:", err);
