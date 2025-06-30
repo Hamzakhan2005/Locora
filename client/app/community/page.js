@@ -11,7 +11,7 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
-import SwipeableChatDrawer from "@/components/SwipeableChatDrawer";
+import SwipeableChatDrawer from "@/components/swpipableChatDrawer";
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState([]);
