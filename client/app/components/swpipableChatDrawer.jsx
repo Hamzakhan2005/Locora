@@ -26,7 +26,7 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
         const token = localStorage.getItem("token");
         console.log("📦 Token being used:", token);
         const res = await axios.get(
-          `http://locora-production-9b3e.up.railway.app/api/chat/room/${post._id}`,
+          `https://locora-production-9b3e.up.railway.app/api/chat/room/${post._id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

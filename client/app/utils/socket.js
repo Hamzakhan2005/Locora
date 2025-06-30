@@ -4,7 +4,7 @@ let socket;
 
 export const connectSocket = (token) => {
   if (!socket) {
-    socket = io("http://locora-production-9b3e.up.railway.app", {
+    socket = io("https://locora-production-9b3e.up.railway.app", {
       auth: { token },
     });
   }

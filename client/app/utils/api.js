@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://locora-production-9b3e.up.railway.app/api";
+const API_URL = "https://locora-production-9b3e.up.railway.app/api";
 
 const api = axios.create({
   baseURL: API_URL,

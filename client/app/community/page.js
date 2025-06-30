@@ -33,7 +33,7 @@ export default function CommunityPage() {
     try {
       const token = localStorage.getItem("token");
       await fetch(
-        `http://locora-production-9b3e.up.railway.app/api/help/${post._id}/accept`,
+        `https://locora-production-9b3e.up.railway.app/api/help/${post._id}/accept`,
         {
           method: "POST",
           headers: {
