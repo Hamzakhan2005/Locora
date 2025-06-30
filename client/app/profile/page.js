@@ -96,7 +96,7 @@ export default function ProfilePage() {
       <Navbar />
       <div className="w-[98vw] h-[200vh]  my-[2vh] mx-[1vh] py-[1vh] px-[1vw] flex flex-col justify-center  items-center">
         <div className="w-[20vw] h-[50vh] p-[1rem] flex flex-col justify-center items-center ">
-          <img
+          <Image
             src=""
             className="w-[5rem] h-[5rem]  bg-[#2c7f41] rounded-full"
           />

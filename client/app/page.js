@@ -56,7 +56,7 @@ export default function HomePage() {
             style={{ color: "#ecf39e" }}
           >
             <h1 className="font-display !text-white font-bold text-[3rem]">
-              Welcome to Neighborly
+              Welcome to Locora
             </h1>
             <h2 className="!text-white text-[1rem] font-normal ">
               A place for you to connect with your neighbors, share local
@@ -141,8 +141,8 @@ export default function HomePage() {
           <div>
             <h1 className="font-display">Common Needs we can help with</h1>
             <p>
-              Its for a desktop keep in mind it's for an Indian use so very easy
-              and user friendly
+              Its for a desktop keep in mind it&apos;s for an Indian use so very
+              easy and user friendly
             </p>
           </div>
           <div className="flex flex-row gap-[1rem]">
