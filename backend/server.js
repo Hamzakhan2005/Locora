@@ -21,13 +21,18 @@ dotenv.config();
 const server = http.createServer(app); // <-- wrap Express in HTTP server
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // frontend origin
+    origin: "locora-git-main-mohammad-hamza-khans-projects.vercel.app", // frontend origin
     credentials: true,
   },
 });
 
 // Middleware
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "locora-git-main-mohammad-hamza-khans-projects.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes
