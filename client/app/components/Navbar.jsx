@@ -215,7 +215,7 @@ export default function Navbar() {
     <div className="nav-main text-[#ecf39e] mb-[1rem] flex flex-row items-center border-b-1 border-b-indigo-500">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar className="bg-[#31572c]">
+          <Toolbar className="bg-[#45A545]">
             <Typography
               variant="h6"
               noWrap

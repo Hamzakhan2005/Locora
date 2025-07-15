@@ -68,7 +68,7 @@ export default function CommunityPage() {
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
-    <div className=" w-[100%] text-[#ecf39e]  overflow-x-hidden">
+    <div className=" w-[100%] text-[#000]  overflow-x-hidden">
       <Navbar />
       <div className="w-[98vw] my-[2vh] mx-[1vh] py-[1vh] px-[1vw] flex flex-col justify-center  items-center">
         <h2 className="">Community Posts</h2>

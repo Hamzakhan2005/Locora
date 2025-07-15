@@ -60,7 +60,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="text-[#ecf39e] w-[100%] h-[100%] overflow-x-hidden">
+    <div className="text-[#000] w-[100%] h-[100%] overflow-x-hidden">
       <Navbar />
       <div className="w-[97vw] px-[2vw] py-[2vh] mx-[1vw] my-[1vh] flex flex-col  justify-center items-center">
         <h1 className="">Welcome Back</h1>

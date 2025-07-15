@@ -40,7 +40,7 @@ export default function HomePage() {
   };
   return (
     <main
-      className="home-main flex text-[#ecf39e] w-[100%]  flex-col   overflow-x-hidden"
+      className="home-main flex text-[#000] w-[100%]  flex-col   overflow-x-hidden"
       id="home"
     >
       <Navbar />
@@ -66,7 +66,8 @@ export default function HomePage() {
               variant="contained"
               color="success"
               onClick={handleHelpClick}
-              className="no-underline text-[#ecf39e]"
+              className="no-underline text-[#ecf39e] mb-[2rem]"
+              style={{ marginBottom: "1rem" }}
             >
               Help Someone !!
             </Button>
@@ -74,7 +75,8 @@ export default function HomePage() {
               variant="contained"
               color="success"
               onClick={handleNeedClick}
-              className="no-underline text-[#ecf39e]"
+              className="no-underline text-[#ecf39e] mb-[2rem]"
+              style={{ marginBottom: "1rem" }}
             >
               Need Help !!
             </Button>
@@ -102,7 +104,7 @@ export default function HomePage() {
             Explore Services
           </Button>
           <div className="flex w-full gap-[1rem] mt-[1rem]">
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3>Post your need</h3>
               </CardHeader>
@@ -113,7 +115,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3>Connect with Helpers</h3>
               </CardHeader>
@@ -124,7 +126,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3>Get Assistance</h3>
               </CardHeader>
@@ -146,7 +148,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="flex flex-row gap-[1rem]">
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3 className="font-display">Post your need</h3>
               </CardHeader>
@@ -157,7 +159,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3 className="font-display">Connect with Helpers</h3>
               </CardHeader>
@@ -168,7 +170,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3 className="font-display">Get Assistance</h3>
               </CardHeader>
@@ -179,7 +181,7 @@ export default function HomePage() {
                 <p>Card Footer</p>
               </CardFooter>
             </Card>
-            <Card className="bg-[#90a955] w-[20%] p-[1rem]">
+            <Card className="bg-[#3FAE3F] w-[20%] p-[1rem]">
               <CardHeader>
                 <h3 className="font-display">Get Assistance</h3>
               </CardHeader>

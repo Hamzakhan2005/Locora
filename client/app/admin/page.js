@@ -4,7 +4,7 @@ import { RecentPosts } from "@/components/RecentPosts";
 
 export default function Dashboard() {
   return (
-    <div className="flex min-h-screen bg-gray-100 text-[#ecf39e]">
+    <div className="flex min-h-screen bg-gray-100 text-[#000]">
       <Sidebar />
       <div className="flex-1 p-6">
         <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
