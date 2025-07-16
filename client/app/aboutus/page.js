@@ -26,9 +26,9 @@ export default function ServicesPage() {
         </p>
         <h1>🔧 How It Works</h1>
         <p className="text-center">
-          Post Requests: If you need assistance — whether it’s borrowing a tool,
-          finding a tutor, or needing urgent help — you can post your request.
-          Offer Help: Browse requests around you and choose how you can
+          Post Requests: If you need assistance — whether it&rsquo;s borrowing a
+          tool, finding a tutor, or needing urgent help — you can post your
+          request. Offer Help: Browse requests around you and choose how you can
           contribute — no effort is too small. Real-time Chat & Notifications:
           Communicate instantly, stay updated, and respond quickly using our
           built-in chat and alerts. Verified Community: Every user is part of a
@@ -37,19 +37,19 @@ export default function ServicesPage() {
         <h1>🙌 Why Locora?</h1>
         <p className="text-center">
           In a world full of noise, Locora helps you cut through the distance
-          and find real, human support. Whether you're: A student stuck with a
-          flat tire, A parent looking for a babysitter recommendation, Or
+          and find real, human support. Whether you&rsquo;re: A student stuck
+          with a flat tire, A parent looking for a babysitter recommendation, Or
           someone who just needs to be heard... Locora is here to remind you
-          that you're not alone.
+          that you&rsquo;re not alone.
         </p>
         <h1>🚀 Built By the Community, For the Community</h1>
         <p className="text-center">
-          Locora isn’t backed by corporations — it’s built by people who believe
-          in grassroots impact and real-world connection. We’re constantly
-          evolving, listening to feedback, and improving — because this isn’t
-          just our platform — it’s yours.
+          Locora isn&rsquo;t backed by corporations — it&rsquo;s built by people
+          who believe in grassroots impact and real-world connection.
+          We&rsquo;re constantly evolving, listening to feedback, and improving
+          — because this isn&rsquo;t just our platform — it&rsquo;s yours.
         </p>
-        <h1>📫 Let’s Connect</h1>
+        <h1>📫 Let&rsquo;s Connect</h1>
         <p className="text-center">
           Have suggestions, feedback, or want to collaborate? Reach out to us
           anytime — your voice shapes Locora.
