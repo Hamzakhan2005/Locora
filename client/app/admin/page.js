@@ -1,6 +1,7 @@
 import Sidebar from "@/components/Sidebar";
 import { LineChartComponent, BarChartComponent } from "@/components/Charts";
 import { RecentPosts } from "@/components/RecentPosts";
+const tabs = ["Overview", "Users", "Posts", "Reports"];
 
 export default function Dashboard() {
   return (
@@ -27,17 +28,7 @@ export default function Dashboard() {
           style={{ borderColor: "#9290c3" }}
         >
           {tabs.map((tab, i) => (
-            <button
-              key={i}
-              className={`px-6 py-3 text-sm font-semibold rounded-lg transition-all duration-300 ${
-                i === 0
-                  ? "text-white shadow-lg transform scale-105"
-                  : "text-gray-400 hover:text-white"
-              }`}
-              style={i === 0 ? { backgroundColor: "#9290c3" } : {}}
-            >
-              {tab}
-            </button>
+            <button key={i}>{tab}</button>
           ))}
         </div>
 
