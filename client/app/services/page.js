@@ -9,7 +9,7 @@ export default function ServicesPage() {
       icon: "📢",
       title: "Post a Help Request",
       description:
-        "If you need help — whether it's something urgent or a small task — you can create a Help Post describing your situation. Your request will be shared with people nearby who can step in.",
+        "If you need help — whether it&apos;s something urgent or a small task — you can create a Help Post describing your situation. Your request will be shared with people nearby who can step in.",
     },
     {
       icon: "📍",
@@ -27,7 +27,7 @@ export default function ServicesPage() {
       icon: "🤝",
       title: "Accept to Help",
       description:
-        "Users who are ready to take action can formally accept a help post. This helps the requester know who's committed and builds a sense of accountability.",
+        "Users who are ready to take action can formally accept a help post. This helps the requester know who&apos;s committed and builds a sense of accountability.",
     },
   ];
 
@@ -58,9 +58,9 @@ export default function ServicesPage() {
             🛠️ What We Offer
           </h1>
           <p className="text-[1.25rem] text-[#d1d5db] max-w-[900px] mx-auto leading-relaxed">
-            At Locora, we're building tools to help communities connect and
-            support one another, starting with real-time local help. Here's what
-            you can do on the platform right now:
+            At Locora, we&apos;re building tools to help communities connect and
+            support one another, starting with real-time local help. Here&apos;s
+            what you can do on the platform right now:
           </p>
         </div>
 
@@ -103,16 +103,17 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* What's Next Section */}
+        {/* What&apos;s Next Section */}
         <div className="bg-[rgba(146,144,195,0.08)] rounded-[1.5rem] p-[3rem] mb-[4rem] border-[2px] border-[#9290c3] shadow-2xl">
           <div className="flex items-center gap-[1rem] mb-[2rem]">
             <div className="text-[4rem]">🌱</div>
             <h2 className="text-[2.5rem] font-bold text-[#9290c3]">
-              What's Next?
+              What&apos;s Next?
             </h2>
           </div>
           <p className="text-[1.125rem] text-[#d1d5db] mb-[2rem] leading-relaxed">
-            This is just the beginning. We're actively working on features like:
+            This is just the beginning. We&apos;re actively working on features
+            like:
           </p>
           <div className="grid md:grid-cols-2 gap-[1.5rem]">
             {upcomingFeatures.map((feature, index) => (
@@ -134,9 +135,9 @@ export default function ServicesPage() {
             Why This Matters
           </h2>
           <p className="text-[1.25rem] leading-relaxed max-w-[900px] mx-auto">
-            Locora isn't just a tool — it's a growing movement toward locally
-            driven compassion. When we make it easier to ask and easier to
-            offer, communities become stronger, safer, and more connected.
+            Locora isn&apos;t just a tool — it&apos;s a growing movement toward
+            locally driven compassion. When we make it easier to ask and easier
+            to offer, communities become stronger, safer, and more connected.
           </p>
           <button className="mt-[2rem] bg-[#ffffff] text-[#9290c3] font-bold px-[2.5rem] py-[1rem] rounded-[0.75rem] text-[1.125rem] hover:bg-[#f0f0f0] transition-all duration-300 transform hover:scale-105 shadow-lg">
             Get Started Today
