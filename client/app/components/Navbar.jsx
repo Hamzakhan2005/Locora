@@ -34,22 +34,22 @@ const pages = [
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  borderRadius: "0.75rem",
+  backgroundColor: "rgba(146, 144, 195, 0.15)",
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: "rgba(146, 144, 195, 0.25)",
   },
-  marginRight: theme.spacing(2),
+  marginRight: "1rem",
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: "1.5rem",
     width: "auto",
   },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: "0 1rem",
   height: "100%",
   position: "absolute",
   pointerEvents: "none",
@@ -59,11 +59,10 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: "#d1d5db",
   "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    padding: "0.5rem 0.5rem 0.5rem 0",
+    paddingLeft: "calc(1em + 2rem)",
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
@@ -77,7 +76,6 @@ export default function Navbar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [user, setUser] = useState(null);
   const { notifications } = useNotification();
   const [notifAnchor, setNotifAnchor] = useState(null);
 
@@ -91,10 +89,9 @@ export default function Navbar() {
         const data = await getUserProfile();
         if (data != null) {
           setIsLoggedIn(true);
-        } // Save user info if needed
-        // User is authenticated
+        }
       } catch (err) {
-        setIsLoggedIn(false); // Not authenticated
+        setIsLoggedIn(false);
       }
     };
 
@@ -137,23 +134,63 @@ export default function Navbar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      PaperProps={{
+        style: {
+          backgroundColor: "#0a1234",
+          color: "#d1d5db",
+          borderRadius: "0.75rem",
+          border: "1px solid #9290c3",
+        },
+      }}
     >
       {isLoggedIn ? (
         <>
-          <MenuItem onClick={handleMenuClose}>
-            <Link href="/profile">Profile</Link>
+          <MenuItem
+            onClick={handleMenuClose}
+            style={{ padding: "0.75rem 1.5rem" }}
+          >
+            <Link
+              href="/profile"
+              style={{ color: "#d1d5db", textDecoration: "none" }}
+            >
+              Profile
+            </Link>
           </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
-            <Link href="/settings">Settings</Link>
+          <MenuItem
+            onClick={handleMenuClose}
+            style={{ padding: "0.75rem 1.5rem" }}
+          >
+            <Link
+              href="/settings"
+              style={{ color: "#d1d5db", textDecoration: "none" }}
+            >
+              Settings
+            </Link>
           </MenuItem>
         </>
       ) : (
         <>
-          <MenuItem onClick={handleMenuClose}>
-            <Link href="/signin">Login</Link>
+          <MenuItem
+            onClick={handleMenuClose}
+            style={{ padding: "0.75rem 1.5rem" }}
+          >
+            <Link
+              href="/signin"
+              style={{ color: "#d1d5db", textDecoration: "none" }}
+            >
+              Login
+            </Link>
           </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
-            <Link href="/signup">Sign Up</Link>
+          <MenuItem
+            onClick={handleMenuClose}
+            style={{ padding: "0.75rem 1.5rem" }}
+          >
+            <Link
+              href="/signup"
+              style={{ color: "#d1d5db", textDecoration: "none" }}
+            >
+              Sign Up
+            </Link>
           </MenuItem>
         </>
       )}
@@ -176,46 +213,71 @@ export default function Navbar() {
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      PaperProps={{
+        style: {
+          backgroundColor: "#0a1234",
+          color: "#d1d5db",
+          borderRadius: "0.75rem",
+          border: "1px solid #9290c3",
+        },
+      }}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+      <MenuItem style={{ padding: "0.75rem 1.5rem" }}>
+        <IconButton
+          size="large"
+          aria-label="show 4 new mails"
+          style={{ color: "#9290c3" }}
+        >
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p style={{ color: "#d1d5db", margin: 0, marginLeft: "0.5rem" }}>
+          Messages
+        </p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem style={{ padding: "0.75rem 1.5rem" }}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
+          aria-label="show notifications"
+          style={{ color: "#9290c3" }}
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={notifications.length} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p style={{ color: "#d1d5db", margin: 0, marginLeft: "0.5rem" }}>
+          Notifications
+        </p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem
+        onClick={handleProfileMenuOpen}
+        style={{ padding: "0.75rem 1.5rem" }}
+      >
         <IconButton
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
-          color="inherit"
+          style={{ color: "#9290c3" }}
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p style={{ color: "#d1d5db", margin: 0, marginLeft: "0.5rem" }}>
+          Profile
+        </p>
       </MenuItem>
     </Menu>
   );
+
   return (
-    <div className="nav-main text-[#ecf39e] mb-[1rem] flex flex-row items-center border-b-1 border-b-indigo-500">
+    <div className="w-[100%] mb-[1.5rem] border-b-[2px] border-[#9290c3]">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar className="bg-[#45A545]">
+        <AppBar
+          position="static"
+          style={{ backgroundColor: "#070f2b", boxShadow: "none" }}
+        >
+          <Toolbar style={{ padding: "0.75rem 2rem", minHeight: "4rem" }}>
             <Typography
               variant="h6"
               noWrap
@@ -224,17 +286,28 @@ export default function Navbar() {
             >
               <Link
                 href={"/"}
-                className="text-[#ecf39e] no-underline font-display"
+                className="no-underline font-display text-[1.75rem] font-bold"
+                style={{ color: "#9290c3" }}
               >
                 LOCORA
               </Link>
             </Typography>
-            <Box sx={{ flexGrow: 2, display: { xs: "none", md: "flex" } }}>
+            <Box
+              sx={{
+                flexGrow: 2,
+                display: { xs: "none", md: "flex" },
+                gap: "0.5rem",
+              }}
+            >
               {pages.map((page) => (
                 <Link key={page.name} href={page.path} passHref>
                   <Button
-                    sx={{ my: 2, mr: 2, color: "#ecf39e", display: "block" }}
-                    className="font-display"
+                    className="font-display px-[1.25rem] py-[0.5rem] rounded-[0.5rem] hover:bg-[rgba(146,144,195,0.15)] transition-all"
+                    style={{
+                      color: "#d1d5db",
+                      textTransform: "none",
+                      fontSize: "1rem",
+                    }}
                   >
                     {page.name}
                   </Button>
@@ -242,10 +315,16 @@ export default function Navbar() {
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                gap: "1rem",
+                alignItems: "center",
+              }}
+            >
               <Search>
                 <SearchIconWrapper>
-                  <SearchIcon />
+                  <SearchIcon style={{ color: "#9290c3" }} />
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="Search…"
@@ -255,8 +334,8 @@ export default function Navbar() {
               <IconButton
                 size="large"
                 aria-label="show new notifications"
-                color="inherit"
                 onClick={handleNotifOpen}
+                style={{ color: "#9290c3" }}
               >
                 <Badge badgeContent={notifications.length} color="error">
                   <NotificationsIcon />
@@ -270,7 +349,7 @@ export default function Navbar() {
                 aria-controls={menuId}
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
-                color="inherit"
+                style={{ color: "#9290c3" }}
               >
                 <AccountCircle />
               </IconButton>
@@ -282,7 +361,7 @@ export default function Navbar() {
                 aria-controls={mobileMenuId}
                 aria-haspopup="true"
                 onClick={handleMobileMenuOpen}
-                color="inherit"
+                style={{ color: "#9290c3" }}
               >
                 <MoreIcon />
               </IconButton>
@@ -297,12 +376,30 @@ export default function Navbar() {
           onClose={handleNotifClose}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           transformOrigin={{ vertical: "top", horizontal: "right" }}
+          PaperProps={{
+            style: {
+              backgroundColor: "#0a1234",
+              color: "#d1d5db",
+              borderRadius: "0.75rem",
+              border: "1px solid #9290c3",
+              marginTop: "0.5rem",
+              minWidth: "250px",
+            },
+          }}
         >
-          <MenuItem disabled>
-            <strong>Notifications</strong>
+          <MenuItem
+            disabled
+            style={{
+              padding: "0.75rem 1.5rem",
+              borderBottom: "1px solid #9290c3",
+            }}
+          >
+            <strong style={{ color: "#9290c3" }}>Notifications</strong>
           </MenuItem>
           {notifications.length === 0 && (
-            <MenuItem disabled>No notifications</MenuItem>
+            <MenuItem disabled style={{ padding: "0.75rem 1.5rem" }}>
+              <span style={{ color: "#9ca3af" }}>No notifications</span>
+            </MenuItem>
           )}
           {notifications.map((notif, index) => (
             <MenuItem
@@ -312,6 +409,14 @@ export default function Navbar() {
                   window.location.href = `/post/${notif.postId}`;
                 }
                 handleNotifClose();
+              }}
+              style={{
+                padding: "0.75rem 1.5rem",
+                color: "#d1d5db",
+                borderBottom:
+                  index < notifications.length - 1
+                    ? "1px solid rgba(146, 144, 195, 0.2)"
+                    : "none",
               }}
             >
               {notif.message}
