@@ -142,7 +142,7 @@ export default function HomePage() {
               Common Needs we can help with
             </h1>
             <p className="text-[1.25rem] text-[#d1d5db]">
-              It's for a desktop keep in mind it's for an Indian use so very easy and user friendly
+              It&apos;s for a desktop keep in mind it&apos;s for an Indian use so very easy and user friendly
             </p>
           </div>
           <div className="flex flex-row gap-[1.5rem] flex-wrap">
