@@ -17,7 +17,7 @@ export default function Dashboard() {
             Admin Dashboard
           </h1>
           <p className="text-lg text-gray-400">
-            Monitor your community's activity and growth
+            Monitor your community&apos;s activity and growth
           </p>
         </div>
 
