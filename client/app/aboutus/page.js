@@ -62,8 +62,9 @@ export default function AboutPage() {
                 📢 Post Requests
               </h3>
               <p className="text-[#f3f4f6] leading-relaxed">
-                If you need assistance — whether it's borrowing a tool, finding
-                a tutor, or needing urgent help — you can post your request.
+                If you need assistance — whether it&apos;s borrowing a tool,
+                finding a tutor, or needing urgent help — you can post your
+                request.
               </p>
             </div>
             <div className="backdrop-blur-sm rounded-[1rem] p-[2rem] bg-[rgba(255,255,255,0.1)]">
@@ -108,7 +109,7 @@ export default function AboutPage() {
           </div>
           <p className="text-[1.125rem] leading-relaxed mb-[2rem] text-[#d1d5db]">
             In a world full of noise, Locora helps you cut through the distance
-            and find real, human support. Whether you're:
+            and find real, human support. Whether you&apos;re:
           </p>
           <ul className="space-y-[1rem]">
             <li className="flex items-start gap-[1rem]">
@@ -131,7 +132,7 @@ export default function AboutPage() {
             </li>
           </ul>
           <p className="text-[1.125rem] leading-relaxed mt-[2rem] font-semibold text-[#9290c3]">
-            Locora is here to remind you that you're not alone.
+            Locora is here to remind you that you&apos;re not alone.
           </p>
         </div>
 
@@ -146,10 +147,10 @@ export default function AboutPage() {
             </h2>
           </div>
           <p className="text-[1.125rem] leading-relaxed text-[#f3f4f6]">
-            Locora isn't backed by corporations — it's built by people who
-            believe in grassroots impact and real-world connection. We're
-            constantly evolving, listening to feedback, and improving — because
-            this isn't just our platform — it's yours.
+            Locora isn&apos;t backed by corporations — it&apos;s built by people
+            who believe in grassroots impact and real-world connection.
+            We&apos;re constantly evolving, listening to feedback, and improving
+            — because this isn&apos;t just our platform — it&apos;s yours.
           </p>
         </div>
 
@@ -157,7 +158,7 @@ export default function AboutPage() {
         <div className="rounded-[1.5rem] shadow-2xl p-[3rem] text-center border-[2px] border-[#9290c3] bg-[rgba(146,144,195,0.08)]">
           <span className="text-[4rem] mb-[1.5rem] block">📫</span>
           <h2 className="text-[2.5rem] font-bold mb-[1.5rem] text-[#9290c3]">
-            Let's Connect
+            Let&apos;s Connect
           </h2>
           <p className="text-[1.125rem] leading-relaxed text-[#d1d5db] mb-[2rem]">
             Have suggestions, feedback, or want to collaborate? Reach out to us
