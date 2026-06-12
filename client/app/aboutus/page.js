@@ -2,175 +2,702 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useState } from "react";
 
 export default function AboutPage() {
+  const howItWorks = [
+    {
+      icon: "📢",
+      title: "Post Requests",
+      desc: "If you need assistance — whether it's borrowing a tool, finding a tutor, or needing urgent help — you can post your request in seconds.",
+    },
+    {
+      icon: "🤝",
+      title: "Offer Help",
+      desc: "Browse requests around you and choose how you can contribute — no effort is too small. Every act of kindness counts.",
+    },
+    {
+      icon: "💬",
+      title: "Real-time Chat",
+      desc: "Communicate instantly, stay updated, and respond quickly using our built-in chat and real-time alerts.",
+    },
+    {
+      icon: "✅",
+      title: "Verified Community",
+      desc: "Every user is part of a trusted space built on accountability, empathy, and mutual respect.",
+    },
+  ];
+
+  const whyPoints = [
+    "A student stuck with a flat tire",
+    "A parent looking for a babysitter recommendation",
+    "Or someone who just needs to be heard...",
+  ];
+
   return (
-    <div className="min-h-screen bg-[#070f2b]">
-      <Navbar />
-
-      <div className="max-w-[1400px] mx-auto px-[2rem] py-[4rem]">
-        {/* Hero Section */}
-        <div className="text-center mb-[5rem]">
-          <div className="inline-block px-[1.5rem] py-[0.5rem] rounded-full text-[0.875rem] font-bold mb-[1.5rem] bg-[rgba(146,144,195,0.15)] text-[#9290c3]">
-            About Locora
-          </div>
-          <h1 className="text-[4rem] font-extrabold mb-[1.5rem] text-[#9290c3]">
-            🧩 Building Communities
-          </h1>
-          <h2 className="text-[3rem] font-bold mb-[2rem] text-[#ffffff]">
-            Through Kindness
-          </h2>
-          <p className="text-[1.25rem] leading-relaxed max-w-[1200px] mx-auto text-[#d1d5db]">
-            Locora is a community-powered help platform built to bring people
-            closer through kindness, connection, and collaboration. Whether you
-            need a helping hand or want to offer one, Locora makes it easy to
-            reach out, respond, and make a difference — right in your
-            neighborhood.
-          </p>
-        </div>
-
-        {/* Mission Section */}
-        <div className="rounded-[1.5rem] shadow-2xl p-[2.5rem] mb-[3rem] border-[2px] border-[#9290c3] bg-[rgba(146,144,195,0.08)] hover:scale-[1.02] transition-transform duration-300">
-          <div className="flex items-center gap-[1rem] mb-[1.5rem]">
-            <div className="w-[4rem] h-[4rem] rounded-[1rem] flex items-center justify-center text-[2.5rem] bg-[#9290c3]">
-              🌍
-            </div>
-            <h2 className="text-[2.5rem] font-bold text-[#9290c3]">
-              Our Mission
-            </h2>
-          </div>
-          <p className="text-[1.125rem] leading-relaxed text-[#d1d5db]">
-            We created Locora with a simple mission: To make help accessible and
-            human again — one post, one person, one act of kindness at a time.
-            We believe in the power of local communities to uplift one another,
-            and in using technology as a bridge — not a barrier — to empathy and
-            action.
-          </p>
-        </div>
-
-        {/* How It Works Section */}
-        <div className="rounded-[1.5rem] shadow-2xl p-[2.5rem] mb-[3rem] text-[#ffffff] bg-gradient-to-br from-[#9290c3] to-[#535C91]">
-          <div className="flex items-center gap-[1rem] mb-[2.5rem]">
-            <div className="w-[4rem] h-[4rem] rounded-[1rem] flex items-center justify-center text-[2.5rem] bg-[rgba(255,255,255,0.2)]">
-              🔧
-            </div>
-            <h2 className="text-[2.5rem] font-bold">How It Works</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-[2rem]">
-            <div className="backdrop-blur-sm rounded-[1rem] p-[2rem] bg-[rgba(255,255,255,0.1)]">
-              <h3 className="font-semibold text-[1.25rem] mb-[1rem]">
-                📢 Post Requests
-              </h3>
-              <p className="text-[#f3f4f6] leading-relaxed">
-                If you need assistance — whether it&apos;s borrowing a tool,
-                finding a tutor, or needing urgent help — you can post your
-                request.
-              </p>
-            </div>
-            <div className="backdrop-blur-sm rounded-[1rem] p-[2rem] bg-[rgba(255,255,255,0.1)]">
-              <h3 className="font-semibold text-[1.25rem] mb-[1rem]">
-                🤝 Offer Help
-              </h3>
-              <p className="text-[#f3f4f6] leading-relaxed">
-                Browse requests around you and choose how you can contribute —
-                no effort is too small.
-              </p>
-            </div>
-            <div className="backdrop-blur-sm rounded-[1rem] p-[2rem] bg-[rgba(255,255,255,0.1)]">
-              <h3 className="font-semibold text-[1.25rem] mb-[1rem]">
-                💬 Real-time Chat
-              </h3>
-              <p className="text-[#f3f4f6] leading-relaxed">
-                Communicate instantly, stay updated, and respond quickly using
-                our built-in chat and alerts.
-              </p>
-            </div>
-            <div className="backdrop-blur-sm rounded-[1rem] p-[2rem] bg-[rgba(255,255,255,0.1)]">
-              <h3 className="font-semibold text-[1.25rem] mb-[1rem]">
-                ✅ Verified Community
-              </h3>
-              <p className="text-[#f3f4f6] leading-relaxed">
-                Every user is part of a trusted space built on accountability,
-                empathy, and mutual respect.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Why Locora Section */}
-        <div className="rounded-[1.5rem] shadow-2xl p-[2.5rem] mb-[3rem] border-[2px] border-[#9290c3] bg-[rgba(146,144,195,0.08)]">
-          <div className="flex items-center gap-[1rem] mb-[2rem]">
-            <div className="w-[4rem] h-[4rem] rounded-[1rem] flex items-center justify-center text-[2.5rem] bg-[#9290c3]">
-              🙌
-            </div>
-            <h2 className="text-[2.5rem] font-bold text-[#9290c3]">
-              Why Locora?
-            </h2>
-          </div>
-          <p className="text-[1.125rem] leading-relaxed mb-[2rem] text-[#d1d5db]">
-            In a world full of noise, Locora helps you cut through the distance
-            and find real, human support. Whether you&apos;re:
-          </p>
-          <ul className="space-y-[1rem]">
-            <li className="flex items-start gap-[1rem]">
-              <span className="font-bold text-[1.5rem] text-[#9290c3]">•</span>
-              <span className="text-[#d1d5db] text-[1.125rem]">
-                A student stuck with a flat tire
-              </span>
-            </li>
-            <li className="flex items-start gap-[1rem]">
-              <span className="font-bold text-[1.5rem] text-[#9290c3]">•</span>
-              <span className="text-[#d1d5db] text-[1.125rem]">
-                A parent looking for a babysitter recommendation
-              </span>
-            </li>
-            <li className="flex items-start gap-[1rem]">
-              <span className="font-bold text-[1.5rem] text-[#9290c3]">•</span>
-              <span className="text-[#d1d5db] text-[1.125rem]">
-                Or someone who just needs to be heard...
-              </span>
-            </li>
-          </ul>
-          <p className="text-[1.125rem] leading-relaxed mt-[2rem] font-semibold text-[#9290c3]">
-            Locora is here to remind you that you&apos;re not alone.
-          </p>
-        </div>
-
-        {/* Community Built Section */}
-        <div className="rounded-[1.5rem] shadow-2xl p-[2.5rem] mb-[3rem] text-[#ffffff] bg-gradient-to-br from-[#535C91] to-[#9290c3]">
-          <div className="flex items-center gap-[1rem] mb-[2rem]">
-            <div className="w-[4rem] h-[4rem] rounded-[1rem] flex items-center justify-center text-[2.5rem] bg-[rgba(255,255,255,0.2)]">
-              🚀
-            </div>
-            <h2 className="text-[2.5rem] font-bold">
-              Built By the Community, For the Community
-            </h2>
-          </div>
-          <p className="text-[1.125rem] leading-relaxed text-[#f3f4f6]">
-            Locora isn&apos;t backed by corporations — it&apos;s built by people
-            who believe in grassroots impact and real-world connection.
-            We&apos;re constantly evolving, listening to feedback, and improving
-            — because this isn&apos;t just our platform — it&apos;s yours.
-          </p>
-        </div>
-
-        {/* Contact Section */}
-        <div className="rounded-[1.5rem] shadow-2xl p-[3rem] text-center border-[2px] border-[#9290c3] bg-[rgba(146,144,195,0.08)]">
-          <span className="text-[4rem] mb-[1.5rem] block">📫</span>
-          <h2 className="text-[2.5rem] font-bold mb-[1.5rem] text-[#9290c3]">
-            Let&apos;s Connect
-          </h2>
-          <p className="text-[1.125rem] leading-relaxed text-[#d1d5db] mb-[2rem]">
-            Have suggestions, feedback, or want to collaborate? Reach out to us
-            anytime — your voice shapes Locora.
-          </p>
-          <button className="px-[2.5rem] py-[1rem] rounded-full font-semibold transition-all duration-200 hover:scale-105 text-[#ffffff] shadow-lg bg-[#9290c3]">
-            Get in Touch
-          </button>
-        </div>
+    <div
+      style={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(135deg, #f0e6ff 0%, #ffe4f0 50%, #e4f0ff 100%)",
+        fontFamily: "'Nunito', sans-serif",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background blobs */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "600px",
+            height: "600px",
+            background:
+              "radial-gradient(circle, rgba(168,156,247,0.3) 0%, transparent 70%)",
+            top: "-150px",
+            left: "-100px",
+            animation: "blobA 16s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            width: "500px",
+            height: "500px",
+            background:
+              "radial-gradient(circle, rgba(255,126,179,0.2) 0%, transparent 70%)",
+            bottom: "5%",
+            right: "-100px",
+            animation: "blobB 20s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            width: "400px",
+            height: "400px",
+            background:
+              "radial-gradient(circle, rgba(96,196,248,0.15) 0%, transparent 70%)",
+            top: "45%",
+            right: "25%",
+            animation: "blobC 14s ease-in-out infinite",
+          }}
+        />
       </div>
 
-      <Footer />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <Navbar />
+
+        <div
+          style={{ maxWidth: "1100px", margin: "0 auto", padding: "4rem 2rem" }}
+        >
+          {/* ── Hero ── */}
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "5rem",
+              animation: "slideUp 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                padding: "0.4rem 1.25rem",
+                borderRadius: "2rem",
+                background:
+                  "linear-gradient(135deg, rgba(124,111,224,0.12), rgba(255,126,179,0.08))",
+                border: "1.5px solid rgba(124,111,224,0.22)",
+                fontSize: "0.85rem",
+                fontWeight: 700,
+                color: "#7c6fe0",
+                marginBottom: "1.5rem",
+              }}
+            >
+              🏘️ About Locora
+            </div>
+
+            <h1
+              style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                fontWeight: 800,
+                color: "#2d1b69",
+                lineHeight: 1.1,
+                marginBottom: "0.75rem",
+              }}
+            >
+              🧩 Building Communities
+            </h1>
+
+            <h2
+              style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontWeight: 700,
+                marginBottom: "2rem",
+                background:
+                  "linear-gradient(135deg, #7c6fe0, #ff7eb3, #ffb347)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                backgroundSize: "200% 200%",
+                animation: "gradientShift 4s ease infinite",
+              }}
+            >
+              Through Kindness ✨
+            </h2>
+
+            <p
+              style={{
+                fontSize: "1.2rem",
+                lineHeight: 1.8,
+                color: "#5a4d9e",
+                maxWidth: "780px",
+                margin: "0 auto",
+                fontWeight: 500,
+              }}
+            >
+              Locora is a community-powered help platform built to bring people
+              closer through kindness, connection, and collaboration. Whether
+              you need a helping hand or want to offer one, Locora makes it easy
+              to reach out, respond, and make a difference — right in your
+              neighborhood.
+            </p>
+          </div>
+
+          {/* ── Mission ── */}
+          <ClaySection delay="0.1s">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                marginBottom: "1.5rem",
+              }}
+            >
+              <div
+                style={{
+                  width: "4rem",
+                  height: "4rem",
+                  borderRadius: "1.25rem",
+                  background: "linear-gradient(145deg, #a89cf7, #7c6fe0)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "2rem",
+                  boxShadow: "0 8px 20px rgba(124,111,224,0.35)",
+                  animation: "iconFloat 5s ease-in-out infinite",
+                }}
+              >
+                🌍
+              </div>
+              <h2
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontSize: "2.25rem",
+                  fontWeight: 800,
+                  color: "#2d1b69",
+                }}
+              >
+                Our Mission
+              </h2>
+            </div>
+            <p
+              style={{
+                fontSize: "1.1rem",
+                lineHeight: 1.8,
+                color: "#5a4d9e",
+                fontWeight: 500,
+              }}
+            >
+              We created Locora with a simple mission: To make help accessible
+              and human again — one post, one person, one act of kindness at a
+              time. We believe in the power of local communities to uplift one
+              another, and in using technology as a bridge — not a barrier — to
+              empathy and action.
+            </p>
+          </ClaySection>
+
+          {/* ── How It Works ── */}
+          <div
+            style={{
+              borderRadius: "2.5rem",
+              padding: "3.5rem",
+              background: "linear-gradient(135deg, #a89cf7, #7c6fe0, #ff7eb3)",
+              backgroundSize: "200% 200%",
+              animation: "gradientShift 6s ease infinite",
+              boxShadow: "0 20px 60px rgba(124,111,224,0.4)",
+              marginBottom: "3rem",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "8%",
+                right: "4%",
+                fontSize: "5rem",
+                opacity: 0.15,
+                animation: "iconFloat 7s ease-in-out infinite",
+              }}
+            >
+              🔧
+            </div>
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  marginBottom: "2.5rem",
+                }}
+              >
+                <div
+                  style={{
+                    width: "3.5rem",
+                    height: "3.5rem",
+                    borderRadius: "1rem",
+                    background: "rgba(255,255,255,0.25)",
+                    backdropFilter: "blur(8px)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.75rem",
+                  }}
+                >
+                  🔧
+                </div>
+                <h2
+                  style={{
+                    fontFamily: "'Sora', sans-serif",
+                    fontSize: "2.25rem",
+                    fontWeight: 800,
+                    color: "white",
+                  }}
+                >
+                  How It Works
+                </h2>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "1.5rem",
+                }}
+              >
+                {howItWorks.map((item, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      background: "rgba(255,255,255,0.18)",
+                      backdropFilter: "blur(12px)",
+                      borderRadius: "1.5rem",
+                      padding: "2rem",
+                      border: "1.5px solid rgba(255,255,255,0.3)",
+                      transition: "all 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.28)";
+                      e.currentTarget.style.transform = "translateY(-6px)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background =
+                        "rgba(255,255,255,0.18)";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontFamily: "'Sora', sans-serif",
+                        fontWeight: 700,
+                        fontSize: "1.2rem",
+                        color: "white",
+                        marginBottom: "0.75rem",
+                      }}
+                    >
+                      {item.icon} {item.title}
+                    </h3>
+                    <p
+                      style={{
+                        color: "rgba(255,255,255,0.88)",
+                        fontSize: "0.97rem",
+                        lineHeight: 1.7,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Why Locora ── */}
+          <ClaySection delay="0.2s">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                marginBottom: "2rem",
+              }}
+            >
+              <div
+                style={{
+                  width: "4rem",
+                  height: "4rem",
+                  borderRadius: "1.25rem",
+                  background: "linear-gradient(145deg, #ff9ec4, #ff7eb3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "2rem",
+                  boxShadow: "0 8px 20px rgba(255,126,179,0.35)",
+                  animation: "iconFloat 6s ease-in-out infinite 0.5s",
+                }}
+              >
+                🙌
+              </div>
+              <h2
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontSize: "2.25rem",
+                  fontWeight: 800,
+                  color: "#2d1b69",
+                }}
+              >
+                Why Locora?
+              </h2>
+            </div>
+            <p
+              style={{
+                fontSize: "1.1rem",
+                lineHeight: 1.8,
+                color: "#5a4d9e",
+                fontWeight: 500,
+                marginBottom: "1.75rem",
+              }}
+            >
+              In a world full of noise, Locora helps you cut through the
+              distance and find real, human support. Whether you're:
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.875rem",
+                marginBottom: "2rem",
+              }}
+            >
+              {whyPoints.map((point, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1rem",
+                    padding: "1rem 1.25rem",
+                    borderRadius: "1.25rem",
+                    background:
+                      "linear-gradient(145deg, rgba(168,156,247,0.1), rgba(255,255,255,0.4))",
+                    border: "1px solid rgba(124,111,224,0.15)",
+                    transition: "all 0.25s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateX(8px)";
+                    e.currentTarget.style.background = "rgba(168,156,247,0.18)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateX(0)";
+                    e.currentTarget.style.background =
+                      "linear-gradient(145deg, rgba(168,156,247,0.1), rgba(255,255,255,0.4))";
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "0.5rem",
+                      height: "0.5rem",
+                      borderRadius: "50%",
+                      background: "linear-gradient(135deg, #7c6fe0, #ff7eb3)",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      color: "#3d2c8d",
+                      fontSize: "1.05rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {point}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p
+              style={{
+                fontSize: "1.15rem",
+                fontWeight: 800,
+                background: "linear-gradient(135deg, #7c6fe0, #ff7eb3)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Locora is here to remind you that you're not alone. 💜
+            </p>
+          </ClaySection>
+
+          {/* ── Community Built ── */}
+          <div
+            style={{
+              borderRadius: "2.5rem",
+              padding: "3.5rem",
+              background: "linear-gradient(145deg, #535c91, #7c6fe0)",
+              boxShadow: "0 20px 55px rgba(83,92,145,0.4)",
+              marginBottom: "3rem",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                bottom: "8%",
+                right: "5%",
+                fontSize: "5rem",
+                opacity: 0.12,
+                animation: "iconFloat 8s ease-in-out infinite",
+              }}
+            >
+              🚀
+            </div>
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  marginBottom: "1.75rem",
+                }}
+              >
+                <div
+                  style={{
+                    width: "3.5rem",
+                    height: "3.5rem",
+                    borderRadius: "1rem",
+                    background: "rgba(255,255,255,0.2)",
+                    backdropFilter: "blur(8px)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.75rem",
+                  }}
+                >
+                  🚀
+                </div>
+                <h2
+                  style={{
+                    fontFamily: "'Sora', sans-serif",
+                    fontSize: "2rem",
+                    fontWeight: 800,
+                    color: "white",
+                  }}
+                >
+                  Built By the Community, For the Community
+                </h2>
+              </div>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  lineHeight: 1.8,
+                  color: "rgba(255,255,255,0.9)",
+                  fontWeight: 500,
+                }}
+              >
+                Locora isn't backed by corporations — it's built by people who
+                believe in grassroots impact and real-world connection. We're
+                constantly evolving, listening to feedback, and improving —
+                because this isn't just our platform — it's yours.
+              </p>
+            </div>
+          </div>
+
+          {/* ── Let's Connect CTA ── */}
+          <div
+            style={{
+              background:
+                "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.7))",
+              borderRadius: "2.5rem",
+              padding: "4rem",
+              textAlign: "center",
+              border: "1.5px solid rgba(124,111,224,0.2)",
+              boxShadow:
+                "0 14px 45px rgba(124,111,224,0.18), inset 0 1px 0 rgba(255,255,255,0.9)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "4rem",
+                marginBottom: "1.5rem",
+                animation: "iconFloat 4s ease-in-out infinite",
+              }}
+            >
+              📫
+            </div>
+            <h2
+              style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: "2.25rem",
+                fontWeight: 800,
+                color: "#2d1b69",
+                marginBottom: "1rem",
+              }}
+            >
+              Let's Connect
+            </h2>
+            <p
+              style={{
+                fontSize: "1.1rem",
+                lineHeight: 1.8,
+                color: "#5a4d9e",
+                fontWeight: 500,
+                maxWidth: "600px",
+                margin: "0 auto 2.5rem",
+              }}
+            >
+              Have suggestions, feedback, or want to collaborate? Reach out to
+              us anytime — your voice shapes Locora.
+            </p>
+            <button
+              style={{
+                padding: "1rem 2.75rem",
+                borderRadius: "1.25rem",
+                border: "none",
+                background: "linear-gradient(145deg, #a89cf7, #7c6fe0)",
+                color: "white",
+                fontWeight: 800,
+                fontSize: "1.05rem",
+                cursor: "pointer",
+                fontFamily: "'Nunito', sans-serif",
+                boxShadow:
+                  "0 8px 24px rgba(124,111,224,0.45), inset 0 1px 0 rgba(255,255,255,0.3)",
+                transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform =
+                  "translateY(-4px) scale(1.05)";
+                e.currentTarget.style.boxShadow =
+                  "0 14px 35px rgba(124,111,224,0.55), inset 0 1px 0 rgba(255,255,255,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0) scale(1)";
+                e.currentTarget.style.boxShadow =
+                  "0 8px 24px rgba(124,111,224,0.45), inset 0 1px 0 rgba(255,255,255,0.3)";
+              }}
+            >
+              ✉️ Get in Touch
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes blobA {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(50px, 60px) scale(1.1);
+          }
+        }
+        @keyframes blobB {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(-40px, -30px) scale(1.08);
+          }
+        }
+        @keyframes blobC {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(30px, -40px) scale(0.95);
+          }
+        }
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        @keyframes iconFloat {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-8px) rotate(5deg);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function ClaySection({ children, delay = "0s" }) {
+  return (
+    <div
+      style={{
+        background:
+          "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.65))",
+        borderRadius: "2.5rem",
+        padding: "3rem",
+        marginBottom: "3rem",
+        boxShadow:
+          "0 12px 40px rgba(124,111,224,0.16), inset 0 1px 0 rgba(255,255,255,0.9)",
+        border: "1.5px solid rgba(255,255,255,0.85)",
+        animation: `slideUp 0.7s cubic-bezier(0.34,1.56,0.64,1) ${delay} both`,
+        transition: "all 0.4s cubic-bezier(0.34,1.56,0.64,1)",
+      }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.transform = "translateY(-4px)")
+      }
+      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+    >
+      {children}
     </div>
   );
 }
