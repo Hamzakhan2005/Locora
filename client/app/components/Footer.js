@@ -1,192 +1,213 @@
-import { FaDiscord, FaGithub, FaXTwitter, FaPaperPlane } from "react-icons/fa6";
+"use client";
+
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-[100%] bg-[#070f2b] border-t-[2px] border-[#9290c3] py-[3rem] px-[2rem] mt-[4rem]">
-      <div className="max-w-[1400px] mx-auto">
-        {/* Main Footer Content */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-[3rem] mb-[3rem]">
-          {/* Brand Section */}
-          <div className="flex flex-col gap-[1rem] w-[100%] md:w-[30%]">
-            <h2 className="text-[2rem] font-bold text-[#9290c3] font-display">
-              LOCORA
-            </h2>
-            <p className="text-[1rem] text-[#d1d5db] leading-relaxed">
-              Building communities through kindness, connection, and
-              collaboration. Help your neighbors, make a difference.
+    <footer
+      style={{
+        background:
+          "linear-gradient(145deg, rgba(255,255,255,0.8), rgba(240,230,255,0.7))",
+        backdropFilter: "blur(20px)",
+        borderTop: "1.5px solid rgba(124,111,224,0.2)",
+        padding: "3rem 2rem 2rem",
+        marginTop: "4rem",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr 1fr 1fr",
+            gap: "3rem",
+            marginBottom: "2rem",
+          }}
+        >
+          {/* Brand */}
+          <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                marginBottom: "1rem",
+              }}
+            >
+              <div
+                style={{
+                  width: "2.25rem",
+                  height: "2.25rem",
+                  borderRadius: "0.75rem",
+                  background: "linear-gradient(145deg, #a89cf7, #7c6fe0)",
+                  boxShadow: "0 4px 12px rgba(124,111,224,0.35)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.1rem",
+                }}
+              >
+                🏘️
+              </div>
+              <span
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontWeight: 800,
+                  fontSize: "1.35rem",
+                  background: "linear-gradient(135deg, #7c6fe0, #ff7eb3)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Locora
+              </span>
+            </div>
+            <p
+              style={{
+                color: "#6b5fa8",
+                fontSize: "0.9rem",
+                lineHeight: 1.7,
+                maxWidth: "280px",
+              }}
+            >
+              Connecting communities, one helping hand at a time. Building
+              stronger neighborhoods together. 🌸
             </p>
-            {/* Social Icons */}
-            <div className="flex gap-[1rem] mt-[1rem]">
-              <a
-                href="#"
-                className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] bg-[rgba(146,144,195,0.15)] flex items-center justify-center hover:bg-[#9290c3] transition-all duration-300"
-              >
-                <FaDiscord className="text-[1.25rem] text-[#9290c3] hover:text-[#ffffff]" />
-              </a>
-              <a
-                href="#"
-                className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] bg-[rgba(146,144,195,0.15)] flex items-center justify-center hover:bg-[#9290c3] transition-all duration-300"
-              >
-                <FaGithub className="text-[1.25rem] text-[#9290c3] hover:text-[#ffffff]" />
-              </a>
-              <a
-                href="#"
-                className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] bg-[rgba(146,144,195,0.15)] flex items-center justify-center hover:bg-[#9290c3] transition-all duration-300"
-              >
-                <FaXTwitter className="text-[1.25rem] text-[#9290c3] hover:text-[#ffffff]" />
-              </a>
-              <a
-                href="#"
-                className="w-[2.5rem] h-[2.5rem] rounded-[0.5rem] bg-[rgba(146,144,195,0.15)] flex items-center justify-center hover:bg-[#9290c3] transition-all duration-300"
-              >
-                <FaPaperPlane className="text-[1.25rem] text-[#9290c3] hover:text-[#ffffff]" />
-              </a>
+            <div
+              style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}
+            >
+              {["🐦", "📸", "💼", "📘"].map((icon, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: "2.25rem",
+                    height: "2.25rem",
+                    borderRadius: "0.75rem",
+                    background:
+                      "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.7))",
+                    boxShadow:
+                      "0 3px 10px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "0.95rem",
+                    cursor: "pointer",
+                    transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform =
+                      "translateY(-4px) scale(1.1)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = "translateY(0) scale(1)")
+                  }
+                >
+                  {icon}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-col gap-[1rem] w-[100%] md:w-[20%]">
-            <h3 className="text-[1.25rem] font-bold text-[#9290c3] mb-[0.5rem]">
-              Quick Links
-            </h3>
-            <Link
-              href="/"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Services
-            </Link>
-            <Link
-              href="/aboutus"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              About Us
-            </Link>
-            <Link
-              href="/contact"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Contact
-            </Link>
-          </div>
-
-          {/* Support */}
-          <div className="flex flex-col gap-[1rem] w-[100%] md:w-[20%]">
-            <h3 className="text-[1.25rem] font-bold text-[#9290c3] mb-[0.5rem]">
-              Support
-            </h3>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Help Center
-            </Link>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Community Guidelines
-            </Link>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Safety Tips
-            </Link>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Report Issue
-            </Link>
-          </div>
-
-          {/* Legal */}
-          <div className="flex flex-col gap-[1rem] w-[100%] md:w-[20%]">
-            <h3 className="text-[1.25rem] font-bold text-[#9290c3] mb-[0.5rem]">
-              Legal
-            </h3>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Cookie Policy
-            </Link>
-            <Link
-              href="#"
-              className="text-[1rem] text-[#d1d5db] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Disclaimer
-            </Link>
-          </div>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className="w-[100%] bg-[rgba(146,144,195,0.1)] rounded-[1rem] p-[2rem] mb-[3rem] border-[1px] border-[#9290c3]">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-[1.5rem]">
-            <div className="flex flex-col gap-[0.5rem]">
-              <h3 className="text-[1.5rem] font-bold text-[#9290c3]">
-                Stay Updated
-              </h3>
-              <p className="text-[1rem] text-[#d1d5db]">
-                Get the latest community updates and news
-              </p>
+          {/* Links */}
+          {[
+            {
+              title: "Platform",
+              links: ["Community", "Services", "Create Post", "About Us"],
+            },
+            {
+              title: "Support",
+              links: ["Help Center", "Contact", "Privacy", "Terms"],
+            },
+            { title: "Company", links: ["About", "Blog", "Careers", "Press"] },
+          ].map((col, i) => (
+            <div key={i}>
+              <h4
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "0.95rem",
+                  color: "#7c6fe0",
+                  marginBottom: "1rem",
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {col.title}
+              </h4>
+              <ul
+                style={{
+                  listStyle: "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                }}
+              >
+                {col.links.map((link, j) => (
+                  <li key={j}>
+                    <a
+                      href="#"
+                      style={{
+                        color: "#6b5fa8",
+                        textDecoration: "none",
+                        fontSize: "0.9rem",
+                        fontWeight: 600,
+                        transition: "all 0.2s ease",
+                        display: "inline-block",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "#7c6fe0";
+                        e.currentTarget.style.transform = "translateX(4px)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "#6b5fa8";
+                        e.currentTarget.style.transform = "translateX(0)";
+                      }}
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex gap-[0.5rem] w-[100%] md:w-[auto]">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-[1rem] py-[0.75rem] rounded-[0.5rem] bg-[#070f2b] border-[1px] border-[#9290c3] text-[#d1d5db] w-[100%] md:w-[250px] focus:outline-none focus:border-[#9290c3]"
-              />
-              <button className="px-[1.5rem] py-[0.75rem] rounded-[0.5rem] bg-[#9290c3] text-[#ffffff] font-semibold hover:bg-[#7b79a8] transition-all duration-300">
-                Subscribe
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-[1rem] pt-[2rem] border-t-[1px] border-[rgba(146,144,195,0.3)]">
-          <p className="text-[0.875rem] text-[#9ca3af] text-center md:text-left">
-            © 2024 Locora. All rights reserved. Built with ❤️ for communities.
+        <div
+          style={{
+            borderTop: "1.5px solid rgba(124,111,224,0.15)",
+            paddingTop: "1.5rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <p style={{ color: "#8b80c8", fontSize: "0.85rem", fontWeight: 600 }}>
+            © 2025 Locora · Made with 💜 for communities
           </p>
-          <div className="flex gap-[2rem]">
-            <Link
-              href="#"
-              className="text-[0.875rem] text-[#9ca3af] hover:text-[#9290c3] transition-colors duration-200 no-underline"
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.4rem 1rem",
+              borderRadius: "2rem",
+              background:
+                "linear-gradient(135deg, rgba(124,111,224,0.1), rgba(255,126,179,0.1))",
+              border: "1px solid rgba(124,111,224,0.2)",
+            }}
+          >
+            <span style={{ fontSize: "0.75rem" }}>🌍</span>
+            <span
+              style={{ color: "#7c6fe0", fontSize: "0.8rem", fontWeight: 700 }}
             >
-              Accessibility
-            </Link>
-            <Link
-              href="#"
-              className="text-[0.875rem] text-[#9ca3af] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Sitemap
-            </Link>
-            <Link
-              href="#"
-              className="text-[0.875rem] text-[#9ca3af] hover:text-[#9290c3] transition-colors duration-200 no-underline"
-            >
-              Status
-            </Link>
+              India
+            </span>
           </div>
         </div>
       </div>

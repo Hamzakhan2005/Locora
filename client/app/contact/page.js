@@ -2,148 +2,699 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useState } from "react";
 
-export default function ServicesPage() {
+export default function ContactPage() {
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [focused, setFocused] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const handleSend = async () => {
+    setSending(true);
+    await new Promise((r) => setTimeout(r, 1500));
+    setSending(false);
+    setSent(true);
+    setFormData({ name: "", email: "", message: "" });
+    setTimeout(() => setSent(false), 4000);
+  };
+
+  const contacts = [
+    {
+      icon: "📧",
+      title: "Email Us",
+      desc: "For general inquiries and support",
+      link: "hello@locora.com",
+      href: "mailto:hello@locora.com",
+      color: "rgba(96,196,248,0.18)",
+      border: "rgba(96,196,248,0.3)",
+      accent: "#0ea5e9",
+      gradient: "linear-gradient(135deg, #60c4f8, #0ea5e9)",
+    },
+    {
+      icon: "💬",
+      title: "Join Community",
+      desc: "Connect with other users",
+      link: "Join Discussion →",
+      href: "/community",
+      color: "rgba(110,231,183,0.18)",
+      border: "rgba(110,231,183,0.3)",
+      accent: "#059669",
+      gradient: "linear-gradient(135deg, #6ee7b7, #059669)",
+    },
+    {
+      icon: "🐦",
+      title: "Social Media",
+      desc: "Follow us for updates",
+      link: "@Locora",
+      href: "#",
+      color: "rgba(168,156,247,0.18)",
+      border: "rgba(124,111,224,0.3)",
+      accent: "#7c6fe0",
+      gradient: "linear-gradient(135deg, #a89cf7, #7c6fe0)",
+    },
+  ];
+
   return (
-    <div className="min-h-[100vh] bg-[linear-gradient(135deg,#faf5ff,#fdf2f8)]">
-      <Navbar />
-
-      <div className="max-w-[64rem] mx-auto px-[1.5rem] py-[4rem]">
-        {/* Header */}
-        <div className="text-center mb-[4rem]">
-          <div className="inline-block bg-[#ede9fe] text-[#6b21a8] px-[1rem] py-[0.5rem] rounded-[9999px] text-[0.875rem] font-[600] mb-[1rem]">
-            Get in Touch
-          </div>
-
-          <h1 className="text-[3rem] font-[700] text-[#111827] mb-[1.5rem]">
-            📫 Let&apos;s Connect
-          </h1>
-
-          <p className="text-[1.25rem] text-[#4b5563] leading-[1.75] max-w-[42rem] mx-auto">
-            Have questions, feedback, or want to collaborate? We&apos;d love to
-            hear from you. Your voice shapes Locora.
-          </p>
-        </div>
-
-        {/* Contact Grid */}
-        <div className="grid grid-cols-[repeat(1,minmax(0,1fr))] md:grid-cols-[repeat(3,minmax(0,1fr))] gap-[1.5rem] mb-[4rem]">
-          {/* Email */}
-          <div className="bg-[#ffffff] rounded-[1.5rem] p-[2rem] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] border border-[#f3f4f6] transition-all duration-[300ms] hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-[0.25rem]">
-            <div className="bg-[linear-gradient(90deg,#3b82f6,#06b6d4)] text-[#ffffff] rounded-[1rem] p-[1rem] w-[4rem] h-[4rem] flex items-center justify-center mb-[1.5rem]">
-              <svg
-                className="w-[2rem] h-[2rem]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-
-            <h3 className="text-[1.25rem] font-[700] text-[#111827] mb-[0.5rem]">
-              Email Us
-            </h3>
-
-            <p className="text-[#4b5563] mb-[1rem]">
-              For general inquiries and support
-            </p>
-
-            <a
-              href="mailto:hello@locora.com"
-              className="text-[#2563eb] font-[600] hover:text-[#1d4ed8]"
-            >
-              hello@locora.com
-            </a>
-          </div>
-
-          {/* Community */}
-          <div className="bg-[#ffffff] rounded-[1.5rem] p-[2rem] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] border border-[#f3f4f6] transition-all duration-[300ms] hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-[0.25rem]">
-            <div className="bg-[linear-gradient(90deg,#10b981,#14b8a6)] text-[#ffffff] rounded-[1rem] p-[1rem] w-[4rem] h-[4rem] flex items-center justify-center mb-[1.5rem]">
-              <svg
-                className="w-[2rem] h-[2rem]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586M11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-                />
-              </svg>
-            </div>
-
-            <h3 className="text-[1.25rem] font-[700] text-[#111827] mb-[0.5rem]">
-              Join Community
-            </h3>
-
-            <p className="text-[#4b5563] mb-[1rem]">Connect with other users</p>
-
-            <a
-              href="#"
-              className="text-[#059669] font-[600] hover:text-[#047857]"
-            >
-              Join Discussion
-            </a>
-          </div>
-
-          {/* Social */}
-          <div className="bg-[#ffffff] rounded-[1.5rem] p-[2rem] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] border border-[#f3f4f6] transition-all duration-[300ms] hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-[0.25rem]">
-            <div className="bg-[linear-gradient(90deg,#8b5cf6,#ec4899)] text-[#ffffff] rounded-[1rem] p-[1rem] w-[4rem] h-[4rem] flex items-center justify-center mb-[1.5rem]">
-              <svg
-                className="w-[2rem] h-[2rem]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                />
-              </svg>
-            </div>
-
-            <h3 className="text-[1.25rem] font-[700] text-[#111827] mb-[0.5rem]">
-              Social Media
-            </h3>
-
-            <p className="text-[#4b5563] mb-[1rem]">Follow us for updates</p>
-
-            <a
-              href="#"
-              className="text-[#7c3aed] font-[600] hover:text-[#6d28d9]"
-            >
-              @Locora
-            </a>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="bg-[linear-gradient(90deg,#6366f1,#7c3aed)] rounded-[1.5rem] p-[2.5rem] text-[#ffffff] text-center shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)]">
-          <h2 className="text-[1.875rem] font-[700] mb-[1rem]">
-            Still Have Questions?
-          </h2>
-
-          <p className="text-[1.125rem] text-[#e0e7ff] mb-[2rem] max-w-[42rem] mx-auto">
-            We&apos;re here to help! Don&apos;t hesitate to reach out, and
-            we&apos;ll get back to you as soon as possible.
-          </p>
-
-          <button className="bg-[#ffffff] text-[#4f46e5] font-[600] px-[2rem] py-[1rem] rounded-[9999px] transition-all duration-[200ms] hover:bg-[#f3f4f6] hover:scale-[1.05] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)]">
-            Send Us a Message
-          </button>
-        </div>
+    <div
+      style={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(135deg, #f0e6ff 0%, #ffe4f0 50%, #e4f0ff 100%)",
+        fontFamily: "'Nunito', sans-serif",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background blobs */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "600px",
+            height: "600px",
+            background:
+              "radial-gradient(circle, rgba(168,156,247,0.28) 0%, transparent 70%)",
+            top: "-150px",
+            left: "-100px",
+            animation: "blobA 16s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            width: "450px",
+            height: "450px",
+            background:
+              "radial-gradient(circle, rgba(255,126,179,0.2) 0%, transparent 70%)",
+            bottom: "5%",
+            right: "-80px",
+            animation: "blobB 20s ease-in-out infinite",
+          }}
+        />
       </div>
 
-      <Footer />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <Navbar />
+
+        <div
+          style={{ maxWidth: "900px", margin: "0 auto", padding: "4rem 2rem" }}
+        >
+          {/* ── Header ── */}
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "4rem",
+              animation: "slideUp 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                padding: "0.4rem 1.25rem",
+                borderRadius: "2rem",
+                background:
+                  "linear-gradient(135deg, rgba(124,111,224,0.12), rgba(255,126,179,0.08))",
+                border: "1.5px solid rgba(124,111,224,0.22)",
+                fontSize: "0.85rem",
+                fontWeight: 700,
+                color: "#7c6fe0",
+                marginBottom: "1.25rem",
+              }}
+            >
+              ✉️ Get in Touch
+            </div>
+
+            <h1
+              style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                fontWeight: 800,
+                color: "#2d1b69",
+                marginBottom: "1.25rem",
+                lineHeight: 1.15,
+              }}
+            >
+              📫 Let's{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #7c6fe0, #ff7eb3)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Connect
+              </span>
+            </h1>
+
+            <p
+              style={{
+                fontSize: "1.15rem",
+                color: "#5a4d9e",
+                fontWeight: 500,
+                maxWidth: "540px",
+                margin: "0 auto",
+                lineHeight: 1.75,
+              }}
+            >
+              Have questions, feedback, or want to collaborate? We'd love to
+              hear from you. Your voice shapes Locora. 🌸
+            </p>
+          </div>
+
+          {/* ── Contact Cards ── */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "1.5rem",
+              marginBottom: "3.5rem",
+            }}
+          >
+            {contacts.map((c, i) => (
+              <div
+                key={i}
+                onMouseEnter={() => setHoveredCard(i)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  background: `linear-gradient(145deg, rgba(255,255,255,0.93), ${c.color})`,
+                  borderRadius: "2rem",
+                  padding: "2.25rem 1.75rem",
+                  boxShadow:
+                    hoveredCard === i
+                      ? "0 20px 55px rgba(124,111,224,0.25), inset 0 1px 0 rgba(255,255,255,0.9)"
+                      : "0 8px 28px rgba(124,111,224,0.14), inset 0 1px 0 rgba(255,255,255,0.8)",
+                  border: `2px solid ${
+                    hoveredCard === i ? c.border : "rgba(255,255,255,0.75)"
+                  }`,
+                  transform:
+                    hoveredCard === i
+                      ? "translateY(-10px) scale(1.02)"
+                      : "translateY(0) scale(1)",
+                  transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  cursor: "default",
+                }}
+              >
+                {/* Icon */}
+                <div
+                  style={{
+                    width: "3.75rem",
+                    height: "3.75rem",
+                    borderRadius: "1.1rem",
+                    background: c.gradient,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.75rem",
+                    marginBottom: "1.5rem",
+                    boxShadow: `0 6px 18px ${c.color}`,
+                    transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+                    transform:
+                      hoveredCard === i
+                        ? "scale(1.15) rotate(8deg)"
+                        : "scale(1) rotate(0deg)",
+                  }}
+                >
+                  {c.icon}
+                </div>
+
+                <h3
+                  style={{
+                    fontFamily: "'Sora', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "1.2rem",
+                    color: "#2d1b69",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  {c.title}
+                </h3>
+                <p
+                  style={{
+                    color: "#5a4d9e",
+                    fontSize: "0.9rem",
+                    fontWeight: 500,
+                    marginBottom: "1rem",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {c.desc}
+                </p>
+                <a
+                  href={c.href}
+                  style={{
+                    color: c.accent,
+                    fontWeight: 800,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                    transition: "gap 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.gap = "0.5rem")}
+                  onMouseLeave={(e) => (e.currentTarget.style.gap = "0.25rem")}
+                >
+                  {c.link}
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Contact Form ── */}
+          <div
+            style={{
+              background:
+                "linear-gradient(145deg, rgba(255,255,255,0.92), rgba(240,230,255,0.7))",
+              borderRadius: "2.5rem",
+              padding: "3.5rem",
+              border: "1.5px solid rgba(255,255,255,0.85)",
+              boxShadow:
+                "0 14px 45px rgba(124,111,224,0.18), inset 0 1px 0 rgba(255,255,255,0.9)",
+              marginBottom: "3rem",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: "1.75rem",
+                fontWeight: 800,
+                color: "#2d1b69",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Send Us a Message 💌
+            </h2>
+            <p
+              style={{
+                color: "#6b5fa8",
+                fontSize: "0.97rem",
+                fontWeight: 500,
+                marginBottom: "2rem",
+              }}
+            >
+              We'll get back to you as soon as possible.
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.5rem",
+              }}
+            >
+              {[
+                {
+                  name: "name",
+                  label: "Your Name",
+                  type: "text",
+                  placeholder: "Arjun Sharma",
+                  icon: "👤",
+                },
+                {
+                  name: "email",
+                  label: "Email Address",
+                  type: "email",
+                  placeholder: "arjun@example.com",
+                  icon: "📧",
+                },
+              ].map((field) => (
+                <div key={field.name}>
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.35rem",
+                      fontWeight: 700,
+                      fontSize: "0.9rem",
+                      color: focused === field.name ? "#7c6fe0" : "#3d2c8d",
+                      marginBottom: "0.5rem",
+                      transition: "color 0.2s ease",
+                    }}
+                  >
+                    {field.icon} {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formData[field.name]}
+                    onChange={(e) =>
+                      setFormData((p) => ({
+                        ...p,
+                        [field.name]: e.target.value,
+                      }))
+                    }
+                    onFocus={() => setFocused(field.name)}
+                    onBlur={() => setFocused("")}
+                    style={{
+                      width: "100%",
+                      boxSizing: "border-box",
+                      padding: "0.9rem 1.25rem",
+                      borderRadius: "1rem",
+                      border: `2px solid ${
+                        focused === field.name
+                          ? "rgba(124,111,224,0.6)"
+                          : "rgba(124,111,224,0.2)"
+                      }`,
+                      background:
+                        focused === field.name
+                          ? "rgba(255,255,255,0.98)"
+                          : "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.4))",
+                      fontFamily: "'Nunito', sans-serif",
+                      fontSize: "1rem",
+                      fontWeight: 600,
+                      color: "#2d1b69",
+                      outline: "none",
+                      boxShadow:
+                        focused === field.name
+                          ? "0 0 0 4px rgba(124,111,224,0.12)"
+                          : "inset 0 2px 6px rgba(124,111,224,0.08)",
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+                </div>
+              ))}
+
+              {/* Message textarea */}
+              <div>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.35rem",
+                    fontWeight: 700,
+                    fontSize: "0.9rem",
+                    color: focused === "message" ? "#7c6fe0" : "#3d2c8d",
+                    marginBottom: "0.5rem",
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  ✏️ Your Message
+                </label>
+                <textarea
+                  placeholder="Tell us what's on your mind..."
+                  rows={5}
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData((p) => ({ ...p, message: e.target.value }))
+                  }
+                  onFocus={() => setFocused("message")}
+                  onBlur={() => setFocused("")}
+                  style={{
+                    width: "100%",
+                    boxSizing: "border-box",
+                    padding: "0.9rem 1.25rem",
+                    borderRadius: "1rem",
+                    border: `2px solid ${
+                      focused === "message"
+                        ? "rgba(124,111,224,0.6)"
+                        : "rgba(124,111,224,0.2)"
+                    }`,
+                    background:
+                      focused === "message"
+                        ? "rgba(255,255,255,0.98)"
+                        : "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.4))",
+                    fontFamily: "'Nunito', sans-serif",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    color: "#2d1b69",
+                    outline: "none",
+                    resize: "vertical",
+                    boxShadow:
+                      focused === "message"
+                        ? "0 0 0 4px rgba(124,111,224,0.12)"
+                        : "inset 0 2px 6px rgba(124,111,224,0.08)",
+                    transition: "all 0.3s ease",
+                  }}
+                />
+              </div>
+
+              {/* Submit */}
+              {sent ? (
+                <div
+                  style={{
+                    padding: "1rem",
+                    borderRadius: "1.25rem",
+                    background: "rgba(110,231,183,0.15)",
+                    border: "2px solid rgba(110,231,183,0.4)",
+                    textAlign: "center",
+                    fontWeight: 700,
+                    color: "#059669",
+                    fontSize: "1rem",
+                    animation:
+                      "bounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards",
+                  }}
+                >
+                  ✅ Message sent! We'll get back to you soon 🌸
+                </div>
+              ) : (
+                <button
+                  onClick={handleSend}
+                  disabled={sending}
+                  style={{
+                    width: "100%",
+                    padding: "1rem",
+                    borderRadius: "1.25rem",
+                    border: "none",
+                    background: sending
+                      ? "linear-gradient(145deg, #c4bcf0, #9e96d4)"
+                      : "linear-gradient(145deg, #a89cf7, #7c6fe0)",
+                    color: "white",
+                    fontWeight: 800,
+                    fontSize: "1.05rem",
+                    cursor: sending ? "not-allowed" : "pointer",
+                    fontFamily: "'Nunito', sans-serif",
+                    boxShadow: sending
+                      ? "none"
+                      : "0 8px 24px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)",
+                    transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!sending) {
+                      e.currentTarget.style.transform =
+                        "translateY(-3px) scale(1.02)";
+                      e.currentTarget.style.boxShadow =
+                        "0 14px 35px rgba(124,111,224,0.55), inset 0 1px 0 rgba(255,255,255,0.3)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0) scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 24px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)";
+                  }}
+                >
+                  {sending ? (
+                    <>
+                      <div
+                        style={{
+                          width: "1.1rem",
+                          height: "1.1rem",
+                          border: "2px solid rgba(255,255,255,0.4)",
+                          borderTopColor: "white",
+                          borderRadius: "50%",
+                          animation: "spin 0.8s linear infinite",
+                        }}
+                      />
+                      Sending...
+                    </>
+                  ) : (
+                    "🚀 Send Message"
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* ── Still have questions CTA ── */}
+          <div
+            style={{
+              borderRadius: "2.5rem",
+              padding: "3.5rem",
+              background: "linear-gradient(135deg, #7c6fe0, #a89cf7, #ff7eb3)",
+              backgroundSize: "200% 200%",
+              animation: "gradientShift 5s ease infinite",
+              boxShadow: "0 20px 55px rgba(124,111,224,0.4)",
+              textAlign: "center",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "10%",
+                right: "5%",
+                fontSize: "4rem",
+                opacity: 0.15,
+                animation: "iconFloat 6s ease-in-out infinite",
+              }}
+            >
+              🌟
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: "10%",
+                left: "5%",
+                fontSize: "3rem",
+                opacity: 0.12,
+                animation: "iconFloat 8s ease-in-out infinite 1s",
+              }}
+            >
+              💜
+            </div>
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <h2
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontSize: "2rem",
+                  fontWeight: 800,
+                  color: "white",
+                  marginBottom: "1rem",
+                }}
+              >
+                Still Have Questions?
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  color: "rgba(255,255,255,0.88)",
+                  fontWeight: 500,
+                  maxWidth: "520px",
+                  margin: "0 auto 2rem",
+                  lineHeight: 1.75,
+                }}
+              >
+                We're here to help! Don't hesitate to reach out, and we'll get
+                back to you as soon as possible.
+              </p>
+              <button
+                style={{
+                  padding: "0.9rem 2.5rem",
+                  borderRadius: "1.25rem",
+                  border: "none",
+                  background: "rgba(255,255,255,0.95)",
+                  color: "#7c6fe0",
+                  fontWeight: 800,
+                  fontSize: "1.05rem",
+                  cursor: "pointer",
+                  fontFamily: "'Nunito', sans-serif",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                  transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(-4px) scale(1.05)";
+                  e.currentTarget.style.boxShadow =
+                    "0 16px 40px rgba(0,0,0,0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0) scale(1)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 24px rgba(0,0,0,0.15)";
+                }}
+              >
+                💌 Send Us a Message
+              </button>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes blobA {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(50px, 60px) scale(1.1);
+          }
+        }
+        @keyframes blobB {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          50% {
+            transform: translate(-40px, -30px) scale(1.08);
+          }
+        }
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        @keyframes iconFloat {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-10px) rotate(6deg);
+          }
+        }
+        @keyframes bounceIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          80% {
+            transform: scale(1.05);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        input::placeholder,
+        textarea::placeholder {
+          color: #a09bc8;
+        }
+        textarea {
+          resize: vertical;
+        }
+      `}</style>
     </div>
   );
 }
