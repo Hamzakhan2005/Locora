@@ -10,6 +10,13 @@ const helpSchema = new mongoose.Schema({
   description: String,
   category: String,
   location: String,
+  lat: { type: Number, default: null },
+  lng: { type: Number, default: null },
+  status: {
+    type: String,
+    enum: ["open", "in-progress", "resolved"],
+    default: "open",
+  },
   type: {
     type: String,
     enum: ["need", "offer"],
