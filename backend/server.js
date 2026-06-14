@@ -11,9 +11,10 @@ import helpRoutes from "./routes/help.js";
 import userRoutes from "./routes/user.js";
 import commentRoutes from "./routes/comment.js";
 import chatRoutes from "./routes/chat.js";
+import adminRoutes from "./routes/admin.js";
+import aiRoutes from "./routes/ai.js";
 import ChatRoom from "./models/ChatRoom.js";
 import Message from "./models/Message.js";
-import Help from "./models/Help.js";
 
 const app = express();
 dotenv.config();
@@ -41,6 +42,8 @@ app.use("/api/help", helpRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/ai", aiRoutes);
 
 const connectedUsers = new Map();
 
@@ -96,13 +99,28 @@ io.on("connection", (socket) => {
   });
 
   // 💬 Send message
-  socket.on("sendMessage", async ({ roomId, postId, text }) => {
+  socket.on("sendMessage", async ({ roomId, text }) => {
+    console.log(`📨 sendMessage from ${userId} -> room ${roomId}: "${text}"`);
     try {
-      const helpPost = await Help.findById(postId).populate("user");
-      if (!helpPost) return;
+      if (!roomId || !text || !text.trim()) {
+        console.log("❌ sendMessage: missing roomId or text");
+        return;
+      }
 
       const room = await ChatRoom.findById(roomId);
-      if (!room) return;
+      if (!room) {
+        console.log("❌ sendMessage: room not found", roomId);
+        return;
+      }
+
+      const isParticipant = room.participants
+        .map((p) => p.toString())
+        .includes(userId);
+
+      if (!isParticipant) {
+        console.log("❌ sendMessage: user not a participant of room", userId);
+        return;
+      }
 
       const message = new Message({
         room: roomId,
@@ -110,33 +128,21 @@ io.on("connection", (socket) => {
         content: text,
       });
       await message.save();
+      console.log("✅ message saved:", message._id);
 
-      const formattedMessage = {
-        _id: message._id,
-        text: message.content,
-        sender: { _id: userId },
-        timestamp: message.timestamp,
-        fromSelf: false,
-      };
-
-      // 🔔 Notify all other participants in the room
+      // Emit to ALL participants with correct fromSelf per recipient
       room.participants.forEach((participantId) => {
         const pid = participantId.toString();
-        const socketToNotify = connectedUsers.get(pid);
+        const recipientSocket = connectedUsers.get(pid);
+        if (!recipientSocket) return;
 
-        if (pid !== userId && socketToNotify) {
-          socketToNotify.emit("message", {
-            ...formattedMessage,
-            fromSelf: false,
-          });
-        }
-
-        if (pid === userId) {
-          socket.emit("message", {
-            ...formattedMessage,
-            fromSelf: true,
-          });
-        }
+        recipientSocket.emit("message", {
+          _id: message._id,
+          text: message.content,
+          sender: { _id: userId },
+          timestamp: message.timestamp,
+          fromSelf: pid === userId,
+        });
       });
     } catch (err) {
       console.error("sendMessage error:", err.message);
