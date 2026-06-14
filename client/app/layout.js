@@ -3,7 +3,6 @@ import { karla, workSans } from "./fonts";
 
 import { AuthProvider } from "./context/AuthContext";
 import { SocketProvider } from "./context/SocketContext";
-import { NotificationProvider } from "./context/NotificationContext";
 import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
@@ -16,10 +15,8 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <AuthProvider>
           <SocketProvider>
-            <NotificationProvider>
-              <Toaster position="top-right" />
-              {children}
-            </NotificationProvider>
+            <Toaster position="top-right" />
+            {children}
           </SocketProvider>
         </AuthProvider>
       </body>
