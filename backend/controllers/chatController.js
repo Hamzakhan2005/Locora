@@ -1,156 +1,81 @@
 import ChatRoom from "../models/ChatRoom.js";
 import Message from "../models/Message.js";
-import Help from "../models/Help.js";
+import HelpRequest from "../models/HelpRequest.js";
 import { connectedUsers } from "../server.js";
 
-// 📥 GET all chat rooms of current user
+// 💬 Get all chat rooms for current user (only accepted requests)
 export const getMyChatRooms = async (req, res) => {
   try {
+    const acceptedRequests = await HelpRequest.find({
+      status: "accepted",
+      $or: [{ poster: req.user.id }, { requester: req.user.id }],
+      chatRoom: { $ne: null },
+    }).select("chatRoom");
+
+    const roomIds = acceptedRequests.map((r) => r.chatRoom);
+
     const rooms = await ChatRoom.find({
+      _id: { $in: roomIds },
       participants: req.user.id,
-    }).populate("helpPost participants", "title name");
+    })
+      .populate("helpPost", "title type")
+      .populate("participants", "name");
 
     res.json(rooms);
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Failed to fetch chat rooms", error: err.message });
+    res.status(500).json({ message: "Failed to fetch chat rooms", error: err.message });
   }
 };
 
+// Get a chat room for a post — only if there's an accepted HelpRequest between these users
 export const getOrCreateRoom = async (req, res) => {
-  console.log("📩 getOrCreateRoom called");
-  console.log("➡️ Requested postId:", req.params.postId);
-  console.log("👤 User ID:", req.user.id);
   const { postId } = req.params;
   const userId = req.user.id;
 
-  console.log("📩 getOrCreateRoom called");
-  console.log("➡️ Requested postId:", postId);
-  console.log("👤 User ID:", userId);
-
   try {
-    const helpPost = await Help.findById(postId).populate("user");
+    // Find an accepted request where this user is either poster or requester
+    const request = await HelpRequest.findOne({
+      post: postId,
+      status: "accepted",
+      $or: [{ poster: userId }, { requester: userId }],
+    }).populate("post");
 
-    if (!helpPost) {
-      console.log("❌ Help post not found in DB");
-      return res.status(404).json({ message: "Help post not found" });
+    if (!request || !request.chatRoom) {
+      return res.status(403).json({
+        message: "Chat not available. Help request must be accepted first.",
+      });
     }
 
-    const posterId = helpPost.user._id.toString();
-
-    let room = await ChatRoom.findOne({
-      helpPost: postId,
-      participants: { $all: [posterId, userId] },
-    });
-
+    const room = await ChatRoom.findById(request.chatRoom);
     if (!room) {
-      room = new ChatRoom({
-        helpPost: postId,
-        participants: [posterId, userId],
-      });
-      await room.save();
-      console.log("✅ New room created:", room._id);
-    } else {
-      console.log("✅ Existing room found:", room._id);
+      return res.status(404).json({ message: "Chat room not found" });
     }
 
     res.json(room);
   } catch (err) {
     console.error("❌ Error in getOrCreateRoom:", err.message);
-    res.status(500).json({ message: "Failed to fetch or create room" });
+    res.status(500).json({ message: "Failed to fetch chat room" });
   }
 };
 
-// 💬 GET messages from a specific room
+// 💬 Get messages for a room (only if participant)
 export const getMessages = async (req, res) => {
   const { roomId } = req.params;
 
   try {
+    const room = await ChatRoom.findById(roomId);
+    if (!room) return res.status(404).json({ message: "Room not found" });
+
+    if (!room.participants.map((p) => p.toString()).includes(req.user.id)) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
     const messages = await Message.find({ room: roomId })
       .populate("sender", "name")
       .sort("timestamp");
 
     res.json(messages);
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Failed to get messages", error: err.message });
-  }
-};
-
-export const sendMessage = async (req, res) => {
-  const { postId } = req.params;
-  const { content } = req.body;
-  const senderId = req.user.id;
-
-  try {
-    const helpPost = await Help.findById(postId).populate("user");
-    if (!helpPost) {
-      return res.status(404).json({ message: "Help post not found" });
-    }
-
-    const posterId = helpPost.user._id.toString();
-
-    // Find or create the chat room
-    let room = await ChatRoom.findOne({
-      helpPost: postId,
-      participants: { $all: [posterId, senderId] },
-    });
-
-    if (!room) {
-      room = new ChatRoom({
-        helpPost: postId,
-        participants: [posterId, senderId],
-      });
-      await room.save();
-    }
-
-    // Create the new message
-    const message = new Message({
-      room: room._id,
-      sender: senderId,
-      content,
-    });
-
-    await message.save();
-
-    // 🔔 Notify the creator if they are not the sender
-    if (posterId !== senderId) {
-      const posterSocket = connectedUsers.get(posterId);
-      if (posterSocket) {
-        posterSocket.emit("notification", {
-          type: "chat-started",
-          message: `${req.user.name} started a chat on your help post "${helpPost.title}"`,
-          postId: helpPost._id,
-          roomId: room._id,
-        });
-      }
-    }
-
-    // 📡 Emit real-time message to all other participants
-    room.participants.forEach((userId) => {
-      if (userId.toString() !== senderId) {
-        const socket = connectedUsers.get(userId.toString());
-        if (socket) {
-          socket.emit("new_message", {
-            roomId: room._id,
-            postId: helpPost._id,
-            message: {
-              _id: message._id,
-              sender: { _id: senderId },
-              content,
-              timestamp: message.timestamp,
-            },
-          });
-        }
-      }
-    });
-
-    res.status(201).json({ message: "Sent", data: message });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Failed to send message", error: err.message });
+    res.status(500).json({ message: "Failed to get messages", error: err.message });
   }
 };

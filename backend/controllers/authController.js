@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
-  const { name, email, phone, password, location } = req.body;
+  const { name, email, phone, password, location, lat, lng } = req.body;
   try {
     // Check if user exists with either email or phone
     const query = {};
@@ -18,6 +18,8 @@ export const register = async (req, res) => {
     const userData = { name, password: hashed, location };
     if (email) userData.email = email;
     if (phone) userData.phone = phone;
+    if (typeof lat === "number") userData.lat = lat;
+    if (typeof lng === "number") userData.lng = lng;
 
     const user = await User.create(userData);
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
