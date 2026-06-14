@@ -8,28 +8,29 @@ import {
   BarChart,
   Bar,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 
-const data = [
-  { name: "Jan", value: 400 },
-  { name: "Feb", value: 300 },
-  { name: "Mar", value: 500 },
-  { name: "Apr", value: 250 },
-  { name: "May", value: 600 },
-  { name: "Jun", value: 700 },
-];
+const PRIMARY = "#9290c3";
 
-export function LineChartComponent() {
+export function LineChartComponent({ data = [] }) {
   return (
     <ResponsiveContainer width="100%" height={150}>
       <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(146,144,195,0.15)" />
+        <XAxis dataKey="date" stroke="#9ca3af" fontSize={11} />
         <YAxis hide />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "#070f2b",
+            border: "1px solid #9290c3",
+          }}
+          labelStyle={{ color: PRIMARY }}
+        />
         <Line
           type="monotone"
-          dataKey="value"
-          stroke="#2E3A59"
+          dataKey="count"
+          stroke={PRIMARY}
           strokeWidth={2}
         />
       </LineChart>
@@ -37,16 +38,24 @@ export function LineChartComponent() {
   );
 }
 
-export function BarChartComponent() {
+export function BarChartComponent({ data = [] }) {
   return (
     <ResponsiveContainer width="100%" height={150}>
       <BarChart data={data}>
-        <XAxis dataKey="name" />
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(146,144,195,0.15)" />
+        <XAxis dataKey="date" stroke="#9ca3af" fontSize={11} />
         <YAxis hide />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "#070f2b",
+            border: "1px solid #9290c3",
+          }}
+          labelStyle={{ color: PRIMARY }}
+        />
         <Bar
-          dataKey="value"
-          fill="#E5E7EB"
-          barSize={30}
+          dataKey="count"
+          fill={PRIMARY}
+          barSize={20}
           radius={[6, 6, 0, 0]}
         />
       </BarChart>

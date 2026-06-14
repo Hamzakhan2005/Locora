@@ -1,60 +1,89 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getHelps } from "../utils/api";
+import {
+  getHelps,
+  sendHelpRequest,
+  getCurrentLocation,
+  getAiSuggestions,
+} from "../utils/api";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SwipeableChatDrawer from "@/components/swpipableChatDrawer";
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [helpingPost, setHelpingPost] = useState(null);
+  const [requestedIds, setRequestedIds] = useState(new Set());
+  const [nearMe, setNearMe] = useState(false);
+  const [locating, setLocating] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [suggestionsError, setSuggestionsError] = useState("");
 
-  const handleOpenChat = (post) => {
-    setSelectedPost(post);
-    setIsChatOpen(true);
+  const fetchPosts = async (params = {}) => {
+    try {
+      const data = await getHelps(params);
+      setPosts(data || []);
+      setError("");
+    } catch (err) {
+      setError(err.message || "Failed to load posts");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleCloseChat = () => {
-    setIsChatOpen(false);
-    setSelectedPost(null);
+  const handleNearMe = async () => {
+    if (nearMe) {
+      setNearMe(false);
+      setLoading(true);
+      fetchPosts();
+      return;
+    }
+    setLocating(true);
+    try {
+      const { lat, lng } = await getCurrentLocation();
+      setNearMe(true);
+      setLoading(true);
+      fetchPosts({ lat, lng, radius: 20 });
+    } catch (err) {
+      alert(
+        "Couldn't get your location. Please enable location access and try again."
+      );
+    } finally {
+      setLocating(false);
+    }
   };
 
   const handleHelp = async (post) => {
     setHelpingPost(post._id);
     try {
-      const token = localStorage.getItem("token");
-      await fetch(`http://localhost:5000/api/help/${post._id}/accept`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      alert("Help offer sent!");
+      await sendHelpRequest(post._id);
+      setRequestedIds((prev) => new Set(prev).add(post._id));
+      alert("Help offer sent! The poster will be notified.");
     } catch (err) {
       console.error("Help accept error:", err);
-      alert("Failed to offer help");
+      alert(err.message || "Failed to offer help");
     } finally {
       setHelpingPost(null);
     }
   };
 
+  const loadSuggestions = async () => {
+    setSuggestionsLoading(true);
+    setSuggestionsError("");
+    try {
+      const data = await getAiSuggestions();
+      setSuggestions(data.suggestions || []);
+    } catch (err) {
+      setSuggestionsError(err.message || "Couldn't load AI suggestions");
+    } finally {
+      setSuggestionsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const data = await getHelps();
-        setPosts(data || []);
-      } catch (err) {
-        setError(err.message || "Failed to load posts");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchPosts();
   }, []);
 
@@ -266,6 +295,171 @@ export default function CommunityPage() {
             </p>
           </div>
 
+          {/* Near Me filter */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "2rem",
+            }}
+          >
+            <button
+              onClick={handleNearMe}
+              disabled={locating}
+              style={{
+                padding: "0.6rem 1.5rem",
+                borderRadius: "2rem",
+                border: "1.5px solid rgba(124,111,224,0.3)",
+                background: nearMe
+                  ? "linear-gradient(145deg, #a89cf7, #7c6fe0)"
+                  : "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.6))",
+                color: nearMe ? "white" : "#7c6fe0",
+                fontWeight: 800,
+                fontSize: "0.92rem",
+                cursor: locating ? "wait" : "pointer",
+                fontFamily: "'Nunito', sans-serif",
+                boxShadow: nearMe
+                  ? "0 6px 18px rgba(124,111,224,0.35)"
+                  : "0 4px 14px rgba(124,111,224,0.14)",
+                transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            >
+              📍{" "}
+              {locating
+                ? "Locating..."
+                : nearMe
+                ? "Showing posts near you"
+                : "Show posts near me"}
+            </button>
+          </div>
+
+          {/* AI Suggestions */}
+          <div
+            style={{
+              background:
+                "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.6))",
+              borderRadius: "2rem",
+              padding: "1.5rem 2rem",
+              marginBottom: "2.5rem",
+              boxShadow:
+                "0 10px 32px rgba(124,111,224,0.15), inset 0 1px 0 rgba(255,255,255,0.9)",
+              border: "1.5px solid rgba(124,111,224,0.18)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "1rem",
+                marginBottom:
+                  suggestions.length || suggestionsError ? "0.75rem" : 0,
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontSize: "1.15rem",
+                  fontWeight: 800,
+                  color: "#2d1b69",
+                  margin: 0,
+                }}
+              >
+                ✨ AI: Posts you might want to help with
+              </h3>
+              <button
+                onClick={loadSuggestions}
+                disabled={suggestionsLoading}
+                style={{
+                  padding: "0.5rem 1.25rem",
+                  borderRadius: "1.1rem",
+                  border: "2px solid rgba(124,111,224,0.3)",
+                  background:
+                    "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.6))",
+                  color: "#7c6fe0",
+                  fontWeight: 800,
+                  fontSize: "0.88rem",
+                  cursor: suggestionsLoading ? "wait" : "pointer",
+                  fontFamily: "'Nunito', sans-serif",
+                  boxShadow: "0 4px 14px rgba(124,111,224,0.14)",
+                }}
+              >
+                {suggestionsLoading
+                  ? "Thinking..."
+                  : suggestions.length
+                  ? "Refresh suggestions"
+                  : "Get suggestions"}
+              </button>
+            </div>
+
+            {suggestionsError && (
+              <p style={{ color: "#dc2626", fontSize: "0.9rem", margin: 0 }}>
+                {suggestionsError}
+              </p>
+            )}
+
+            {!suggestionsError &&
+              suggestions.length === 0 &&
+              !suggestionsLoading && (
+                <p style={{ color: "#8b80c8", fontSize: "0.9rem", margin: 0 }}>
+                  Based on your past posts, AI can suggest open requests that
+                  match your interests and skills.
+                </p>
+              )}
+
+            {suggestions.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.6rem",
+                }}
+              >
+                {suggestions.map((s, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      borderRadius: "1.1rem",
+                      padding: "0.75rem 1rem",
+                      background: "rgba(168,156,247,0.1)",
+                      border: "1px solid rgba(124,111,224,0.15)",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: 0,
+                        fontWeight: 700,
+                        color: "#2d1b69",
+                        fontSize: "0.95rem",
+                      }}
+                    >
+                      {s.post.title}{" "}
+                      <span
+                        style={{
+                          color: "#7c6fe0",
+                          fontWeight: 600,
+                          fontSize: "0.8rem",
+                        }}
+                      >
+                        [{s.post.category}]
+                      </span>
+                    </p>
+                    <p
+                      style={{
+                        margin: 0,
+                        color: "#8b80c8",
+                        fontSize: "0.85rem",
+                      }}
+                    >
+                      {s.reason}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Empty state */}
           {posts.length === 0 ? (
             <div
@@ -308,9 +502,9 @@ export default function CommunityPage() {
                   key={post._id}
                   post={post}
                   idx={idx}
-                  onChat={() => handleOpenChat(post)}
                   onHelp={() => handleHelp(post)}
                   isHelping={helpingPost === post._id}
+                  isRequested={requestedIds.has(post._id)}
                 />
               ))}
             </div>
@@ -319,13 +513,6 @@ export default function CommunityPage() {
 
         <Footer />
       </div>
-
-      <SwipeableChatDrawer
-        open={isChatOpen}
-        onClose={handleCloseChat}
-        onOpen={() => {}}
-        post={selectedPost}
-      />
 
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
@@ -387,7 +574,7 @@ export default function CommunityPage() {
 }
 
 /* ─── Individual Post Card ─── */
-function PostCard({ post, idx, onChat, onHelp, isHelping }) {
+function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
   const [hovered, setHovered] = useState(false);
 
   const categoryColors = {
@@ -541,64 +728,47 @@ function PostCard({ post, idx, onChat, onHelp, isHelping }) {
             📍 {post.location}
           </div>
         )}
+        {typeof post.distanceKm === "number" && (
+          <div
+            style={{
+              padding: "0.25rem 0.8rem",
+              borderRadius: "2rem",
+              background: "rgba(168,156,247,0.1)",
+              border: "1px solid rgba(124,111,224,0.2)",
+              fontSize: "0.78rem",
+              fontWeight: 700,
+              color: "#7c6fe0",
+            }}
+          >
+            {post.distanceKm.toFixed(1)} km away
+          </div>
+        )}
       </div>
 
       {/* Action buttons */}
       <div style={{ display: "flex", gap: "0.875rem" }}>
         <button
-          onClick={onChat}
-          style={{
-            flex: 1,
-            padding: "0.8rem",
-            borderRadius: "1.1rem",
-            border: "2px solid rgba(124,111,224,0.3)",
-            background:
-              "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.6))",
-            color: "#7c6fe0",
-            fontWeight: 800,
-            fontSize: "0.97rem",
-            cursor: "pointer",
-            fontFamily: "'Nunito', sans-serif",
-            boxShadow: "0 4px 14px rgba(124,111,224,0.14)",
-            transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.4rem",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-3px) scale(1.03)";
-            e.currentTarget.style.boxShadow =
-              "0 8px 22px rgba(124,111,224,0.25)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0) scale(1)";
-            e.currentTarget.style.boxShadow =
-              "0 4px 14px rgba(124,111,224,0.14)";
-          }}
-        >
-          💬 Chat
-        </button>
-
-        <button
           onClick={onHelp}
-          disabled={isHelping}
+          disabled={isHelping || isRequested}
           style={{
             flex: 1,
             padding: "0.8rem",
             borderRadius: "1.1rem",
             border: "none",
-            background: isHelping
+            background: isRequested
+              ? "linear-gradient(145deg, #c4f0d4, #96d4ae)"
+              : isHelping
               ? "linear-gradient(145deg, #c4bcf0, #9e96d4)"
               : "linear-gradient(145deg, #a89cf7, #7c6fe0)",
             color: "white",
             fontWeight: 800,
             fontSize: "0.97rem",
-            cursor: isHelping ? "not-allowed" : "pointer",
+            cursor: isHelping || isRequested ? "default" : "pointer",
             fontFamily: "'Nunito', sans-serif",
-            boxShadow: isHelping
-              ? "none"
-              : "0 6px 18px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)",
+            boxShadow:
+              isHelping || isRequested
+                ? "none"
+                : "0 6px 18px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)",
             transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
             display: "flex",
             alignItems: "center",
@@ -606,7 +776,7 @@ function PostCard({ post, idx, onChat, onHelp, isHelping }) {
             gap: "0.4rem",
           }}
           onMouseEnter={(e) => {
-            if (!isHelping) {
+            if (!isHelping && !isRequested) {
               e.currentTarget.style.transform = "translateY(-3px) scale(1.03)";
               e.currentTarget.style.boxShadow =
                 "0 12px 28px rgba(124,111,224,0.5), inset 0 1px 0 rgba(255,255,255,0.3)";
@@ -615,7 +785,9 @@ function PostCard({ post, idx, onChat, onHelp, isHelping }) {
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "translateY(0) scale(1)";
             e.currentTarget.style.boxShadow =
-              "0 6px 18px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)";
+              isHelping || isRequested
+                ? "none"
+                : "0 6px 18px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)";
           }}
         >
           {isHelping ? (
@@ -632,6 +804,8 @@ function PostCard({ post, idx, onChat, onHelp, isHelping }) {
               />
               Sending...
             </>
+          ) : isRequested ? (
+            "✅ Request Sent"
           ) : (
             "🤝 Help"
           )}
