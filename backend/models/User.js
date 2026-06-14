@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, sparse: true },
   password: String,
   location: String,
+  lat: { type: Number, default: null },
+  lng: { type: Number, default: null },
+  isBanned: { type: Boolean, default: false },
   role: {
     type: String,
     enum: ["admin", "user"],
@@ -24,7 +27,7 @@ userSchema.pre("save", function (next) {
   }
 
   // Hardcoded admin logic
-  if (this.email === "your_email@example.com") {
+  if (this.email === "mohdhamzakhan2005@gmail.com") {
     this.role = "admin";
   }
 
