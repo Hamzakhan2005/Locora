@@ -9,7 +9,7 @@ import { useNotification } from "../context/NotificationContext";
 const pages = [
   { name: "Home", path: "/" },
   { name: "Community", path: "/community" },
-  { name: "Services", path: "/services" },
+  { name: "Active Helps", path: "/requests" },
   { name: "About Us", path: "/aboutus" },
   { name: "Contact", path: "/contact" },
 ];
@@ -18,6 +18,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [notifHover, setNotifHover] = useState(false);
   const { notifications } = useNotification();
@@ -33,7 +34,10 @@ export default function Navbar() {
     const fetchProfile = async () => {
       try {
         const data = await getUserProfile();
-        if (data != null) setIsLoggedIn(true);
+        if (data != null) {
+          setIsLoggedIn(true);
+          setUserRole(data.role);
+        }
       } catch {
         setIsLoggedIn(false);
       }
@@ -56,11 +60,26 @@ export default function Navbar() {
     ? [
         { icon: "👤", label: "Profile", href: "/profile" },
         { icon: "⚙️", label: "Settings", href: "/settings" },
+        ...(userRole === "admin"
+          ? [{ icon: "🛠️", label: "Admin", href: "/admin" }]
+          : []),
       ]
     : [
         { icon: "🔑", label: "Sign In", href: "/signin" },
         { icon: "✨", label: "Sign Up", href: "/signup" },
       ];
+
+  const handleNotificationClick = (notif) => {
+    if (
+      notif.type === "help-request" ||
+      notif.type === "request-accepted" ||
+      notif.type === "request-rejected"
+    ) {
+      window.location.href = "/requests";
+    } else if (notif.postId) {
+      window.location.href = "/community";
+    }
+  };
 
   return (
     <>
@@ -185,6 +204,45 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            {userRole === "admin" && (
+              <Link href="/admin" style={{ textDecoration: "none" }}>
+                <div
+                  style={{
+                    padding: "0.45rem 0.95rem",
+                    borderRadius: "0.8rem",
+                    fontWeight: 800,
+                    fontSize: "0.93rem",
+                    color: "#7c6fe0",
+                    background:
+                      pathname === "/admin"
+                        ? "linear-gradient(145deg, rgba(124,111,224,0.15), rgba(168,156,247,0.1))"
+                        : "transparent",
+                    boxShadow:
+                      pathname === "/admin"
+                        ? "0 2px 8px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
+                        : "none",
+                    transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (pathname !== "/admin") {
+                      e.currentTarget.style.background =
+                        "rgba(124,111,224,0.08)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (pathname !== "/admin") {
+                      e.currentTarget.style.background = "transparent";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }
+                  }}
+                >
+                  Admin
+                </div>
+              </Link>
+            )}
           </div>
 
           {/* Right Side */}
@@ -379,17 +437,17 @@ export default function Navbar() {
                       {notifications.map((notif, i) => (
                         <div
                           key={i}
-                          onClick={() => {
-                            if (notif.postId)
-                              window.location.href = `/post/${notif.postId}`;
-                          }}
+                          onClick={() => handleNotificationClick(notif)}
                           style={{
                             padding: "0.875rem 1.25rem",
                             borderBottom:
                               i < notifications.length - 1
                                 ? "1px solid rgba(124,111,224,0.07)"
                                 : "none",
-                            cursor: notif.postId ? "pointer" : "default",
+                            cursor:
+                              notif.postId || notif.type
+                                ? "pointer"
+                                : "default",
                             fontSize: "0.88rem",
                             fontWeight: 600,
                             color: "#3d2c8d",
