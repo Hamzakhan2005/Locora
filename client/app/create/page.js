@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createHelpRequest } from "@/utils/api";
+import { createHelpRequest, getCurrentLocation } from "@/utils/api";
 import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -74,6 +74,16 @@ export default function CreateHelpPage() {
       alert("All fields are required");
       return;
     }
+
+    // Try to attach geo coordinates so this post can be matched via "near me"
+    try {
+      const { lat, lng } = await getCurrentLocation();
+      data.lat = lat;
+      data.lng = lng;
+    } catch {
+      // Geolocation unavailable/denied — fall back to text location only
+    }
+
     try {
       await createHelpRequest(data);
       router.push("/");
