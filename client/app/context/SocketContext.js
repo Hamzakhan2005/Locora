@@ -8,6 +8,7 @@ const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,20 +22,23 @@ export const SocketProvider = ({ children }) => {
     });
 
     newSocket.on("notification", (data) => {
-      toast(data.message); // display toast
-      console.log("🔔 Notification:", data);
+      setNotifications((prev) => [data, ...prev]);
+      toast(data.message);
     });
 
     return () => {
-      newSocket.disconnect();
+      newSocket.off("connect");
+      newSocket.off("notification");
     };
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ socket, notifications, setNotifications }}>
       {children}
     </SocketContext.Provider>
   );
 };
 
 export const useSocket = () => useContext(SocketContext);
+
+export { useSocket as useNotification } from "./SocketContext";
