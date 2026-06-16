@@ -6,6 +6,16 @@ import { createHelpRequest, getCurrentLocation } from "@/utils/api";
 import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import {
+  FileText,
+  AlignLeft,
+  Tag,
+  MapPin,
+  Handshake,
+  Rocket,
+  Lightbulb,
+  AlertCircle,
+} from "lucide-react";
 
 const CATEGORIES = [
   "Emergency",
@@ -17,13 +27,15 @@ const CATEGORIES = [
   "Other",
 ];
 const TYPES = [
-  { value: "need", label: "🆘 Need Help" },
-  { value: "offer", label: "🤝 Offer Help" },
+  { value: "need", label: "Need Help", Icon: AlertCircle },
+  { value: "offer", label: "Offer Help", Icon: Handshake },
 ];
 
 function labelStyle(active) {
   return {
-    display: "block",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.4rem",
     fontWeight: 700,
     fontSize: "0.9rem",
     color: active ? "#7c6fe0" : "#3d2c8d",
@@ -74,16 +86,11 @@ export default function CreateHelpPage() {
       alert("All fields are required");
       return;
     }
-
-    // Try to attach geo coordinates so this post can be matched via "near me"
     try {
       const { lat, lng } = await getCurrentLocation();
       data.lat = lat;
       data.lng = lng;
-    } catch {
-      // Geolocation unavailable/denied — fall back to text location only
-    }
-
+    } catch {}
     try {
       await createHelpRequest(data);
       router.push("/");
@@ -139,7 +146,6 @@ export default function CreateHelpPage() {
 
       <div style={{ position: "relative", zIndex: 1 }}>
         <Navbar />
-
         <div
           style={{
             maxWidth: "720px",
@@ -171,7 +177,7 @@ export default function CreateHelpPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              📝 New Post
+              <FileText size={14} /> New Post
             </div>
             <h1
               style={{
@@ -193,8 +199,7 @@ export default function CreateHelpPage() {
                 }}
               >
                 Help Post
-              </span>{" "}
-              🌸
+              </span>
             </h1>
             <p
               style={{ fontSize: "1.05rem", color: "#5a4d9e", fontWeight: 500 }}
@@ -226,7 +231,8 @@ export default function CreateHelpPage() {
               {/* Title */}
               <div>
                 <label style={labelStyle(focused === "title")}>
-                  📌 Title <span style={{ color: "#ff7eb3" }}>*</span>
+                  <FileText size={15} /> Title{" "}
+                  <span style={{ color: "#ff7eb3" }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -241,7 +247,8 @@ export default function CreateHelpPage() {
               {/* Description */}
               <div>
                 <label style={labelStyle(focused === "description")}>
-                  📄 Description <span style={{ color: "#ff7eb3" }}>*</span>
+                  <AlignLeft size={15} /> Description{" "}
+                  <span style={{ color: "#ff7eb3" }}>*</span>
                 </label>
                 <textarea
                   placeholder="Describe what you need help with in detail..."
@@ -256,10 +263,11 @@ export default function CreateHelpPage() {
                 />
               </div>
 
-              {/* Category pills */}
+              {/* Category */}
               <div>
                 <label style={labelStyle(false)}>
-                  🏷️ Category <span style={{ color: "#ff7eb3" }}>*</span>
+                  <Tag size={15} /> Category{" "}
+                  <span style={{ color: "#ff7eb3" }}>*</span>
                 </label>
                 <div
                   style={{
@@ -324,7 +332,8 @@ export default function CreateHelpPage() {
               {/* Location */}
               <div>
                 <label style={labelStyle(focused === "location")}>
-                  📍 Location <span style={{ color: "#ff7eb3" }}>*</span>
+                  <MapPin size={15} /> Location{" "}
+                  <span style={{ color: "#ff7eb3" }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -336,10 +345,11 @@ export default function CreateHelpPage() {
                 />
               </div>
 
-              {/* Type toggle */}
+              {/* Type */}
               <div>
                 <label style={labelStyle(false)}>
-                  🤝 Type of Help <span style={{ color: "#ff7eb3" }}>*</span>
+                  <Handshake size={15} /> Type of Help{" "}
+                  <span style={{ color: "#ff7eb3" }}>*</span>
                 </label>
                 <div
                   style={{ display: "flex", gap: "1rem", marginTop: "0.5rem" }}
@@ -377,6 +387,10 @@ export default function CreateHelpPage() {
                           "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                         transform:
                           selectedType === t.value ? "scale(1.03)" : "scale(1)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.5rem",
                       }}
                       onMouseEnter={(e) => {
                         if (selectedType !== t.value)
@@ -387,7 +401,7 @@ export default function CreateHelpPage() {
                           e.currentTarget.style.transform = "scale(1)";
                       }}
                     >
-                      {t.label}
+                      <t.Icon size={17} /> {t.label}
                     </button>
                   ))}
                 </div>
@@ -454,7 +468,9 @@ export default function CreateHelpPage() {
                     Creating Post...
                   </>
                 ) : (
-                  "🚀 Create Post"
+                  <>
+                    <Rocket size={18} /> Create Post
+                  </>
                 )}
               </button>
             </div>
@@ -475,15 +491,29 @@ export default function CreateHelpPage() {
               alignItems: "flex-start",
             }}
           >
-            <span
+            <div
               style={{
-                fontSize: "2.25rem",
                 flexShrink: 0,
                 animation: "iconFloat 4s ease-in-out infinite",
+                marginTop: "0.2rem",
               }}
             >
-              💡
-            </span>
+              <div
+                style={{
+                  width: "2.75rem",
+                  height: "2.75rem",
+                  borderRadius: "0.875rem",
+                  background:
+                    "linear-gradient(145deg, rgba(255,179,71,0.2), rgba(255,179,71,0.08))",
+                  border: "1.5px solid rgba(255,179,71,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Lightbulb size={20} color="#d97706" strokeWidth={2} />
+              </div>
+            </div>
             <div>
               <h3
                 style={{

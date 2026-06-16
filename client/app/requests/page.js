@@ -9,41 +9,48 @@ import {
   respondToHelpRequest,
   getMyChatRooms,
 } from "../utils/api";
+import {
+  Handshake,
+  CheckCircle,
+  XCircle,
+  Clock,
+  MessageCircle,
+} from "lucide-react";
 
-const statusStyle = (status) => {
+const statusConfig = (status) => {
   switch (status) {
     case "accepted":
       return {
         bg: "rgba(110,231,183,0.15)",
         border: "rgba(110,231,183,0.35)",
         text: "#059669",
-        icon: "✅",
+        Icon: CheckCircle,
       };
     case "rejected":
       return {
         bg: "rgba(255,100,100,0.12)",
         border: "rgba(255,100,100,0.3)",
         text: "#dc2626",
-        icon: "❌",
+        Icon: XCircle,
       };
     default:
       return {
         bg: "rgba(255,179,71,0.12)",
         border: "rgba(255,179,71,0.3)",
         text: "#d97706",
-        icon: "⏳",
+        Icon: Clock,
       };
   }
 };
 
 const Pill = ({ status }) => {
-  const s = statusStyle(status);
+  const s = statusConfig(status);
   return (
     <div
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: "0.3rem",
+        gap: "0.35rem",
         padding: "0.25rem 0.8rem",
         borderRadius: "2rem",
         background: s.bg,
@@ -55,7 +62,7 @@ const Pill = ({ status }) => {
         letterSpacing: "0.02em",
       }}
     >
-      {s.icon} {status}
+      <s.Icon size={12} strokeWidth={2.5} /> {status}
     </div>
   );
 };
@@ -198,7 +205,7 @@ export default function RequestsPage() {
               marginBottom: "1.25rem",
             }}
           >
-            🤝 Active Helps
+            <Handshake size={14} /> Active Helps
           </div>
 
           <h1
@@ -303,9 +310,12 @@ export default function RequestsPage() {
                             fontSize: "0.9rem",
                             cursor: "pointer",
                             boxShadow: "0 6px 18px rgba(124,111,224,0.4)",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.4rem",
                           }}
                         >
-                          Accept
+                          <CheckCircle size={15} /> Accept
                         </button>
                         <button
                           onClick={() => handleRespond(req._id, "reject")}
@@ -320,9 +330,12 @@ export default function RequestsPage() {
                             fontSize: "0.9rem",
                             cursor: "pointer",
                             boxShadow: "0 4px 14px rgba(124,111,224,0.14)",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.4rem",
                           }}
                         >
-                          Decline
+                          <XCircle size={15} /> Decline
                         </button>
                       </div>
                     )}
@@ -431,9 +444,12 @@ export default function RequestsPage() {
                         fontSize: "0.9rem",
                         cursor: "pointer",
                         boxShadow: "0 6px 18px rgba(124,111,224,0.4)",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
                       }}
                     >
-                      💬 Open Chat
+                      <MessageCircle size={16} /> Open Chat
                     </button>
                   </div>
                 </SectionCard>
@@ -450,6 +466,7 @@ export default function RequestsPage() {
         onOpen={() => {}}
         post={selectedPost}
       />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
