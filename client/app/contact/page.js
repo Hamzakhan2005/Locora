@@ -3,6 +3,17 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import {
+  Mail,
+  MessageCircle,
+  Twitter,
+  User,
+  PenLine,
+  Send,
+  CheckCircle,
+  Star,
+  Heart,
+} from "lucide-react";
 
 export default function ContactPage() {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -26,7 +37,7 @@ export default function ContactPage() {
 
   const contacts = [
     {
-      icon: "📧",
+      Icon: Mail,
       title: "Email Us",
       desc: "For general inquiries and support",
       link: "hello@locora.com",
@@ -37,10 +48,10 @@ export default function ContactPage() {
       gradient: "linear-gradient(135deg, #60c4f8, #0ea5e9)",
     },
     {
-      icon: "💬",
+      Icon: MessageCircle,
       title: "Join Community",
       desc: "Connect with other users",
-      link: "Join Discussion →",
+      link: "Join Discussion",
       href: "/community",
       color: "rgba(110,231,183,0.18)",
       border: "rgba(110,231,183,0.3)",
@@ -48,7 +59,7 @@ export default function ContactPage() {
       gradient: "linear-gradient(135deg, #6ee7b7, #059669)",
     },
     {
-      icon: "🐦",
+      Icon: Twitter,
       title: "Social Media",
       desc: "Follow us for updates",
       link: "@Locora",
@@ -57,6 +68,23 @@ export default function ContactPage() {
       border: "rgba(124,111,224,0.3)",
       accent: "#7c6fe0",
       gradient: "linear-gradient(135deg, #a89cf7, #7c6fe0)",
+    },
+  ];
+
+  const fields = [
+    {
+      name: "name",
+      label: "Your Name",
+      type: "text",
+      placeholder: "Arjun Sharma",
+      Icon: User,
+    },
+    {
+      name: "email",
+      label: "Email Address",
+      type: "email",
+      placeholder: "arjun@example.com",
+      Icon: Mail,
     },
   ];
 
@@ -112,7 +140,7 @@ export default function ContactPage() {
         <div
           style={{ maxWidth: "900px", margin: "0 auto", padding: "4rem 2rem" }}
         >
-          {/* ── Header ── */}
+          {/* Header */}
           <div
             style={{
               textAlign: "center",
@@ -122,7 +150,9 @@ export default function ContactPage() {
           >
             <div
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
                 padding: "0.4rem 1.25rem",
                 borderRadius: "2rem",
                 background:
@@ -134,7 +164,8 @@ export default function ContactPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              ✉️ Get in Touch
+              <Mail size={15} color="#7c6fe0" />
+              Get in Touch
             </div>
 
             <h1
@@ -145,9 +176,15 @@ export default function ContactPage() {
                 color: "#2d1b69",
                 marginBottom: "1.25rem",
                 lineHeight: 1.15,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.6rem",
+                flexWrap: "wrap",
               }}
             >
-              📫 Let's{" "}
+              <Send size={38} color="#7c6fe0" strokeWidth={2} />
+              Let&apos;s{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #7c6fe0, #ff7eb3)",
@@ -171,11 +208,11 @@ export default function ContactPage() {
               }}
             >
               Have questions, feedback, or want to collaborate? We'd love to
-              hear from you. Your voice shapes Locora. 🌸
+              hear from you. Your voice shapes Locora.
             </p>
           </div>
 
-          {/* ── Contact Cards ── */}
+          {/* Contact Cards */}
           <div
             style={{
               display: "grid",
@@ -208,7 +245,6 @@ export default function ContactPage() {
                   cursor: "default",
                 }}
               >
-                {/* Icon */}
                 <div
                   style={{
                     width: "3.75rem",
@@ -218,7 +254,6 @@ export default function ContactPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "1.75rem",
                     marginBottom: "1.5rem",
                     boxShadow: `0 6px 18px ${c.color}`,
                     transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
@@ -228,7 +263,7 @@ export default function ContactPage() {
                         : "scale(1) rotate(0deg)",
                   }}
                 >
-                  {c.icon}
+                  <c.Icon size={26} color="white" strokeWidth={2} />
                 </div>
 
                 <h3
@@ -262,11 +297,11 @@ export default function ContactPage() {
                     textDecoration: "none",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "0.25rem",
+                    gap: "0.35rem",
                     transition: "gap 0.2s ease",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.gap = "0.5rem")}
-                  onMouseLeave={(e) => (e.currentTarget.style.gap = "0.25rem")}
+                  onMouseEnter={(e) => (e.currentTarget.style.gap = "0.6rem")}
+                  onMouseLeave={(e) => (e.currentTarget.style.gap = "0.35rem")}
                 >
                   {c.link}
                 </a>
@@ -274,7 +309,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          {/* ── Contact Form ── */}
+          {/* Contact Form */}
           <div
             style={{
               background:
@@ -287,17 +322,27 @@ export default function ContactPage() {
               marginBottom: "3rem",
             }}
           >
-            <h2
+            <div
               style={{
-                fontFamily: "'Sora', sans-serif",
-                fontSize: "1.75rem",
-                fontWeight: 800,
-                color: "#2d1b69",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.6rem",
                 marginBottom: "0.5rem",
               }}
             >
-              Send Us a Message 💌
-            </h2>
+              <Send size={22} color="#7c6fe0" />
+              <h2
+                style={{
+                  fontFamily: "'Sora', sans-serif",
+                  fontSize: "1.75rem",
+                  fontWeight: 800,
+                  color: "#2d1b69",
+                  margin: 0,
+                }}
+              >
+                Send Us a Message
+              </h2>
+            </div>
             <p
               style={{
                 color: "#6b5fa8",
@@ -316,28 +361,13 @@ export default function ContactPage() {
                 gap: "1.5rem",
               }}
             >
-              {[
-                {
-                  name: "name",
-                  label: "Your Name",
-                  type: "text",
-                  placeholder: "Arjun Sharma",
-                  icon: "👤",
-                },
-                {
-                  name: "email",
-                  label: "Email Address",
-                  type: "email",
-                  placeholder: "arjun@example.com",
-                  icon: "📧",
-                },
-              ].map((field) => (
+              {fields.map((field) => (
                 <div key={field.name}>
                   <label
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.35rem",
+                      gap: "0.4rem",
                       fontWeight: 700,
                       fontSize: "0.9rem",
                       color: focused === field.name ? "#7c6fe0" : "#3d2c8d",
@@ -345,7 +375,8 @@ export default function ContactPage() {
                       transition: "color 0.2s ease",
                     }}
                   >
-                    {field.icon} {field.label}
+                    <field.Icon size={15} />
+                    {field.label}
                   </label>
                   <input
                     type={field.type}
@@ -388,13 +419,13 @@ export default function ContactPage() {
                 </div>
               ))}
 
-              {/* Message textarea */}
+              {/* Message */}
               <div>
                 <label
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.35rem",
+                    gap: "0.4rem",
                     fontWeight: 700,
                     fontSize: "0.9rem",
                     color: focused === "message" ? "#7c6fe0" : "#3d2c8d",
@@ -402,7 +433,8 @@ export default function ContactPage() {
                     transition: "color 0.2s ease",
                   }}
                 >
-                  ✏️ Your Message
+                  <PenLine size={15} />
+                  Your Message
                 </label>
                 <textarea
                   placeholder="Tell us what's on your mind..."
@@ -454,11 +486,16 @@ export default function ContactPage() {
                     fontWeight: 700,
                     color: "#059669",
                     fontSize: "1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
                     animation:
                       "bounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards",
                   }}
                 >
-                  ✅ Message sent! We'll get back to you soon 🌸
+                  <CheckCircle size={20} color="#059669" />
+                  Message sent! We'll get back to you soon.
                 </div>
               ) : (
                 <button
@@ -502,27 +539,24 @@ export default function ContactPage() {
                 >
                   {sending ? (
                     <>
-                      <div
-                        style={{
-                          width: "1.1rem",
-                          height: "1.1rem",
-                          border: "2px solid rgba(255,255,255,0.4)",
-                          borderTopColor: "white",
-                          borderRadius: "50%",
-                          animation: "spin 0.8s linear infinite",
-                        }}
+                      <Loader2
+                        size={18}
+                        style={{ animation: "spin 0.8s linear infinite" }}
                       />
                       Sending...
                     </>
                   ) : (
-                    "🚀 Send Message"
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
                   )}
                 </button>
               )}
             </div>
           </div>
 
-          {/* ── Still have questions CTA ── */}
+          {/* CTA */}
           <div
             style={{
               borderRadius: "2.5rem",
@@ -536,30 +570,30 @@ export default function ContactPage() {
               overflow: "hidden",
             }}
           >
+            {/* Decorative bg icons */}
             <div
               style={{
                 position: "absolute",
                 top: "10%",
                 right: "5%",
-                fontSize: "4rem",
                 opacity: 0.15,
                 animation: "iconFloat 6s ease-in-out infinite",
               }}
             >
-              🌟
+              <Star size={52} color="white" fill="white" />
             </div>
             <div
               style={{
                 position: "absolute",
                 bottom: "10%",
                 left: "5%",
-                fontSize: "3rem",
                 opacity: 0.12,
                 animation: "iconFloat 8s ease-in-out infinite 1s",
               }}
             >
-              💜
+              <Heart size={42} color="white" fill="white" />
             </div>
+
             <div style={{ position: "relative", zIndex: 1 }}>
               <h2
                 style={{
@@ -586,6 +620,7 @@ export default function ContactPage() {
                 back to you as soon as possible.
               </p>
               <button
+                onClick={handleSend}
                 style={{
                   padding: "0.9rem 2.5rem",
                   borderRadius: "1.25rem",
@@ -598,6 +633,9 @@ export default function ContactPage() {
                   fontFamily: "'Nunito', sans-serif",
                   boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
                   transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform =
@@ -611,7 +649,8 @@ export default function ContactPage() {
                     "0 8px 24px rgba(0,0,0,0.15)";
                 }}
               >
-                💌 Send Us a Message
+                <Mail size={18} color="#7c6fe0" />
+                Send Us a Message
               </button>
             </div>
           </div>

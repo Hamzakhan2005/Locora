@@ -1,17 +1,32 @@
 "use client";
-
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getUserProfile } from "../utils/api";
 import { useNotification } from "../context/NotificationContext";
+import {
+  Home,
+  Users,
+  HandHeart,
+  Info,
+  Mail,
+  Search,
+  Bell,
+  User,
+  Settings,
+  Shield,
+  LogIn,
+  UserPlus,
+  ChevronRight,
+  Megaphone,
+} from "lucide-react";
 
 const pages = [
-  { name: "Home", path: "/" },
-  { name: "Community", path: "/community" },
-  { name: "Active Helps", path: "/requests" },
-  { name: "About Us", path: "/aboutus" },
-  { name: "Contact", path: "/contact" },
+  { name: "Home", path: "/", icon: <Home size={14} /> },
+  { name: "Community", path: "/community", icon: <Users size={14} /> },
+  { name: "Active Helps", path: "/requests", icon: <HandHeart size={14} /> },
+  { name: "About Us", path: "/aboutus", icon: <Info size={14} /> },
+  { name: "Contact", path: "/contact", icon: <Mail size={14} /> },
 ];
 
 export default function Navbar() {
@@ -45,12 +60,10 @@ export default function Navbar() {
     fetchProfile();
   }, []);
 
-  // Close profile dropdown on outside click
   useEffect(() => {
     const handler = (e) => {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
+      if (profileRef.current && !profileRef.current.contains(e.target))
         setProfileMenuOpen(false);
-      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -58,15 +71,15 @@ export default function Navbar() {
 
   const profileItems = isLoggedIn
     ? [
-        { icon: "👤", label: "Profile", href: "/profile" },
-        { icon: "⚙️", label: "Settings", href: "/settings" },
+        { icon: <User size={16} />, label: "Profile", href: "/profile" },
+        { icon: <Settings size={16} />, label: "Settings", href: "/settings" },
         ...(userRole === "admin"
-          ? [{ icon: "🛠️", label: "Admin", href: "/admin" }]
+          ? [{ icon: <Shield size={16} />, label: "Admin", href: "/admin" }]
           : []),
       ]
     : [
-        { icon: "🔑", label: "Sign In", href: "/signin" },
-        { icon: "✨", label: "Sign Up", href: "/signup" },
+        { icon: <LogIn size={16} />, label: "Sign In", href: "/signin" },
+        { icon: <UserPlus size={16} />, label: "Sign Up", href: "/signup" },
       ];
 
   const handleNotificationClick = (notif) => {
@@ -112,7 +125,6 @@ export default function Navbar() {
             gap: "1rem",
           }}
         >
-          {/* Logo */}
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
             <div
               style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
@@ -123,16 +135,14 @@ export default function Navbar() {
                   height: "2.4rem",
                   borderRadius: "0.8rem",
                   background: "linear-gradient(145deg, #a89cf7, #7c6fe0)",
-                  boxShadow:
-                    "0 4px 14px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.4)",
+                  boxShadow: "0 4px 14px rgba(124,111,224,0.4)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.2rem",
                   animation: "logoFloat 4s ease-in-out infinite",
                 }}
               >
-                🏘️
+                <Home size={18} color="white" />
               </div>
               <span
                 style={{
@@ -150,7 +160,6 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Nav Links */}
           <div
             style={{
               display: "flex",
@@ -175,11 +184,14 @@ export default function Navbar() {
                       fontWeight: 700,
                       fontSize: "0.93rem",
                       color: active ? "#7c6fe0" : "#5a4d9e",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.35rem",
                       background: active
                         ? "linear-gradient(145deg, rgba(124,111,224,0.15), rgba(168,156,247,0.1))"
                         : "transparent",
                       boxShadow: active
-                        ? "0 2px 8px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
+                        ? "0 2px 8px rgba(124,111,224,0.2)"
                         : "none",
                       transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                       cursor: "pointer",
@@ -199,53 +211,14 @@ export default function Navbar() {
                       }
                     }}
                   >
+                    {page.icon}
                     {page.name}
                   </div>
                 </Link>
               );
             })}
-            {userRole === "admin" && (
-              <Link href="/admin" style={{ textDecoration: "none" }}>
-                <div
-                  style={{
-                    padding: "0.45rem 0.95rem",
-                    borderRadius: "0.8rem",
-                    fontWeight: 800,
-                    fontSize: "0.93rem",
-                    color: "#7c6fe0",
-                    background:
-                      pathname === "/admin"
-                        ? "linear-gradient(145deg, rgba(124,111,224,0.15), rgba(168,156,247,0.1))"
-                        : "transparent",
-                    boxShadow:
-                      pathname === "/admin"
-                        ? "0 2px 8px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
-                        : "none",
-                    transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (pathname !== "/admin") {
-                      e.currentTarget.style.background =
-                        "rgba(124,111,224,0.08)";
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (pathname !== "/admin") {
-                      e.currentTarget.style.background = "transparent";
-                      e.currentTarget.style.transform = "translateY(0)";
-                    }
-                  }}
-                >
-                  Admin
-                </div>
-              </Link>
-            )}
           </div>
 
-          {/* Right Side */}
           <div
             style={{
               display: "flex",
@@ -254,7 +227,6 @@ export default function Navbar() {
               flexShrink: 0,
             }}
           >
-            {/* Search */}
             <div
               style={{
                 display: "flex",
@@ -268,7 +240,7 @@ export default function Navbar() {
                 boxShadow: "inset 0 2px 6px rgba(124,111,224,0.08)",
               }}
             >
-              <span style={{ fontSize: "0.9rem", opacity: 0.65 }}>🔍</span>
+              <Search size={14} color="#7c6fe0" opacity={0.65} />
               <input
                 type="text"
                 placeholder="Search…"
@@ -285,7 +257,6 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Notifications — hover to reveal */}
             <div
               style={{ position: "relative" }}
               onMouseEnter={() => setNotifHover(true)}
@@ -302,20 +273,16 @@ export default function Navbar() {
                   background: notifHover
                     ? "linear-gradient(145deg, rgba(168,156,247,0.25), rgba(240,230,255,0.85))"
                     : "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.6))",
-                  boxShadow: notifHover
-                    ? "0 6px 18px rgba(124,111,224,0.25)"
-                    : "0 3px 10px rgba(124,111,224,0.12)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.1rem",
                   cursor: "pointer",
                   position: "relative",
-                  transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  transition: "all 0.3s",
                   transform: notifHover ? "scale(1.1)" : "scale(1)",
                 }}
               >
-                🔔
+                <Bell size={16} color="#7c6fe0" />
                 {notifications.length > 0 && (
                   <div
                     style={{
@@ -333,7 +300,6 @@ export default function Navbar() {
                       alignItems: "center",
                       justifyContent: "center",
                       border: "2px solid rgba(240,230,255,0.95)",
-                      boxShadow: "0 2px 6px rgba(232,25,90,0.4)",
                     }}
                   >
                     {notifications.length > 9 ? "9+" : notifications.length}
@@ -341,7 +307,6 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* Notification dropdown on hover */}
               {notifHover && (
                 <div
                   style={{
@@ -352,18 +317,15 @@ export default function Navbar() {
                     background:
                       "linear-gradient(145deg, rgba(255,255,255,0.99), rgba(240,230,255,0.96))",
                     backdropFilter: "blur(24px)",
-                    WebkitBackdropFilter: "blur(24px)",
                     borderRadius: "1.5rem",
                     border: "1.5px solid rgba(124,111,224,0.22)",
-                    boxShadow:
-                      "0 20px 60px rgba(124,111,224,0.28), inset 0 1px 0 rgba(255,255,255,0.9)",
+                    boxShadow: "0 20px 60px rgba(124,111,224,0.28)",
                     overflow: "hidden",
                     animation:
                       "dropIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
                     zIndex: 200,
                   }}
                 >
-                  {/* Header */}
                   <div
                     style={{
                       padding: "1rem 1.25rem 0.75rem",
@@ -373,7 +335,7 @@ export default function Navbar() {
                       gap: "0.5rem",
                     }}
                   >
-                    <span style={{ fontSize: "1rem" }}>🔔</span>
+                    <Bell size={16} color="#7c6fe0" />
                     <span
                       style={{
                         fontWeight: 800,
@@ -401,17 +363,15 @@ export default function Navbar() {
                       </span>
                     )}
                   </div>
-
-                  {/* Body */}
                   {notifications.length === 0 ? (
                     <div
                       style={{ padding: "2rem 1.5rem", textAlign: "center" }}
                     >
-                      <div
-                        style={{ fontSize: "2.5rem", marginBottom: "0.75rem" }}
-                      >
-                        📭
-                      </div>
+                      <Bell
+                        size={32}
+                        color="#8b80c8"
+                        style={{ margin: "0 auto 0.75rem" }}
+                      />
                       <p
                         style={{
                           color: "#8b80c8",
@@ -420,16 +380,6 @@ export default function Navbar() {
                         }}
                       >
                         No notifications yet
-                      </p>
-                      <p
-                        style={{
-                          color: "#a09bc8",
-                          fontSize: "0.8rem",
-                          fontWeight: 500,
-                          marginTop: "0.25rem",
-                        }}
-                      >
-                        We'll let you know when something happens!
                       </p>
                     </div>
                   ) : (
@@ -444,14 +394,10 @@ export default function Navbar() {
                               i < notifications.length - 1
                                 ? "1px solid rgba(124,111,224,0.07)"
                                 : "none",
-                            cursor:
-                              notif.postId || notif.type
-                                ? "pointer"
-                                : "default",
+                            cursor: "pointer",
                             fontSize: "0.88rem",
                             fontWeight: 600,
                             color: "#3d2c8d",
-                            transition: "background 0.18s ease",
                             display: "flex",
                             alignItems: "flex-start",
                             gap: "0.7rem",
@@ -464,23 +410,11 @@ export default function Navbar() {
                             (e.currentTarget.style.background = "transparent")
                           }
                         >
-                          <span
-                            style={{
-                              width: "1.75rem",
-                              height: "1.75rem",
-                              borderRadius: "50%",
-                              background:
-                                "linear-gradient(145deg, rgba(168,156,247,0.2), rgba(124,111,224,0.1))",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "0.85rem",
-                              flexShrink: 0,
-                              marginTop: "0.05rem",
-                            }}
-                          >
-                            📣
-                          </span>
+                          <Megaphone
+                            size={16}
+                            color="#7c6fe0"
+                            style={{ flexShrink: 0, marginTop: "0.1rem" }}
+                          />
                           <span style={{ lineHeight: 1.5 }}>
                             {notif.message}
                           </span>
@@ -492,7 +426,6 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Profile button — click to open */}
             <div ref={profileRef} style={{ position: "relative" }}>
               <button
                 onClick={() => setProfileMenuOpen((v) => !v)}
@@ -506,32 +439,17 @@ export default function Navbar() {
                   background: isLoggedIn
                     ? "linear-gradient(145deg, #a89cf7, #7c6fe0)"
                     : "linear-gradient(145deg, rgba(255,255,255,0.88), rgba(240,230,255,0.7))",
-                  boxShadow: profileMenuOpen
-                    ? "0 6px 20px rgba(124,111,224,0.38)"
-                    : "0 3px 12px rgba(124,111,224,0.18)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.15rem",
                   cursor: "pointer",
-                  transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  transition: "all 0.3s",
                   transform: profileMenuOpen ? "scale(1.08)" : "scale(1)",
                   outline: "none",
                 }}
-                onMouseEnter={(e) => {
-                  if (!profileMenuOpen)
-                    e.currentTarget.style.transform = "scale(1.1)";
-                }}
-                onMouseLeave={(e) => {
-                  if (!profileMenuOpen)
-                    e.currentTarget.style.transform = profileMenuOpen
-                      ? "scale(1.08)"
-                      : "scale(1)";
-                }}
               >
-                {isLoggedIn ? "👤" : "👋"}
+                <User size={16} color={isLoggedIn ? "white" : "#7c6fe0"} />
               </button>
-
               {profileMenuOpen && (
                 <div
                   style={{
@@ -542,11 +460,9 @@ export default function Navbar() {
                     background:
                       "linear-gradient(145deg, rgba(255,255,255,0.99), rgba(240,230,255,0.96))",
                     backdropFilter: "blur(24px)",
-                    WebkitBackdropFilter: "blur(24px)",
                     borderRadius: "1.5rem",
                     border: "1.5px solid rgba(124,111,224,0.22)",
-                    boxShadow:
-                      "0 20px 60px rgba(124,111,224,0.28), inset 0 1px 0 rgba(255,255,255,0.9)",
+                    boxShadow: "0 20px 60px rgba(124,111,224,0.28)",
                     overflow: "hidden",
                     animation:
                       "dropIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
@@ -554,7 +470,6 @@ export default function Navbar() {
                     padding: "0.5rem",
                   }}
                 >
-                  {/* Section label */}
                   <div
                     style={{
                       padding: "0.4rem 1rem 0.6rem",
@@ -575,7 +490,6 @@ export default function Navbar() {
                       {isLoggedIn ? "My Account" : "Get Started"}
                     </p>
                   </div>
-
                   {profileItems.map((item) => (
                     <Link
                       key={item.href}
@@ -606,11 +520,9 @@ export default function Navbar() {
                           e.currentTarget.style.paddingLeft = "1rem";
                         }}
                       >
-                        <span style={{ fontSize: "1.1rem" }}>{item.icon}</span>
+                        {item.icon}
                         <span style={{ flex: 1 }}>{item.label}</span>
-                        <span style={{ fontSize: "0.75rem", opacity: 0.35 }}>
-                          →
-                        </span>
+                        <ChevronRight size={12} opacity={0.35} />
                       </div>
                     </Link>
                   ))}
@@ -620,7 +532,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
         @keyframes logoFloat {

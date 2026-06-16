@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useSocket } from "@/context/SocketContext";
+import { MessageCircle, Loader2 } from "lucide-react";
 
 export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
   const [messages, setMessages] = useState([]);
@@ -39,10 +40,8 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
           `http://localhost:5000/api/chat/room/${post._id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-
         activeRoomId = res.data._id;
         setRoomId(activeRoomId);
-
         socket.emit("joinRoom", activeRoomId);
         socket.emit("getMessages", activeRoomId);
       } catch (err) {
@@ -62,7 +61,6 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
       setMessages((prev) => [...prev, msg]);
       scrollToBottom();
     };
-
     const onHistory = (msgs) => {
       setMessages(msgs);
       scrollToBottom();
@@ -70,7 +68,6 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
 
     socket.on("message", onMessage);
     socket.on("messageHistory", onHistory);
-
     fetchRoomAndJoin();
 
     return () => {
@@ -83,13 +80,11 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
 
   const handleSend = () => {
     if (input.trim() === "" || !roomId || !socket) return;
-
     socket.emit("sendMessage", {
       roomId,
       postId: post._id,
       text: input.trim(),
     });
-
     setInput("");
   };
 
@@ -111,27 +106,32 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
       }}
     >
       <Box p={2} height="100%" display="flex" flexDirection="column">
+        {/* Header */}
         <Box
           display="flex"
           justifyContent="space-between"
           alignItems="center"
           mb={1}
         >
-          <Typography
-            sx={{
-              fontFamily: "'Sora', sans-serif",
-              fontWeight: 800,
-              fontSize: "1.15rem",
-              color: "#2d1b69",
-            }}
-          >
-            {post?.title || "Chat"}
-          </Typography>
+          <Box display="flex" alignItems="center" gap={1}>
+            <MessageCircle size={20} color="#7c6fe0" />
+            <Typography
+              sx={{
+                fontFamily: "'Sora', sans-serif",
+                fontWeight: 800,
+                fontSize: "1.15rem",
+                color: "#2d1b69",
+              }}
+            >
+              {post?.title || "Chat"}
+            </Typography>
+          </Box>
           <IconButton onClick={onClose} sx={{ color: "#7c6fe0" }}>
             <CloseIcon />
           </IconButton>
         </Box>
 
+        {/* Messages area */}
         <Box
           flexGrow={1}
           overflow="auto"
@@ -145,43 +145,58 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
           }}
         >
           {loading && (
-            <Typography
-              sx={{
-                color: "#8b80c8",
-                textAlign: "center",
-                mt: 4,
-                fontWeight: 600,
-              }}
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              mt={6}
+              gap={1.5}
             >
-              Loading chat...
-            </Typography>
+              <Loader2
+                size={28}
+                color="#a89cf7"
+                style={{ animation: "spin 1s linear infinite" }}
+              />
+              <Typography sx={{ color: "#8b80c8", fontWeight: 600 }}>
+                Loading chat...
+              </Typography>
+            </Box>
           )}
 
           {!loading && error && (
-            <Typography
-              sx={{
-                color: "#dc2626",
-                textAlign: "center",
-                mt: 4,
-                fontWeight: 600,
-                fontSize: "0.92rem",
-              }}
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              mt={6}
+              gap={1.5}
+              sx={{ textAlign: "center", px: 2 }}
             >
-              {error}
-            </Typography>
+              <MessageCircle size={36} color="#fca5a5" />
+              <Typography
+                sx={{ color: "#dc2626", fontWeight: 600, fontSize: "0.92rem" }}
+              >
+                {error}
+              </Typography>
+            </Box>
           )}
 
           {!loading && !error && messages.length === 0 && (
-            <Typography
-              sx={{
-                color: "#8b80c8",
-                textAlign: "center",
-                mt: 4,
-                fontWeight: 600,
-              }}
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              mt={6}
+              gap={1.5}
             >
-              No messages yet. Say hello! 👋
-            </Typography>
+              <MessageCircle size={36} color="#c4bcf0" />
+              <Typography sx={{ color: "#8b80c8", fontWeight: 600 }}>
+                No messages yet. Say hello!
+              </Typography>
+            </Box>
           )}
 
           {!loading &&
@@ -217,6 +232,7 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
           <div ref={messagesEndRef} />
         </Box>
 
+        {/* Input */}
         <Box display="flex" alignItems="center" gap={1}>
           <TextField
             fullWidth
@@ -262,6 +278,14 @@ export default function SwipeableChatDrawer({ open, onClose, onOpen, post }) {
           </IconButton>
         </Box>
       </Box>
+
+      <style jsx global>{`
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </SwipeableDrawer>
   );
 }
