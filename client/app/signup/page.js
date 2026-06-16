@@ -7,6 +7,18 @@ import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import {
+  User,
+  Mail,
+  Phone,
+  Lock,
+  MapPin,
+  AlertTriangle,
+  Rocket,
+  Home,
+  Sparkles,
+  ShieldCheck,
+} from "lucide-react";
 
 export default function SignupPage() {
   const {
@@ -44,7 +56,7 @@ export default function SignupPage() {
       label: "Full Name",
       type: "text",
       placeholder: "Arjun Sharma",
-      icon: "👤",
+      Icon: User,
       required: true,
     },
     {
@@ -52,7 +64,7 @@ export default function SignupPage() {
       label: "Email Address",
       type: "email",
       placeholder: "arjun@example.com",
-      icon: "📧",
+      Icon: Mail,
       hint: "Optional if phone provided",
     },
     {
@@ -60,7 +72,7 @@ export default function SignupPage() {
       label: "Phone Number",
       type: "tel",
       placeholder: "+91 98765 43210",
-      icon: "📱",
+      Icon: Phone,
       hint: "Optional if email provided",
     },
     {
@@ -68,7 +80,7 @@ export default function SignupPage() {
       label: "Password",
       type: "password",
       placeholder: "Create a strong password",
-      icon: "🔒",
+      Icon: Lock,
       required: true,
     },
     {
@@ -76,7 +88,7 @@ export default function SignupPage() {
       label: "Your Location",
       type: "text",
       placeholder: "Lucknow, Uttar Pradesh",
-      icon: "📍",
+      Icon: MapPin,
       required: true,
     },
   ];
@@ -91,7 +103,6 @@ export default function SignupPage() {
         overflow: "hidden",
       }}
     >
-      {/* Background blobs */}
       <div
         style={{
           position: "fixed",
@@ -128,7 +139,6 @@ export default function SignupPage() {
 
       <div style={{ position: "relative", zIndex: 1 }}>
         <Navbar />
-
         <div
           style={{
             maxWidth: "540px",
@@ -149,17 +159,17 @@ export default function SignupPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "2.5rem",
                 margin: "0 auto 1.5rem",
                 animation: "floatIcon 4s ease-in-out infinite",
               }}
             >
-              🏘️
+              <Home size={32} color="white" strokeWidth={2} />
             </div>
-
             <div
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
                 padding: "0.35rem 1rem",
                 borderRadius: "2rem",
                 background:
@@ -171,9 +181,8 @@ export default function SignupPage() {
                 marginBottom: "1rem",
               }}
             >
-              ✨ Join Our Community
+              <Sparkles size={12} /> Join Our Community
             </div>
-
             <h1
               style={{
                 fontFamily: "'Sora', sans-serif",
@@ -194,10 +203,8 @@ export default function SignupPage() {
                 }}
               >
                 Locora
-              </span>{" "}
-              🌸
+              </span>
             </h1>
-
             <p
               style={{
                 color: "#5a4d9e",
@@ -208,7 +215,6 @@ export default function SignupPage() {
             >
               Create your account and start building community
             </p>
-
             <p style={{ color: "#6b5fa8", fontSize: "0.9rem" }}>
               Already a helper?{" "}
               <Link
@@ -241,7 +247,7 @@ export default function SignupPage() {
                 animation: "shakeError 0.5s ease",
               }}
             >
-              <span style={{ fontSize: "1.25rem" }}>⚠️</span>
+              <AlertTriangle size={20} color="#dc2626" strokeWidth={2} />
               <p
                 style={{
                   color: "#dc2626",
@@ -277,18 +283,17 @@ export default function SignupPage() {
                 <div key={field.name}>
                   <label
                     style={{
-                      display: "block",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                       fontWeight: 700,
                       fontSize: "0.9rem",
                       color: focused === field.name ? "#7c6fe0" : "#3d2c8d",
                       marginBottom: "0.5rem",
                       transition: "color 0.2s ease",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.35rem",
                     }}
                   >
-                    {field.icon} {field.label}
+                    <field.Icon size={14} /> {field.label}
                     {field.required && (
                       <span style={{ color: "#ff7eb3" }}>*</span>
                     )}
@@ -304,47 +309,44 @@ export default function SignupPage() {
                       </span>
                     )}
                   </label>
-                  <div style={{ position: "relative" }}>
-                    <input
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      {...register(
-                        field.name,
-                        field.required ? { required: true } : {}
-                      )}
-                      onFocus={() => setFocused(field.name)}
-                      onBlur={() => setFocused("")}
-                      style={{
-                        width: "100%",
-                        padding: "0.9rem 1.25rem",
-                        borderRadius: "1rem",
-                        border: `2px solid ${
-                          focused === field.name
-                            ? "rgba(124,111,224,0.6)"
-                            : "rgba(124,111,224,0.2)"
-                        }`,
-                        background:
-                          focused === field.name
-                            ? "rgba(255,255,255,0.98)"
-                            : "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.4))",
-                        fontFamily: "'Nunito', sans-serif",
-                        fontSize: "1rem",
-                        fontWeight: 600,
-                        color: "#2d1b69",
-                        outline: "none",
-                        boxShadow:
-                          focused === field.name
-                            ? "0 0 0 4px rgba(124,111,224,0.12), inset 0 2px 6px rgba(124,111,224,0.08)"
-                            : "inset 0 2px 6px rgba(124,111,224,0.08)",
-                        transition: "all 0.3s ease",
-                        boxSizing: "border-box",
-                      }}
-                    />
-                  </div>
+                  <input
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    {...register(
+                      field.name,
+                      field.required ? { required: true } : {}
+                    )}
+                    onFocus={() => setFocused(field.name)}
+                    onBlur={() => setFocused("")}
+                    style={{
+                      width: "100%",
+                      padding: "0.9rem 1.25rem",
+                      borderRadius: "1rem",
+                      border: `2px solid ${
+                        focused === field.name
+                          ? "rgba(124,111,224,0.6)"
+                          : "rgba(124,111,224,0.2)"
+                      }`,
+                      background:
+                        focused === field.name
+                          ? "rgba(255,255,255,0.98)"
+                          : "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.4))",
+                      fontFamily: "'Nunito', sans-serif",
+                      fontSize: "1rem",
+                      fontWeight: 600,
+                      color: "#2d1b69",
+                      outline: "none",
+                      boxShadow:
+                        focused === field.name
+                          ? "0 0 0 4px rgba(124,111,224,0.12), inset 0 2px 6px rgba(124,111,224,0.08)"
+                          : "inset 0 2px 6px rgba(124,111,224,0.08)",
+                      transition: "all 0.3s ease",
+                      boxSizing: "border-box",
+                    }}
+                  />
                 </div>
               ))}
 
-              {/* Submit */}
               <button
                 onClick={handleSubmit(onSubmit)}
                 disabled={isSubmitting}
@@ -396,11 +398,13 @@ export default function SignupPage() {
                         borderRadius: "50%",
                         animation: "spin 0.8s linear infinite",
                       }}
-                    />
+                    />{" "}
                     Creating your account...
                   </>
                 ) : (
-                  "🚀 Create Account"
+                  <>
+                    <Rocket size={18} /> Create Account
+                  </>
                 )}
               </button>
             </div>
@@ -421,7 +425,21 @@ export default function SignupPage() {
               gap: "1rem",
             }}
           >
-            <span style={{ fontSize: "2rem" }}>🔒</span>
+            <div
+              style={{
+                width: "3rem",
+                height: "3rem",
+                borderRadius: "0.875rem",
+                background:
+                  "linear-gradient(145deg, rgba(168,156,247,0.2), rgba(124,111,224,0.1))",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <ShieldCheck size={22} color="#7c6fe0" strokeWidth={2} />
+            </div>
             <div>
               <p
                 style={{

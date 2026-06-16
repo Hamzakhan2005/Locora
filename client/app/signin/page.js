@@ -7,6 +7,14 @@ import { useForm } from "react-hook-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import {
+  Mail,
+  Phone,
+  Lock,
+  AlertTriangle,
+  Sparkles,
+  LogIn,
+} from "lucide-react";
 
 function inputStyle(focused) {
   return {
@@ -49,14 +57,13 @@ export default function LoginPage() {
   const { login } = useAuth();
 
   const handleEmailLogin = async (data) => {
-    const { email, password } = data;
-    if (!email || !password) {
+    if (!data.email || !data.password) {
       setError("Please enter both email and password");
       return;
     }
     try {
       setError("");
-      await login(email, password, false);
+      await login(data.email, data.password, false);
       router.push("/");
     } catch (err) {
       setError(err.message || "Login failed");
@@ -64,14 +71,13 @@ export default function LoginPage() {
   };
 
   const handlePhoneLogin = async (data) => {
-    const { phone, password } = data;
-    if (!phone || !password) {
+    if (!data.phone || !data.password) {
       setError("Please enter both phone number and password");
       return;
     }
     try {
       setError("");
-      await login(phone, password, true);
+      await login(data.phone, data.password, true);
       router.push("/");
     } catch (err) {
       setError(err.message || "Login failed");
@@ -151,16 +157,17 @@ export default function LoginPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "2.5rem",
                 margin: "0 auto 1.5rem",
                 animation: "iconFloat 4s ease-in-out infinite",
               }}
             >
-              👋
+              <LogIn size={32} color="white" strokeWidth={2} />
             </div>
             <div
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
                 padding: "0.35rem 1rem",
                 borderRadius: "2rem",
                 background:
@@ -172,7 +179,7 @@ export default function LoginPage() {
                 marginBottom: "1rem",
               }}
             >
-              ✨ Welcome Back
+              <Sparkles size={12} /> Welcome Back
             </div>
             <h1
               style={{
@@ -194,8 +201,7 @@ export default function LoginPage() {
                 }}
               >
                 Locora
-              </span>{" "}
-              🌸
+              </span>
             </h1>
             <p style={{ color: "#5a4d9e", fontSize: "1rem", fontWeight: 500 }}>
               Choose your preferred login method
@@ -218,7 +224,7 @@ export default function LoginPage() {
                 animation: "shakeError 0.5s ease",
               }}
             >
-              <span style={{ fontSize: "1.25rem" }}>⚠️</span>
+              <AlertTriangle size={20} color="#dc2626" strokeWidth={2} />
               <p
                 style={{
                   color: "#dc2626",
@@ -240,7 +246,7 @@ export default function LoginPage() {
               alignItems: "start",
             }}
           >
-            {/* Email */}
+            {/* Email Form */}
             <div
               style={{
                 background:
@@ -264,12 +270,11 @@ export default function LoginPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "1.75rem",
                     margin: "0 auto 1rem",
                     boxShadow: "0 6px 18px rgba(96,196,248,0.18)",
                   }}
                 >
-                  📧
+                  <Mail size={24} color="#0ea5e9" strokeWidth={2} />
                 </div>
                 <h3
                   style={{
@@ -292,7 +297,9 @@ export default function LoginPage() {
                 <div>
                   <label
                     style={{
-                      display: "block",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                       fontWeight: 700,
                       fontSize: "0.88rem",
                       color: focused === "email" ? "#7c6fe0" : "#3d2c8d",
@@ -300,7 +307,7 @@ export default function LoginPage() {
                       transition: "color 0.2s",
                     }}
                   >
-                    📧 Email
+                    <Mail size={14} /> Email
                   </label>
                   <input
                     type="email"
@@ -314,7 +321,9 @@ export default function LoginPage() {
                 <div>
                   <label
                     style={{
-                      display: "block",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                       fontWeight: 700,
                       fontSize: "0.88rem",
                       color: focused === "epw" ? "#7c6fe0" : "#3d2c8d",
@@ -322,7 +331,7 @@ export default function LoginPage() {
                       transition: "color 0.2s",
                     }}
                   >
-                    🔒 Password
+                    <Lock size={14} /> Password
                   </label>
                   <input
                     type="password"
@@ -384,11 +393,13 @@ export default function LoginPage() {
                           borderRadius: "50%",
                           animation: "spin 0.8s linear infinite",
                         }}
-                      />
+                      />{" "}
                       Signing In...
                     </>
                   ) : (
-                    "✉️ Sign In with Email"
+                    <>
+                      <Mail size={16} /> Sign In with Email
+                    </>
                   )}
                 </button>
               </div>
@@ -442,7 +453,7 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Phone */}
+            {/* Phone Form */}
             <div
               style={{
                 background:
@@ -466,12 +477,11 @@ export default function LoginPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "1.75rem",
                     margin: "0 auto 1rem",
                     boxShadow: "0 6px 18px rgba(255,126,179,0.18)",
                   }}
                 >
-                  📱
+                  <Phone size={24} color="#ff7eb3" strokeWidth={2} />
                 </div>
                 <h3
                   style={{
@@ -494,7 +504,9 @@ export default function LoginPage() {
                 <div>
                   <label
                     style={{
-                      display: "block",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                       fontWeight: 700,
                       fontSize: "0.88rem",
                       color: focused === "phone" ? "#ff7eb3" : "#3d2c8d",
@@ -502,7 +514,7 @@ export default function LoginPage() {
                       transition: "color 0.2s",
                     }}
                   >
-                    📱 Phone Number
+                    <Phone size={14} /> Phone Number
                   </label>
                   <input
                     type="tel"
@@ -527,7 +539,9 @@ export default function LoginPage() {
                 <div>
                   <label
                     style={{
-                      display: "block",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                       fontWeight: 700,
                       fontSize: "0.88rem",
                       color: focused === "ppw" ? "#ff7eb3" : "#3d2c8d",
@@ -535,7 +549,7 @@ export default function LoginPage() {
                       transition: "color 0.2s",
                     }}
                   >
-                    🔒 Password
+                    <Lock size={14} /> Password
                   </label>
                   <input
                     type="password"
@@ -608,11 +622,13 @@ export default function LoginPage() {
                           borderRadius: "50%",
                           animation: "spin 0.8s linear infinite",
                         }}
-                      />
+                      />{" "}
                       Signing In...
                     </>
                   ) : (
-                    "📱 Sign In with Phone"
+                    <>
+                      <Phone size={16} /> Sign In with Phone
+                    </>
                   )}
                 </button>
               </div>
