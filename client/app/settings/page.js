@@ -1,88 +1,155 @@
 "use client";
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  User,
+  Lock,
+  Mail,
+  Shield,
+  Smartphone,
+  Monitor,
+  Globe,
+  Palette,
+  MapPin,
+  HelpCircle,
+  MessageSquare,
+  AlertTriangle,
+  Info,
+  FileText,
+  Settings,
+  LogOut,
+  ChevronRight,
+  AlertCircle,
+} from "lucide-react";
 
 const settingsSections = [
   {
-    icon: "👤",
+    icon: <User size={20} />,
     title: "Account Settings",
     items: [
       {
         name: "Profile Information",
         description: "Update your personal details and avatar",
+        icon: <User size={16} />,
       },
       {
         name: "Change Password",
         description: "Manage your password and security",
+        icon: <Lock size={16} />,
       },
-      { name: "Email Preferences", description: "Control email notifications" },
+      {
+        name: "Email Preferences",
+        description: "Control email notifications",
+        icon: <Mail size={16} />,
+      },
     ],
   },
   {
-    icon: "🔒",
+    icon: <Shield size={20} />,
     title: "Privacy & Security",
     items: [
       {
         name: "Privacy Settings",
         description: "Control who can see your information",
+        icon: <Shield size={16} />,
       },
       {
         name: "Two-Factor Authentication",
         description: "Add an extra layer of security",
+        icon: <Lock size={16} />,
       },
       {
         name: "Connected Devices",
         description: "Manage your logged-in devices",
+        icon: <Monitor size={16} />,
       },
     ],
   },
   {
-    icon: "🔔",
+    icon: <MessageSquare size={20} />,
     title: "Notifications",
     items: [
       {
         name: "Push Notifications",
         description: "Manage mobile and desktop alerts",
+        icon: <Smartphone size={16} />,
       },
       {
         name: "Email Notifications",
         description: "Choose what emails you receive",
+        icon: <Mail size={16} />,
       },
-      { name: "SMS Notifications", description: "Control text message alerts" },
+      {
+        name: "SMS Notifications",
+        description: "Control text message alerts",
+        icon: <MessageSquare size={16} />,
+      },
     ],
   },
   {
-    icon: "🎨",
+    icon: <Palette size={20} />,
     title: "Preferences",
     items: [
-      { name: "Language", description: "Choose your preferred language" },
-      { name: "Theme", description: "Customize your interface appearance" },
-      { name: "Location", description: "Update your location settings" },
+      {
+        name: "Language",
+        description: "Choose your preferred language",
+        icon: <Globe size={16} />,
+      },
+      {
+        name: "Theme",
+        description: "Customize your interface appearance",
+        icon: <Palette size={16} />,
+      },
+      {
+        name: "Location",
+        description: "Update your location settings",
+        icon: <MapPin size={16} />,
+      },
     ],
   },
   {
-    icon: "💬",
+    icon: <HelpCircle size={20} />,
     title: "Help & Support",
     items: [
-      { name: "Help Center", description: "Find answers to common questions" },
-      { name: "Contact Support", description: "Get help from our team" },
-      { name: "Report a Problem", description: "Let us know about any issues" },
+      {
+        name: "Help Center",
+        description: "Find answers to common questions",
+        icon: <HelpCircle size={16} />,
+      },
+      {
+        name: "Contact Support",
+        description: "Get help from our team",
+        icon: <MessageSquare size={16} />,
+      },
+      {
+        name: "Report a Problem",
+        description: "Let us know about any issues",
+        icon: <AlertTriangle size={16} />,
+      },
     ],
   },
   {
-    icon: "ℹ️",
+    icon: <Info size={20} />,
     title: "About",
     items: [
       {
         name: "Terms of Service",
         description: "Read our terms and conditions",
+        icon: <FileText size={16} />,
       },
-      { name: "Privacy Policy", description: "Learn how we protect your data" },
-      { name: "App Version", description: "Version 1.0.0" },
+      {
+        name: "Privacy Policy",
+        description: "Learn how we protect your data",
+        icon: <Shield size={16} />,
+      },
+      {
+        name: "App Version",
+        description: "Version 1.0.0",
+        icon: <Info size={16} />,
+      },
     ],
   },
 ];
@@ -91,7 +158,6 @@ export default function SettingsPage() {
   const router = useRouter();
   const { logout } = useAuth();
   const [hoveredItem, setHoveredItem] = useState(null);
-
   const handleLogout = () => {
     logout();
     router.push("/");
@@ -141,7 +207,6 @@ export default function SettingsPage() {
           }}
         />
       </div>
-
       <div style={{ position: "relative", zIndex: 1 }}>
         <Navbar />
         <div
@@ -151,7 +216,6 @@ export default function SettingsPage() {
             padding: "3rem 2rem 4rem",
           }}
         >
-          {/* Header */}
           <div
             style={{
               textAlign: "center",
@@ -175,7 +239,7 @@ export default function SettingsPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              ⚙️ Settings
+              <Settings size={14} /> Settings
             </div>
             <h1
               style={{
@@ -197,8 +261,7 @@ export default function SettingsPage() {
                 }}
               >
                 Settings
-              </span>{" "}
-              ⚙️
+              </span>
             </h1>
             <p
               style={{ fontSize: "1.05rem", color: "#5a4d9e", fontWeight: 500 }}
@@ -207,7 +270,7 @@ export default function SettingsPage() {
             </p>
           </div>
 
-          {/* Sign Out Banner */}
+          {/* Logout */}
           <div
             style={{
               background:
@@ -216,8 +279,7 @@ export default function SettingsPage() {
               padding: "2rem 2.5rem",
               marginBottom: "2.5rem",
               border: "2px solid rgba(239,68,68,0.3)",
-              boxShadow:
-                "0 8px 28px rgba(239,68,68,0.1), inset 0 1px 0 rgba(255,255,255,0.7)",
+              boxShadow: "0 8px 28px rgba(239,68,68,0.1)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -236,10 +298,9 @@ export default function SettingsPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.5rem",
                 }}
               >
-                🚪
+                <LogOut size={20} color="#dc2626" />
               </div>
               <div>
                 <h3
@@ -276,9 +337,11 @@ export default function SettingsPage() {
                 fontSize: "1rem",
                 cursor: "pointer",
                 fontFamily: "'Nunito', sans-serif",
-                boxShadow:
-                  "0 6px 18px rgba(220,38,38,0.35), inset 0 1px 0 rgba(255,255,255,0.25)",
-                transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                boxShadow: "0 6px 18px rgba(220,38,38,0.35)",
+                transition: "all 0.3s",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform =
@@ -292,11 +355,10 @@ export default function SettingsPage() {
                   "0 6px 18px rgba(220,38,38,0.35)";
               }}
             >
-              Log Out
+              <LogOut size={16} /> Log Out
             </button>
           </div>
 
-          {/* Settings Sections */}
           <div
             style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
           >
@@ -309,8 +371,7 @@ export default function SettingsPage() {
                   borderRadius: "2rem",
                   padding: "2.25rem",
                   border: "1.5px solid rgba(255,255,255,0.85)",
-                  boxShadow:
-                    "0 10px 32px rgba(124,111,224,0.14), inset 0 1px 0 rgba(255,255,255,0.9)",
+                  boxShadow: "0 10px 32px rgba(124,111,224,0.14)",
                   animation: `slideUp 0.6s cubic-bezier(0.34,1.56,0.64,1) ${
                     si * 0.07
                   }s both`,
@@ -335,8 +396,7 @@ export default function SettingsPage() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "1.35rem",
-                      boxShadow: "0 3px 10px rgba(124,111,224,0.15)",
+                      color: "#7c6fe0",
                     }}
                   >
                     {section.icon}
@@ -389,26 +449,35 @@ export default function SettingsPage() {
                           justifyContent: "space-between",
                         }}
                       >
-                        <div>
-                          <h3
-                            style={{
-                              fontWeight: 700,
-                              fontSize: "0.97rem",
-                              color: "#2d1b69",
-                              marginBottom: "0.2rem",
-                            }}
-                          >
-                            {item.name}
-                          </h3>
-                          <p
-                            style={{
-                              fontSize: "0.82rem",
-                              color: "#6b5fa8",
-                              fontWeight: 500,
-                            }}
-                          >
-                            {item.description}
-                          </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                          }}
+                        >
+                          <div style={{ color: "#7c6fe0" }}>{item.icon}</div>
+                          <div>
+                            <h3
+                              style={{
+                                fontWeight: 700,
+                                fontSize: "0.97rem",
+                                color: "#2d1b69",
+                                marginBottom: "0.2rem",
+                              }}
+                            >
+                              {item.name}
+                            </h3>
+                            <p
+                              style={{
+                                fontSize: "0.82rem",
+                                color: "#6b5fa8",
+                                fontWeight: 500,
+                              }}
+                            >
+                              {item.description}
+                            </p>
+                          </div>
                         </div>
                         <div
                           style={{
@@ -422,13 +491,12 @@ export default function SettingsPage() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: "0.75rem",
-                            transition: "all 0.25s ease",
+                            transition: "all 0.25s",
                             color: hoveredItem === key ? "white" : "#7c6fe0",
                             flexShrink: 0,
                           }}
                         >
-                          →
+                          <ChevronRight size={12} />
                         </div>
                       </div>
                     );
@@ -468,10 +536,9 @@ export default function SettingsPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.35rem",
                 }}
               >
-                ⚠️
+                <AlertCircle size={20} color="#dc2626" />
               </div>
               <h2
                 style={{
@@ -511,14 +578,10 @@ export default function SettingsPage() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "rgba(255,100,100,0.1)";
                   e.currentTarget.style.transform = "translateX(5px)";
-                  e.currentTarget.style.border =
-                    "1px solid rgba(239,68,68,0.3)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "rgba(255,100,100,0.05)";
                   e.currentTarget.style.transform = "translateX(0)";
-                  e.currentTarget.style.border =
-                    "1px solid rgba(239,68,68,0.18)";
                 }}
               >
                 <div>
@@ -551,11 +614,10 @@ export default function SettingsPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "0.75rem",
                     color: "#dc2626",
                   }}
                 >
-                  →
+                  <ChevronRight size={12} />
                 </div>
               </div>
             ))}
@@ -563,7 +625,6 @@ export default function SettingsPage() {
         </div>
         <Footer />
       </div>
-
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
         @keyframes slideUp {

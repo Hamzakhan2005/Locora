@@ -1,25 +1,40 @@
 "use client";
-
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import {
+  Megaphone,
+  MapPin,
+  MessageCircle,
+  Handshake,
+  Bell,
+  CheckCircle,
+  Zap,
+  Medal,
+  Star,
+  Tag,
+  Users,
+  Lightbulb,
+  Globe,
+  Rocket,
+} from "lucide-react";
 
 export default function ServicesPage() {
   const [hoveredService, setHoveredService] = useState(null);
 
   const services = [
     {
-      icon: "📢",
+      icon: <Megaphone size={36} />,
       title: "Post a Help Request",
       description:
-        "If you need help — whether it's something urgent or a small task — you can create a Help Post describing your situation. Your request will be shared with people nearby who can step in.",
+        "If you need help — whether it's something urgent or a small task — you can create a Help Post describing your situation.",
       color: "rgba(168,156,247,0.2)",
       border: "rgba(124,111,224,0.3)",
       accent: "#7c6fe0",
       bg: "rgba(168,156,247,0.08)",
     },
     {
-      icon: "📍",
+      icon: <MapPin size={36} />,
       title: "Location-Based Notifications",
       description:
         "The moment you post, users in your local area get notified. No need to wait days — help can come from someone just a few streets away.",
@@ -29,20 +44,20 @@ export default function ServicesPage() {
       bg: "rgba(255,126,179,0.08)",
     },
     {
-      icon: "💬",
+      icon: <MessageCircle size={36} />,
       title: "Real-Time Chat",
       description:
-        "Once someone sees your post, they can start a conversation directly through our built-in chat. This allows for quick coordination, clarity, and a more personal connection.",
+        "Once someone sees your post, they can start a conversation directly through our built-in chat for quick coordination.",
       color: "rgba(96,196,248,0.2)",
       border: "rgba(96,196,248,0.3)",
       accent: "#0ea5e9",
       bg: "rgba(96,196,248,0.08)",
     },
     {
-      icon: "🤝",
+      icon: <Handshake size={36} />,
       title: "Accept to Help",
       description:
-        "Users who are ready to take action can formally accept a help post. This helps the requester know who's committed and builds a sense of accountability.",
+        "Users who are ready to take action can formally accept a help post. This helps the requester know who's committed.",
       color: "rgba(110,231,183,0.2)",
       border: "rgba(110,231,183,0.3)",
       accent: "#059669",
@@ -51,22 +66,25 @@ export default function ServicesPage() {
   ];
 
   const liveUpdates = [
-    { icon: "⚡", text: "Instant notifications for new posts near you" },
-    { icon: "💬", text: "Live message updates when someone reaches out" },
-    { icon: "✅", text: "Real-time status on who accepted to help" },
+    {
+      icon: <Zap size={24} />,
+      text: "Instant notifications for new posts near you",
+    },
+    {
+      icon: <MessageCircle size={24} />,
+      text: "Live message updates when someone reaches out",
+    },
+    {
+      icon: <CheckCircle size={24} />,
+      text: "Real-time status on who accepted to help",
+    },
   ];
 
   const upcomingFeatures = [
-    { icon: "🏅", text: "Verified helper badges" },
-    { icon: "⭐", text: "Community reputation and trust scores" },
-    {
-      icon: "🏷️",
-      text: "Categories for types of help (education, errands, tech, etc.)",
-    },
-    {
-      icon: "👥",
-      text: "Group-based support (neighborhoods, campuses, clubs)",
-    },
+    { icon: <Medal size={20} />, text: "Verified helper badges" },
+    { icon: <Star size={20} />, text: "Community reputation and trust scores" },
+    { icon: <Tag size={20} />, text: "Categories for types of help" },
+    { icon: <Users size={20} />, text: "Group-based support" },
   ];
 
   return (
@@ -79,7 +97,6 @@ export default function ServicesPage() {
         overflow: "hidden",
       }}
     >
-      {/* Blobs */}
       <div
         style={{
           position: "fixed",
@@ -113,18 +130,17 @@ export default function ServicesPage() {
           }}
         />
       </div>
-
       <div style={{ position: "relative", zIndex: 1 }}>
         <Navbar />
-
         <div
           style={{ maxWidth: "1200px", margin: "0 auto", padding: "3rem 2rem" }}
         >
-          {/* Header */}
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <div
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
                 padding: "0.4rem 1.25rem",
                 borderRadius: "2rem",
                 background:
@@ -136,9 +152,8 @@ export default function ServicesPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              🛠️ Our Services
+              <Handshake size={14} /> Our Services
             </div>
-
             <h1
               style={{
                 fontFamily: "'Sora', sans-serif",
@@ -159,10 +174,8 @@ export default function ServicesPage() {
                 }}
               >
                 Offer
-              </span>{" "}
-              ✨
+              </span>
             </h1>
-
             <p
               style={{
                 fontSize: "1.15rem",
@@ -178,7 +191,6 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          {/* Main Services Grid */}
           <div
             style={{
               display: "grid",
@@ -198,8 +210,8 @@ export default function ServicesPage() {
                   padding: "2.5rem",
                   boxShadow:
                     hoveredService === index
-                      ? `0 20px 55px rgba(124,111,224,0.28), inset 0 1px 0 rgba(255,255,255,0.9)`
-                      : "0 10px 32px rgba(124,111,224,0.16), inset 0 1px 0 rgba(255,255,255,0.8)",
+                      ? "0 20px 55px rgba(124,111,224,0.28)"
+                      : "0 10px 32px rgba(124,111,224,0.16)",
                   border: `2px solid ${
                     hoveredService === index
                       ? service.border
@@ -223,9 +235,8 @@ export default function ServicesPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "2.25rem",
+                    color: service.accent,
                     marginBottom: "1.5rem",
-                    boxShadow: `0 6px 20px ${service.color}`,
                     transition:
                       "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     transform:
@@ -236,7 +247,6 @@ export default function ServicesPage() {
                 >
                   {service.icon}
                 </div>
-
                 <h2
                   style={{
                     fontFamily: "'Sora', sans-serif",
@@ -248,7 +258,6 @@ export default function ServicesPage() {
                 >
                   {service.title}
                 </h2>
-
                 <p
                   style={{
                     color: "#5a4d9e",
@@ -259,7 +268,6 @@ export default function ServicesPage() {
                 >
                   {service.description}
                 </p>
-
                 <div
                   style={{
                     marginTop: "1.5rem",
@@ -302,18 +310,6 @@ export default function ServicesPage() {
               overflow: "hidden",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: "10%",
-                right: "5%",
-                fontSize: "5rem",
-                opacity: 0.2,
-                animation: "floatE 5s ease-in-out infinite",
-              }}
-            >
-              🔔
-            </div>
             <div style={{ position: "relative", zIndex: 1 }}>
               <div
                 style={{
@@ -332,11 +328,9 @@ export default function ServicesPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "1.75rem",
-                    backdropFilter: "blur(8px)",
                   }}
                 >
-                  🔔
+                  <Bell size={24} color="white" />
                 </div>
                 <h2
                   style={{
@@ -344,13 +338,11 @@ export default function ServicesPage() {
                     fontSize: "2rem",
                     fontWeight: 800,
                     color: "white",
-                    textShadow: "0 2px 6px rgba(0,0,0,0.1)",
                   }}
                 >
                   Live Updates & Interactions
                 </h2>
               </div>
-
               <div
                 style={{
                   display: "grid",
@@ -370,7 +362,7 @@ export default function ServicesPage() {
                       display: "flex",
                       alignItems: "flex-start",
                       gap: "1rem",
-                      transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                      transition: "all 0.3s",
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background =
@@ -383,7 +375,9 @@ export default function ServicesPage() {
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
-                    <span style={{ fontSize: "1.75rem" }}>{item.icon}</span>
+                    <div style={{ color: "white", flexShrink: 0 }}>
+                      {item.icon}
+                    </div>
                     <span
                       style={{
                         color: "rgba(255,255,255,0.95)",
@@ -408,8 +402,7 @@ export default function ServicesPage() {
               borderRadius: "2.5rem",
               padding: "3.5rem",
               border: "1.5px solid rgba(124,111,224,0.2)",
-              boxShadow:
-                "0 12px 40px rgba(124,111,224,0.16), inset 0 1px 0 rgba(255,255,255,0.9)",
+              boxShadow: "0 12px 40px rgba(124,111,224,0.16)",
               marginBottom: "3rem",
             }}
           >
@@ -421,7 +414,7 @@ export default function ServicesPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              <span style={{ fontSize: "3rem" }}>🌱</span>
+              <Lightbulb size={36} color="#7c6fe0" />
               <h2
                 style={{
                   fontFamily: "'Sora', sans-serif",
@@ -464,7 +457,8 @@ export default function ServicesPage() {
                     borderRadius: "1.25rem",
                     padding: "1.25rem 1.5rem",
                     border: "1.5px solid rgba(124,111,224,0.18)",
-                    transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    transition: "all 0.3s",
+                    color: "#7c6fe0",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateX(6px)";
@@ -477,7 +471,7 @@ export default function ServicesPage() {
                       "linear-gradient(145deg, rgba(168,156,247,0.1), rgba(255,255,255,0.5))";
                   }}
                 >
-                  <span style={{ fontSize: "1.5rem" }}>{feat.icon}</span>
+                  {feat.icon}
                   <span
                     style={{
                       color: "#3d2c8d",
@@ -504,34 +498,15 @@ export default function ServicesPage() {
               overflow: "hidden",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: "10%",
-                left: "5%",
-                fontSize: "4rem",
-                opacity: 0.15,
-                animation: "floatE 6s ease-in-out infinite",
-              }}
-            >
-              💡
-            </div>
-            <div
-              style={{
-                position: "absolute",
-                bottom: "10%",
-                right: "5%",
-                fontSize: "3rem",
-                opacity: 0.15,
-                animation: "floatE 8s ease-in-out infinite 1s",
-              }}
-            >
-              🌍
-            </div>
-
             <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ fontSize: "4.5rem", marginBottom: "1.25rem" }}>
-                💡
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                <Lightbulb size={48} color="white" opacity={0.9} />
               </div>
               <h2
                 style={{
@@ -572,23 +547,25 @@ export default function ServicesPage() {
                   fontFamily: "'Nunito', sans-serif",
                   boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
                   transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform =
-                    "translateY(-4px) scale(1.05)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0) scale(1)";
-                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform =
+                    "translateY(-4px) scale(1.05)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "translateY(0) scale(1)")
+                }
               >
-                🚀 Get Started Today
+                <Rocket size={18} /> Get Started Today
               </button>
             </div>
           </div>
         </div>
         <Footer />
       </div>
-
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
         @keyframes blobA {
@@ -618,15 +595,6 @@ export default function ServicesPage() {
           }
           100% {
             background-position: 0% 50%;
-          }
-        }
-        @keyframes floatE {
-          0%,
-          100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-20px) rotate(10deg);
           }
         }
       `}</style>
