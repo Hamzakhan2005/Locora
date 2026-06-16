@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import {
   getHelps,
@@ -9,6 +8,15 @@ import {
 } from "../utils/api";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import {
+  MapPin,
+  Sparkles,
+  RefreshCw,
+  Handshake,
+  CheckCircle,
+  Tag,
+  Navigation,
+} from "lucide-react";
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState([]);
@@ -47,10 +55,8 @@ export default function CommunityPage() {
       setNearMe(true);
       setLoading(true);
       fetchPosts({ lat, lng, radius: 20 });
-    } catch (err) {
-      alert(
-        "Couldn't get your location. Please enable location access and try again."
-      );
+    } catch {
+      alert("Couldn't get your location.");
     } finally {
       setLocating(false);
     }
@@ -61,9 +67,8 @@ export default function CommunityPage() {
     try {
       await sendHelpRequest(post._id);
       setRequestedIds((prev) => new Set(prev).add(post._id));
-      alert("Help offer sent! The poster will be notified.");
+      alert("Help offer sent!");
     } catch (err) {
-      console.error("Help accept error:", err);
       alert(err.message || "Failed to offer help");
     } finally {
       setHelpingPost(null);
@@ -87,7 +92,7 @@ export default function CommunityPage() {
     fetchPosts();
   }, []);
 
-  if (loading) {
+  if (loading)
     return (
       <div
         style={{
@@ -128,12 +133,11 @@ export default function CommunityPage() {
           </p>
         </div>
         <Footer />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <style>{`@keyframes spin{to{transform:rotate(360deg);}}`}</style>
       </div>
     );
-  }
 
-  if (error) {
+  if (error)
     return (
       <div
         style={{
@@ -157,10 +161,8 @@ export default function CommunityPage() {
               borderRadius: "1.5rem",
               padding: "2rem 3rem",
               textAlign: "center",
-              fontFamily: "'Nunito', sans-serif",
             }}
           >
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>😢</div>
             <p
               style={{ color: "#dc2626", fontWeight: 700, fontSize: "1.1rem" }}
             >
@@ -171,7 +173,6 @@ export default function CommunityPage() {
         <Footer />
       </div>
     );
-  }
 
   return (
     <div
@@ -184,7 +185,6 @@ export default function CommunityPage() {
         overflow: "hidden",
       }}
     >
-      {/* Background blobs */}
       <div
         style={{
           position: "fixed",
@@ -217,27 +217,13 @@ export default function CommunityPage() {
             animation: "blobB 20s ease-in-out infinite",
           }}
         />
-        <div
-          style={{
-            position: "absolute",
-            width: "350px",
-            height: "350px",
-            background:
-              "radial-gradient(circle, rgba(96,196,248,0.18) 0%, transparent 70%)",
-            top: "40%",
-            right: "30%",
-            animation: "blobC 14s ease-in-out infinite",
-          }}
-        />
       </div>
 
       <div style={{ position: "relative", zIndex: 1 }}>
         <Navbar />
-
         <div
           style={{ maxWidth: "880px", margin: "0 auto", padding: "3rem 2rem" }}
         >
-          {/* Header */}
           <div
             style={{
               textAlign: "center",
@@ -261,9 +247,8 @@ export default function CommunityPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              🏘️ Community Hub
+              <Navigation size={14} /> Community Hub
             </div>
-
             <h1
               style={{
                 fontFamily: "'Sora', sans-serif",
@@ -284,18 +269,15 @@ export default function CommunityPage() {
                 }}
               >
                 Posts
-              </span>{" "}
-              🌸
+              </span>
             </h1>
-
             <p
               style={{ fontSize: "1.1rem", color: "#5a4d9e", fontWeight: 500 }}
             >
-              Browse help requests from your community and lend a hand 🤝
+              Browse help requests from your community and lend a hand
             </p>
           </div>
 
-          {/* Near Me filter */}
           <div
             style={{
               display: "flex",
@@ -318,13 +300,16 @@ export default function CommunityPage() {
                 fontSize: "0.92rem",
                 cursor: locating ? "wait" : "pointer",
                 fontFamily: "'Nunito', sans-serif",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
                 boxShadow: nearMe
                   ? "0 6px 18px rgba(124,111,224,0.35)"
                   : "0 4px 14px rgba(124,111,224,0.14)",
                 transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
               }}
             >
-              📍{" "}
+              <MapPin size={15} />{" "}
               {locating
                 ? "Locating..."
                 : nearMe
@@ -341,8 +326,7 @@ export default function CommunityPage() {
               borderRadius: "2rem",
               padding: "1.5rem 2rem",
               marginBottom: "2.5rem",
-              boxShadow:
-                "0 10px 32px rgba(124,111,224,0.15), inset 0 1px 0 rgba(255,255,255,0.9)",
+              boxShadow: "0 10px 32px rgba(124,111,224,0.15)",
               border: "1.5px solid rgba(124,111,224,0.18)",
             }}
           >
@@ -364,9 +348,13 @@ export default function CommunityPage() {
                   fontWeight: 800,
                   color: "#2d1b69",
                   margin: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
                 }}
               >
-                ✨ AI: Posts you might want to help with
+                <Sparkles size={18} color="#7c6fe0" /> AI: Posts you might want
+                to help with
               </h3>
               <button
                 onClick={loadSuggestions}
@@ -382,23 +370,24 @@ export default function CommunityPage() {
                   fontSize: "0.88rem",
                   cursor: suggestionsLoading ? "wait" : "pointer",
                   fontFamily: "'Nunito', sans-serif",
-                  boxShadow: "0 4px 14px rgba(124,111,224,0.14)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
                 }}
               >
+                <RefreshCw size={13} />{" "}
                 {suggestionsLoading
                   ? "Thinking..."
                   : suggestions.length
-                  ? "Refresh suggestions"
+                  ? "Refresh"
                   : "Get suggestions"}
               </button>
             </div>
-
             {suggestionsError && (
               <p style={{ color: "#dc2626", fontSize: "0.9rem", margin: 0 }}>
                 {suggestionsError}
               </p>
             )}
-
             {!suggestionsError &&
               suggestions.length === 0 &&
               !suggestionsLoading && (
@@ -407,7 +396,6 @@ export default function CommunityPage() {
                   match your interests and skills.
                 </p>
               )}
-
             {suggestions.length > 0 && (
               <div
                 style={{
@@ -460,7 +448,6 @@ export default function CommunityPage() {
             )}
           </div>
 
-          {/* Empty state */}
           {posts.length === 0 ? (
             <div
               style={{
@@ -469,12 +456,10 @@ export default function CommunityPage() {
                 background:
                   "linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,230,255,0.6))",
                 borderRadius: "2rem",
-                boxShadow:
-                  "0 10px 32px rgba(124,111,224,0.15), inset 0 1px 0 rgba(255,255,255,0.9)",
+                boxShadow: "0 10px 32px rgba(124,111,224,0.15)",
                 border: "2px dashed rgba(124,111,224,0.25)",
               }}
             >
-              <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>📭</div>
               <p
                 style={{
                   fontSize: "1.2rem",
@@ -510,10 +495,8 @@ export default function CommunityPage() {
             </div>
           )}
         </div>
-
         <Footer />
       </div>
-
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
         @keyframes spin {
@@ -549,15 +532,6 @@ export default function CommunityPage() {
             transform: translate(-40px, -30px) scale(1.08);
           }
         }
-        @keyframes blobC {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-          }
-          50% {
-            transform: translate(30px, -40px) scale(0.95);
-          }
-        }
         @keyframes cardIn {
           from {
             opacity: 0;
@@ -573,43 +547,35 @@ export default function CommunityPage() {
   );
 }
 
-/* ─── Individual Post Card ─── */
 function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
   const [hovered, setHovered] = useState(false);
-
   const categoryColors = {
     Emergency: {
       bg: "rgba(255,100,100,0.12)",
       border: "rgba(255,100,100,0.3)",
       text: "#dc2626",
-      icon: "🚨",
     },
     Education: {
       bg: "rgba(96,196,248,0.12)",
       border: "rgba(96,196,248,0.3)",
       text: "#0ea5e9",
-      icon: "📚",
     },
     Errands: {
       bg: "rgba(110,231,183,0.12)",
       border: "rgba(110,231,183,0.3)",
       text: "#059669",
-      icon: "🛒",
     },
     Technical: {
       bg: "rgba(255,179,71,0.12)",
       border: "rgba(255,179,71,0.3)",
       text: "#d97706",
-      icon: "💻",
     },
   };
   const cat = categoryColors[post.category] || {
     bg: "rgba(168,156,247,0.12)",
     border: "rgba(124,111,224,0.3)",
     text: "#7c6fe0",
-    icon: "📌",
   };
-
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -620,8 +586,8 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
         borderRadius: "2rem",
         padding: "2rem 2.25rem",
         boxShadow: hovered
-          ? "0 20px 55px rgba(124,111,224,0.25), inset 0 1px 0 rgba(255,255,255,0.9)"
-          : "0 8px 28px rgba(124,111,224,0.14), inset 0 1px 0 rgba(255,255,255,0.8)",
+          ? "0 20px 55px rgba(124,111,224,0.25)"
+          : "0 8px 28px rgba(124,111,224,0.14)",
         border: hovered
           ? "1.5px solid rgba(124,111,224,0.3)"
           : "1.5px solid rgba(255,255,255,0.8)",
@@ -634,7 +600,6 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
         }s both`,
       }}
     >
-      {/* Top row */}
       <div
         style={{
           display: "flex",
@@ -668,7 +633,6 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
             {post.description}
           </p>
         </div>
-        {/* Status pill */}
         <div
           style={{
             padding: "0.3rem 0.85rem",
@@ -680,13 +644,14 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
             color: "#059669",
             whiteSpace: "nowrap",
             flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.3rem",
           }}
         >
-          🟢 Open
+          <CheckCircle size={10} /> Open
         </div>
       </div>
-
-      {/* Tags */}
       <div
         style={{
           display: "flex",
@@ -710,7 +675,8 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
               gap: "0.3rem",
             }}
           >
-            {cat.icon} {post.category}
+            <Tag size={11} />
+            {post.category}
           </div>
         )}
         {post.location && (
@@ -723,9 +689,13 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
               fontSize: "0.78rem",
               fontWeight: 700,
               color: "#7c6fe0",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
             }}
           >
-            📍 {post.location}
+            <MapPin size={11} />
+            {post.location}
           </div>
         )}
         {typeof post.distanceKm === "number" && (
@@ -738,79 +708,85 @@ function PostCard({ post, idx, onHelp, isHelping, isRequested }) {
               fontSize: "0.78rem",
               fontWeight: 700,
               color: "#7c6fe0",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
             }}
           >
+            <Navigation size={11} />
             {post.distanceKm.toFixed(1)} km away
           </div>
         )}
       </div>
-
-      {/* Action buttons */}
-      <div style={{ display: "flex", gap: "0.875rem" }}>
-        <button
-          onClick={onHelp}
-          disabled={isHelping || isRequested}
-          style={{
-            flex: 1,
-            padding: "0.8rem",
-            borderRadius: "1.1rem",
-            border: "none",
-            background: isRequested
-              ? "linear-gradient(145deg, #c4f0d4, #96d4ae)"
-              : isHelping
-              ? "linear-gradient(145deg, #c4bcf0, #9e96d4)"
-              : "linear-gradient(145deg, #a89cf7, #7c6fe0)",
-            color: "white",
-            fontWeight: 800,
-            fontSize: "0.97rem",
-            cursor: isHelping || isRequested ? "default" : "pointer",
-            fontFamily: "'Nunito', sans-serif",
-            boxShadow:
-              isHelping || isRequested
-                ? "none"
-                : "0 6px 18px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)",
-            transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.4rem",
-          }}
-          onMouseEnter={(e) => {
-            if (!isHelping && !isRequested) {
-              e.currentTarget.style.transform = "translateY(-3px) scale(1.03)";
-              e.currentTarget.style.boxShadow =
-                "0 12px 28px rgba(124,111,224,0.5), inset 0 1px 0 rgba(255,255,255,0.3)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0) scale(1)";
+      <button
+        onClick={onHelp}
+        disabled={isHelping || isRequested}
+        style={{
+          width: "100%",
+          padding: "0.8rem",
+          borderRadius: "1.1rem",
+          border: "none",
+          background: isRequested
+            ? "linear-gradient(145deg, #c4f0d4, #96d4ae)"
+            : isHelping
+            ? "linear-gradient(145deg, #c4bcf0, #9e96d4)"
+            : "linear-gradient(145deg, #a89cf7, #7c6fe0)",
+          color: "white",
+          fontWeight: 800,
+          fontSize: "0.97rem",
+          cursor: isHelping || isRequested ? "default" : "pointer",
+          fontFamily: "'Nunito', sans-serif",
+          boxShadow:
+            isHelping || isRequested
+              ? "none"
+              : "0 6px 18px rgba(124,111,224,0.4)",
+          transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.4rem",
+        }}
+        onMouseEnter={(e) => {
+          if (!isHelping && !isRequested) {
+            e.currentTarget.style.transform = "translateY(-3px) scale(1.03)";
             e.currentTarget.style.boxShadow =
-              isHelping || isRequested
-                ? "none"
-                : "0 6px 18px rgba(124,111,224,0.4), inset 0 1px 0 rgba(255,255,255,0.3)";
-          }}
-        >
-          {isHelping ? (
-            <>
-              <div
-                style={{
-                  width: "1rem",
-                  height: "1rem",
-                  border: "2px solid rgba(255,255,255,0.4)",
-                  borderTopColor: "white",
-                  borderRadius: "50%",
-                  animation: "spin 0.8s linear infinite",
-                }}
-              />
-              Sending...
-            </>
-          ) : isRequested ? (
-            "✅ Request Sent"
-          ) : (
-            "🤝 Help"
-          )}
-        </button>
-      </div>
+              "0 12px 28px rgba(124,111,224,0.5)";
+          }
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0) scale(1)";
+          e.currentTarget.style.boxShadow =
+            isHelping || isRequested
+              ? "none"
+              : "0 6px 18px rgba(124,111,224,0.4)";
+        }}
+      >
+        {isHelping ? (
+          <>
+            <div
+              style={{
+                width: "1rem",
+                height: "1rem",
+                border: "2px solid rgba(255,255,255,0.4)",
+                borderTopColor: "white",
+                borderRadius: "50%",
+                animation: "spin 0.8s linear infinite",
+              }}
+            />
+            Sending...
+          </>
+        ) : isRequested ? (
+          <>
+            <CheckCircle size={16} />
+            Request Sent
+          </>
+        ) : (
+          <>
+            <Handshake size={16} />
+            Help
+          </>
+        )}
+      </button>
     </div>
   );
 }

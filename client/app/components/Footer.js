@@ -1,6 +1,13 @@
 "use client";
-
 import Link from "next/link";
+import {
+  Home,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Facebook,
+  Globe,
+} from "lucide-react";
 
 export default function Footer() {
   return (
@@ -14,12 +21,7 @@ export default function Footer() {
         marginTop: "4rem",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-        }}
-      >
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <div
           style={{
             display: "grid",
@@ -28,7 +30,6 @@ export default function Footer() {
             marginBottom: "2rem",
           }}
         >
-          {/* Brand */}
           <div>
             <div
               style={{
@@ -48,10 +49,9 @@ export default function Footer() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.1rem",
                 }}
               >
-                🏘️
+                <Home size={16} color="white" />
               </div>
               <span
                 style={{
@@ -76,12 +76,12 @@ export default function Footer() {
               }}
             >
               Connecting communities, one helping hand at a time. Building
-              stronger neighborhoods together. 🌸
+              stronger neighborhoods together.
             </p>
             <div
               style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}
             >
-              {["🐦", "📸", "💼", "📘"].map((icon, i) => (
+              {[Twitter, Instagram, Linkedin, Facebook].map((Icon, i) => (
                 <div
                   key={i}
                   style={{
@@ -90,12 +90,10 @@ export default function Footer() {
                     borderRadius: "0.75rem",
                     background:
                       "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,230,255,0.7))",
-                    boxShadow:
-                      "0 3px 10px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    boxShadow: "0 3px 10px rgba(124,111,224,0.2)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "0.95rem",
                     cursor: "pointer",
                     transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   }}
@@ -107,13 +105,11 @@ export default function Footer() {
                     (e.currentTarget.style.transform = "translateY(0) scale(1)")
                   }
                 >
-                  {icon}
+                  <Icon size={14} color="#7c6fe0" />
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Links */}
           {[
             {
               title: "Platform",
@@ -176,8 +172,6 @@ export default function Footer() {
             </div>
           ))}
         </div>
-
-        {/* Bottom Bar */}
         <div
           style={{
             borderTop: "1.5px solid rgba(124,111,224,0.15)",
@@ -188,7 +182,7 @@ export default function Footer() {
           }}
         >
           <p style={{ color: "#8b80c8", fontSize: "0.85rem", fontWeight: 600 }}>
-            © 2025 Locora · Made with 💜 for communities
+            © 2025 Locora · Made with love for communities
           </p>
           <div
             style={{
@@ -202,7 +196,7 @@ export default function Footer() {
               border: "1px solid rgba(124,111,224,0.2)",
             }}
           >
-            <span style={{ fontSize: "0.75rem" }}>🌍</span>
+            <Globe size={12} color="#7c6fe0" />
             <span
               style={{ color: "#7c6fe0", fontSize: "0.8rem", fontWeight: 700 }}
             >

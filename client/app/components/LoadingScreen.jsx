@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Home, Sparkles, Star, Zap } from "lucide-react";
 
 const RADIUS = 100;
 const CIRC = 2 * Math.PI * RADIUS;
@@ -13,21 +14,19 @@ const LABELS = [
 ];
 
 const SPARKLES = [
-  { emoji: "✨", top: "10%", left: "8%", dx: -30, dy: -30 },
-  { emoji: "💫", top: "5%", left: "80%", dx: 35, dy: -25 },
-  { emoji: "🌟", top: "85%", left: "15%", dx: -25, dy: 30 },
-  { emoji: "✨", top: "88%", left: "78%", dx: 30, dy: 35 },
+  {
+    Icon: Sparkles,
+    color: "#a89cf7",
+    top: "10%",
+    left: "8%",
+    dx: -30,
+    dy: -30,
+  },
+  { Icon: Star, color: "#ff7eb3", top: "5%", left: "80%", dx: 35, dy: -25 },
+  { Icon: Zap, color: "#60c4f8", top: "85%", left: "15%", dx: -25, dy: 30 },
+  { Icon: Sparkles, color: "#a89cf7", top: "88%", left: "78%", dx: 30, dy: 35 },
 ];
 
-/**
- * Locora claymorphism loading screen.
- *
- * Props:
- *  - duration: ms for the simulated progress run (ignored if `progress` is provided)
- *  - progress: 0-100 to drive the loader externally (controlled mode)
- *  - onComplete: called once after the brand reveal finishes
- *  - loop: if true, restarts automatically after completing (good for app/loading.js)
- */
 export default function LoadingScreen({
   duration = 3200,
   progress: controlledProgress,
@@ -35,14 +34,13 @@ export default function LoadingScreen({
   loop = false,
 }) {
   const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState("loading"); // loading | bursting | done
+  const [phase, setPhase] = useState("loading");
   const [sparkleKey, setSparkleKey] = useState(0);
   const rafRef = useRef(null);
   const startRef = useRef(null);
 
   const isControlled = controlledProgress !== undefined;
 
-  // Simulated progress (uncontrolled mode)
   useEffect(() => {
     if (isControlled) return;
 
@@ -69,12 +67,10 @@ export default function LoadingScreen({
     return () => rafRef.current && cancelAnimationFrame(rafRef.current);
   }, [isControlled, duration, loop]);
 
-  // Controlled progress passthrough
   useEffect(() => {
     if (isControlled) setProgress(controlledProgress);
   }, [isControlled, controlledProgress]);
 
-  // Trigger completion sequence when progress hits 100
   useEffect(() => {
     if (progress < 100 || phase !== "loading") return;
 
@@ -193,7 +189,6 @@ export default function LoadingScreen({
         />
       </div>
 
-      {/* Stage */}
       <div
         style={{
           position: "relative",
@@ -294,39 +289,31 @@ export default function LoadingScreen({
               overflow: "hidden",
             }}
           >
-            <span
+            {/* Greyed-out base icon */}
+            <div style={{ position: "absolute", opacity: 0.18 }}>
+              <Home size={72} color="#7c6fe0" strokeWidth={1.5} />
+            </div>
+            {/* Revealed icon with clip */}
+            <div
               style={{
-                fontSize: "5.2rem",
-                lineHeight: 1,
-                filter: "grayscale(1) opacity(0.18)",
                 position: "absolute",
-              }}
-            >
-              🏘️
-            </span>
-            <span
-              style={{
-                fontSize: "5.2rem",
-                lineHeight: 1,
-                position: "absolute",
-                filter: "drop-shadow(0 4px 10px rgba(124,111,224,0.35))",
                 clipPath: `inset(${reveal}% 0 0 0)`,
                 transition: "clip-path 0.15s linear",
+                filter: "drop-shadow(0 4px 10px rgba(124,111,224,0.35))",
               }}
             >
-              🏘️
-            </span>
+              <Home size={72} color="#7c6fe0" strokeWidth={1.5} />
+            </div>
           </div>
 
-          {/* Sparkles */}
+          {/* Sparkle icons */}
           {SPARKLES.map((s, i) => (
-            <span
+            <div
               key={`${sparkleKey}-${i}`}
               style={{
                 position: "absolute",
                 top: s.top,
                 left: s.left,
-                fontSize: "1.4rem",
                 pointerEvents: "none",
                 animation: bursting
                   ? `ls-sparkPop 1s ease-out ${i * 0.06}s forwards`
@@ -336,8 +323,13 @@ export default function LoadingScreen({
                 "--dy": `${s.dy}px`,
               }}
             >
-              {s.emoji}
-            </span>
+              <s.Icon
+                size={22}
+                color={s.color}
+                fill={s.color}
+                strokeWidth={1}
+              />
+            </div>
           ))}
         </div>
 
@@ -406,11 +398,10 @@ export default function LoadingScreen({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "1.9rem",
                 animation: "ls-brandFloat 3.5s ease-in-out infinite",
               }}
             >
-              🏘️
+              <Home size={28} color="white" strokeWidth={2} />
             </div>
             <div
               style={{
