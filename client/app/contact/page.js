@@ -12,6 +12,7 @@ import {
   Send,
   CheckCircle,
   Star,
+  Loader2,
   Heart,
 } from "lucide-react";
 
