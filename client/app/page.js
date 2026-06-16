@@ -1,11 +1,28 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import LoadingScreen from "@/components/LoadingScreen";
+import {
+  FileText,
+  Handshake,
+  Sparkles,
+  AlertCircle,
+  BookOpen,
+  ShoppingCart,
+  Monitor,
+  Users,
+  CheckCircle,
+  Building2,
+  Star,
+  Eye,
+  MessageCircle,
+  Heart,
+  Rocket,
+} from "lucide-react";
 
 export default function HomePage() {
   const { user } = useAuth();
@@ -14,8 +31,8 @@ export default function HomePage() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 100);
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setVisible(true), 100);
+    return () => clearTimeout(t);
   }, []);
 
   const handleHelpClick = () => router.push(user ? "/community" : "/signin");
@@ -23,21 +40,21 @@ export default function HomePage() {
 
   const services = [
     {
-      icon: "📝",
+      icon: <FileText size={32} />,
       title: "Post your need",
       desc: "Share what you need help with and connect with your community",
       color: "rgba(168,156,247,0.2)",
       accent: "#7c6fe0",
     },
     {
-      icon: "🤝",
+      icon: <Handshake size={32} />,
       title: "Connect with Helpers",
       desc: "Find people nearby ready to lend a helping hand",
       color: "rgba(255,126,179,0.2)",
       accent: "#ff7eb3",
     },
     {
-      icon: "✨",
+      icon: <Sparkles size={32} />,
       title: "Get Assistance",
       desc: "Receive help from verified community members",
       color: "rgba(96,196,248,0.2)",
@@ -47,28 +64,28 @@ export default function HomePage() {
 
   const needs = [
     {
-      icon: "🚨",
+      icon: <AlertCircle size={28} />,
       title: "Emergency Help",
       sub: "Available 24/7",
       color: "rgba(255,100,100,0.15)",
       border: "rgba(255,100,100,0.3)",
     },
     {
-      icon: "📚",
+      icon: <BookOpen size={28} />,
       title: "Education Support",
       sub: "All subjects",
       color: "rgba(96,196,248,0.15)",
       border: "rgba(96,196,248,0.3)",
     },
     {
-      icon: "🛒",
+      icon: <ShoppingCart size={28} />,
       title: "Daily Errands",
       sub: "Local area",
       color: "rgba(110,231,183,0.15)",
       border: "rgba(110,231,183,0.3)",
     },
     {
-      icon: "💻",
+      icon: <Monitor size={28} />,
       title: "Technical Support",
       sub: "Expert help",
       color: "rgba(255,179,71,0.15)",
@@ -77,15 +94,18 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { value: "12K+", label: "Community Members", icon: "👥" },
-    { value: "8.5K+", label: "Requests Fulfilled", icon: "✅" },
-    { value: "50+", label: "Cities Covered", icon: "🏙️" },
-    { value: "4.9★", label: "Average Rating", icon: "⭐" },
+    { value: "12K+", label: "Community Members", icon: <Users size={28} /> },
+    {
+      value: "8.5K+",
+      label: "Requests Fulfilled",
+      icon: <CheckCircle size={28} />,
+    },
+    { value: "50+", label: "Cities Covered", icon: <Building2 size={28} /> },
+    { value: "4.9★", label: "Average Rating", icon: <Star size={28} /> },
   ];
 
   return (
     <>
-      {/* ===== ONE-TIME SPLASH LOADER ===== */}
       {showSplash && (
         <div
           style={{
@@ -97,14 +117,10 @@ export default function HomePage() {
         >
           <LoadingScreen
             duration={2600}
-            onComplete={() => {
-              // Give the brand reveal a beat before unmounting
-              setTimeout(() => setShowSplash(false), 700);
-            }}
+            onComplete={() => setTimeout(() => setShowSplash(false), 700)}
           />
         </div>
       )}
-
       <main
         style={{
           minHeight: "100vh",
@@ -114,7 +130,6 @@ export default function HomePage() {
           position: "relative",
         }}
       >
-        {/* Background blobs */}
         <div
           style={{
             position: "fixed",
@@ -164,11 +179,10 @@ export default function HomePage() {
 
         <div style={{ position: "relative", zIndex: 1 }}>
           <Navbar />
-
           <div
             style={{ maxWidth: "1400px", margin: "0 auto", padding: "2rem" }}
           >
-            {/* ===== HERO SECTION ===== */}
+            {/* HERO */}
             <div
               style={{
                 display: "grid",
@@ -179,7 +193,6 @@ export default function HomePage() {
                 padding: "3rem 0",
               }}
             >
-              {/* Left Content */}
               <div
                 style={{
                   opacity: visible ? 1 : 0,
@@ -197,16 +210,14 @@ export default function HomePage() {
                     background:
                       "linear-gradient(135deg, rgba(124,111,224,0.12), rgba(255,126,179,0.08))",
                     border: "1.5px solid rgba(124,111,224,0.25)",
-                    boxShadow: "0 3px 10px rgba(124,111,224,0.15)",
                     marginBottom: "1.5rem",
                     fontSize: "0.85rem",
                     fontWeight: 700,
                     color: "#7c6fe0",
                   }}
                 >
-                  🏘️ Community Platform for India
+                  <Building2 size={14} /> Community Platform for India
                 </div>
-
                 <h1
                   style={{
                     fontFamily: "'Sora', sans-serif",
@@ -232,9 +243,8 @@ export default function HomePage() {
                     Build Community
                   </span>
                   <br />
-                  Together 🌸
+                  Together
                 </h1>
-
                 <p
                   style={{
                     fontSize: "1.2rem",
@@ -248,7 +258,6 @@ export default function HomePage() {
                   Connect with your neighbors, share local resources, and make
                   your community stronger — one helping hand at a time.
                 </p>
-
                 <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
                   <button
                     onClick={handleHelpClick}
@@ -262,8 +271,7 @@ export default function HomePage() {
                       fontSize: "1.05rem",
                       cursor: "pointer",
                       fontFamily: "'Nunito', sans-serif",
-                      boxShadow:
-                        "0 8px 24px rgba(124,111,224,0.45), inset 0 1px 0 rgba(255,255,255,0.3)",
+                      boxShadow: "0 8px 24px rgba(124,111,224,0.45)",
                       transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                       display: "flex",
                       alignItems: "center",
@@ -273,18 +281,17 @@ export default function HomePage() {
                       e.currentTarget.style.transform =
                         "translateY(-4px) scale(1.05)";
                       e.currentTarget.style.boxShadow =
-                        "0 14px 35px rgba(124,111,224,0.55), inset 0 1px 0 rgba(255,255,255,0.3)";
+                        "0 14px 35px rgba(124,111,224,0.55)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform =
                         "translateY(0) scale(1)";
                       e.currentTarget.style.boxShadow =
-                        "0 8px 24px rgba(124,111,224,0.45), inset 0 1px 0 rgba(255,255,255,0.3)";
+                        "0 8px 24px rgba(124,111,224,0.45)";
                     }}
                   >
-                    🤝 Help Someone
+                    <Handshake size={18} /> Help Someone
                   </button>
-
                   <button
                     onClick={handleNeedClick}
                     style={{
@@ -298,8 +305,7 @@ export default function HomePage() {
                       fontSize: "1.05rem",
                       cursor: "pointer",
                       fontFamily: "'Nunito', sans-serif",
-                      boxShadow:
-                        "0 6px 20px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.9)",
+                      boxShadow: "0 6px 20px rgba(124,111,224,0.2)",
                       transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                       display: "flex",
                       alignItems: "center",
@@ -309,20 +315,18 @@ export default function HomePage() {
                       e.currentTarget.style.transform =
                         "translateY(-4px) scale(1.05)";
                       e.currentTarget.style.boxShadow =
-                        "0 12px 30px rgba(124,111,224,0.3), inset 0 1px 0 rgba(255,255,255,0.9)";
+                        "0 12px 30px rgba(124,111,224,0.3)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform =
                         "translateY(0) scale(1)";
                       e.currentTarget.style.boxShadow =
-                        "0 6px 20px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.9)";
+                        "0 6px 20px rgba(124,111,224,0.2)";
                     }}
                   >
-                    🙏 Need Help
+                    <Heart size={18} /> Need Help
                   </button>
                 </div>
-
-                {/* Trust indicators */}
                 <div
                   style={{
                     display: "flex",
@@ -333,8 +337,7 @@ export default function HomePage() {
                     borderRadius: "1rem",
                     background:
                       "linear-gradient(145deg, rgba(255,255,255,0.7), rgba(240,230,255,0.5))",
-                    boxShadow:
-                      "0 3px 12px rgba(124,111,224,0.12), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    boxShadow: "0 3px 12px rgba(124,111,224,0.12)",
                     border: "1px solid rgba(124,111,224,0.15)",
                     width: "fit-content",
                   }}
@@ -386,7 +389,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right - 3D Card Stack */}
+              {/* Right card stack */}
               <div
                 style={{
                   position: "relative",
@@ -398,7 +401,6 @@ export default function HomePage() {
                   transition: "all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s",
                 }}
               >
-                {/* Background card */}
                 <div
                   style={{
                     position: "absolute",
@@ -415,8 +417,6 @@ export default function HomePage() {
                     animation: "cardFloat2 7s ease-in-out infinite",
                   }}
                 />
-
-                {/* Middle card */}
                 <div
                   style={{
                     position: "absolute",
@@ -433,8 +433,6 @@ export default function HomePage() {
                     animation: "cardFloat3 9s ease-in-out infinite",
                   }}
                 />
-
-                {/* Main card */}
                 <div
                   style={{
                     position: "absolute",
@@ -445,15 +443,13 @@ export default function HomePage() {
                     borderRadius: "2rem",
                     background:
                       "linear-gradient(145deg, rgba(255,255,255,0.95), rgba(240,230,255,0.85))",
-                    boxShadow:
-                      "0 25px 60px rgba(124,111,224,0.3), inset 0 1px 0 rgba(255,255,255,0.9)",
+                    boxShadow: "0 25px 60px rgba(124,111,224,0.3)",
                     border: "1.5px solid rgba(124,111,224,0.2)",
                     animation: "cardFloat1 6s ease-in-out infinite",
                     overflow: "hidden",
                     padding: "2rem",
                   }}
                 >
-                  {/* Card header */}
                   <div
                     style={{
                       display: "flex",
@@ -479,11 +475,10 @@ export default function HomePage() {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "1.5rem",
                           boxShadow: "0 6px 16px rgba(124,111,224,0.35)",
                         }}
                       >
-                        🌟
+                        <Star size={20} color="white" />
                       </div>
                       <div>
                         <div
@@ -502,7 +497,7 @@ export default function HomePage() {
                             fontWeight: 600,
                           }}
                         >
-                          2 min ago • Lucknow
+                          2 min ago · Lucknow
                         </div>
                       </div>
                     </div>
@@ -515,12 +510,14 @@ export default function HomePage() {
                         fontSize: "0.75rem",
                         fontWeight: 700,
                         color: "#059669",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.3rem",
                       }}
                     >
-                      🟢 Open
+                      <CheckCircle size={10} /> Open
                     </div>
                   </div>
-
                   <div
                     style={{
                       background:
@@ -537,9 +534,13 @@ export default function HomePage() {
                         fontWeight: 700,
                         color: "#2d1b69",
                         marginBottom: "0.5rem",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
                       }}
                     >
-                      📚 Need Math Tutor for Class 10
+                      <BookOpen size={16} color="#7c6fe0" /> Need Math Tutor for
+                      Class 10
                     </p>
                     <p
                       style={{
@@ -549,10 +550,9 @@ export default function HomePage() {
                       }}
                     >
                       Looking for someone to help with CBSE Maths preparation.
-                      Weekend sessions preferred. Can pay or exchange help.
+                      Weekend sessions preferred.
                     </p>
                   </div>
-
                   <div
                     style={{
                       display: "flex",
@@ -588,8 +588,6 @@ export default function HomePage() {
                       </div>
                     ))}
                   </div>
-
-                  {/* Mini stats */}
                   <div
                     style={{
                       display: "grid",
@@ -598,9 +596,13 @@ export default function HomePage() {
                     }}
                   >
                     {[
-                      { icon: "👁️", val: "24", label: "Views" },
-                      { icon: "💬", val: "3", label: "Replies" },
-                      { icon: "❤️", val: "8", label: "Willing" },
+                      { icon: <Eye size={16} />, val: "24", label: "Views" },
+                      {
+                        icon: <MessageCircle size={16} />,
+                        val: "3",
+                        label: "Replies",
+                      },
+                      { icon: <Heart size={16} />, val: "8", label: "Willing" },
                     ].map((s, i) => (
                       <div
                         key={i}
@@ -612,7 +614,16 @@ export default function HomePage() {
                           border: "1px solid rgba(124,111,224,0.12)",
                         }}
                       >
-                        <div style={{ fontSize: "1.1rem" }}>{s.icon}</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            color: "#7c6fe0",
+                            marginBottom: "0.25rem",
+                          }}
+                        >
+                          {s.icon}
+                        </div>
                         <div
                           style={{
                             fontWeight: 800,
@@ -635,34 +646,10 @@ export default function HomePage() {
                     ))}
                   </div>
                 </div>
-
-                {/* Floating emoji decorations */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-20px",
-                    right: "15%",
-                    fontSize: "2rem",
-                    animation: "floatParticle 4s ease-in-out infinite",
-                  }}
-                >
-                  ✨
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "10px",
-                    left: "-20px",
-                    fontSize: "1.75rem",
-                    animation: "floatParticle 5s ease-in-out infinite 1s",
-                  }}
-                >
-                  💜
-                </div>
               </div>
             </div>
 
-            {/* ===== STATS BAR ===== */}
+            {/* STATS */}
             <div
               style={{
                 display: "grid",
@@ -683,25 +670,30 @@ export default function HomePage() {
                     borderRadius: "1.5rem",
                     padding: "1.75rem",
                     textAlign: "center",
-                    boxShadow:
-                      "0 8px 28px rgba(124,111,224,0.18), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    boxShadow: "0 8px 28px rgba(124,111,224,0.18)",
                     border: "1.5px solid rgba(255,255,255,0.7)",
                     transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                    animationDelay: `${i * 0.1}s`,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform =
                       "translateY(-8px) scale(1.02)";
                     e.currentTarget.style.boxShadow =
-                      "0 16px 40px rgba(124,111,224,0.28), inset 0 1px 0 rgba(255,255,255,0.8)";
+                      "0 16px 40px rgba(124,111,224,0.28)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0) scale(1)";
                     e.currentTarget.style.boxShadow =
-                      "0 8px 28px rgba(124,111,224,0.18), inset 0 1px 0 rgba(255,255,255,0.8)";
+                      "0 8px 28px rgba(124,111,224,0.18)";
                   }}
                 >
-                  <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      color: "#7c6fe0",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
                     {stat.icon}
                   </div>
                   <div
@@ -731,7 +723,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* ===== HOW IT WORKS ===== */}
+            {/* HOW IT WORKS */}
             <div
               style={{
                 background:
@@ -739,15 +731,16 @@ export default function HomePage() {
                 borderRadius: "2.5rem",
                 padding: "3.5rem",
                 marginBottom: "5rem",
-                boxShadow:
-                  "0 12px 40px rgba(124,111,224,0.2), inset 0 1px 0 rgba(255,255,255,0.8)",
+                boxShadow: "0 12px 40px rgba(124,111,224,0.2)",
                 border: "1.5px solid rgba(255,255,255,0.8)",
               }}
             >
               <div style={{ textAlign: "center", marginBottom: "3rem" }}>
                 <div
                   style={{
-                    display: "inline-block",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
                     padding: "0.4rem 1rem",
                     borderRadius: "2rem",
                     background: "rgba(124,111,224,0.1)",
@@ -758,7 +751,7 @@ export default function HomePage() {
                     marginBottom: "1rem",
                   }}
                 >
-                  ✨ Simple & Easy
+                  <Sparkles size={14} /> Simple & Easy
                 </div>
                 <h2
                   style={{
@@ -771,7 +764,6 @@ export default function HomePage() {
                   How Locora Works
                 </h2>
               </div>
-
               <div
                 style={{
                   display: "grid",
@@ -782,7 +774,7 @@ export default function HomePage() {
                 {[
                   {
                     step: "01",
-                    icon: "📝",
+                    icon: <FileText size={36} />,
                     title: "Post Your Need",
                     desc: "Describe what you need help with in simple words. Add your location and urgency.",
                     color: "rgba(168,156,247,0.2)",
@@ -790,7 +782,7 @@ export default function HomePage() {
                   },
                   {
                     step: "02",
-                    icon: "🔔",
+                    icon: <MessageCircle size={36} />,
                     title: "Get Notified",
                     desc: "Nearby helpers get instant notifications. The right person will reach out quickly.",
                     color: "rgba(255,126,179,0.15)",
@@ -798,7 +790,7 @@ export default function HomePage() {
                   },
                   {
                     step: "03",
-                    icon: "✅",
+                    icon: <CheckCircle size={36} />,
                     title: "Problem Solved",
                     desc: "Chat, coordinate, and get the help you need. Rate and thank your helper!",
                     color: "rgba(110,231,183,0.15)",
@@ -815,14 +807,14 @@ export default function HomePage() {
                       position: "relative",
                       transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform =
-                        "translateY(-8px) scale(1.02)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform =
-                        "translateY(0) scale(1)";
-                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.transform =
+                        "translateY(-8px) scale(1.02)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.transform =
+                        "translateY(0) scale(1)")
+                    }
                   >
                     <div
                       style={{
@@ -842,7 +834,7 @@ export default function HomePage() {
                     </div>
                     <div
                       style={{
-                        fontSize: "3rem",
+                        color: "#7c6fe0",
                         marginBottom: "1rem",
                         marginTop: "0.5rem",
                       }}
@@ -875,7 +867,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ===== SERVICES ===== */}
+            {/* SERVICES */}
             <div style={{ marginBottom: "5rem" }}>
               <div
                 style={{
@@ -891,9 +883,12 @@ export default function HomePage() {
                     fontSize: "2.25rem",
                     fontWeight: 800,
                     color: "#2d1b69",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
                   }}
                 >
-                  Our Services 🛠️
+                  <Monitor size={28} color="#7c6fe0" /> Our Services
                 </h2>
                 <Link href="/services" style={{ textDecoration: "none" }}>
                   <button
@@ -940,8 +935,7 @@ export default function HomePage() {
                       background: `linear-gradient(145deg, rgba(255,255,255,0.92), ${s.color})`,
                       borderRadius: "2rem",
                       padding: "2.5rem 2rem",
-                      boxShadow:
-                        "0 10px 32px rgba(124,111,224,0.18), inset 0 1px 0 rgba(255,255,255,0.8)",
+                      boxShadow: "0 10px 32px rgba(124,111,224,0.18)",
                       border: "1.5px solid rgba(255,255,255,0.8)",
                       transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                       textAlign: "center",
@@ -950,20 +944,21 @@ export default function HomePage() {
                       e.currentTarget.style.transform =
                         "translateY(-10px) scale(1.02)";
                       e.currentTarget.style.boxShadow =
-                        "0 20px 50px rgba(124,111,224,0.28), inset 0 1px 0 rgba(255,255,255,0.8)";
+                        "0 20px 50px rgba(124,111,224,0.28)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform =
                         "translateY(0) scale(1)";
                       e.currentTarget.style.boxShadow =
-                        "0 10px 32px rgba(124,111,224,0.18), inset 0 1px 0 rgba(255,255,255,0.8)";
+                        "0 10px 32px rgba(124,111,224,0.18)";
                     }}
                   >
                     <div
                       style={{
-                        fontSize: "3.5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        color: s.accent,
                         marginBottom: "1.25rem",
-                        filter: "drop-shadow(0 6px 12px rgba(124,111,224,0.3))",
                       }}
                     >
                       {s.icon}
@@ -1005,7 +1000,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ===== COMMON NEEDS ===== */}
+            {/* COMMON NEEDS */}
             <div style={{ marginBottom: "5rem" }}>
               <div style={{ marginBottom: "2.5rem" }}>
                 <h2
@@ -1015,9 +1010,13 @@ export default function HomePage() {
                     fontWeight: 800,
                     color: "#2d1b69",
                     marginBottom: "0.75rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
                   }}
                 >
-                  Common Needs We Help With 💡
+                  <Sparkles size={26} color="#7c6fe0" /> Common Needs We Help
+                  With
                 </h2>
                 <p
                   style={{
@@ -1044,8 +1043,7 @@ export default function HomePage() {
                       background: `linear-gradient(145deg, rgba(255,255,255,0.92), ${n.color})`,
                       borderRadius: "1.75rem",
                       padding: "2rem 1.5rem",
-                      boxShadow:
-                        "0 8px 24px rgba(124,111,224,0.15), inset 0 1px 0 rgba(255,255,255,0.8)",
+                      boxShadow: "0 8px 24px rgba(124,111,224,0.15)",
                       border: `1.5px solid ${n.border}`,
                       textAlign: "center",
                       cursor: "pointer",
@@ -1054,16 +1052,24 @@ export default function HomePage() {
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform =
                         "translateY(-8px) rotate(-1deg) scale(1.03)";
-                      e.currentTarget.style.boxShadow = `0 18px 40px rgba(124,111,224,0.25), inset 0 1px 0 rgba(255,255,255,0.8)`;
+                      e.currentTarget.style.boxShadow =
+                        "0 18px 40px rgba(124,111,224,0.25)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform =
                         "translateY(0) rotate(0) scale(1)";
                       e.currentTarget.style.boxShadow =
-                        "0 8px 24px rgba(124,111,224,0.15), inset 0 1px 0 rgba(255,255,255,0.8)";
+                        "0 8px 24px rgba(124,111,224,0.15)";
                     }}
                   >
-                    <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        color: "#7c6fe0",
+                        marginBottom: "1rem",
+                      }}
+                    >
                       {n.icon}
                     </div>
                     <h3
@@ -1097,7 +1103,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ===== CTA BANNER ===== */}
+            {/* CTA */}
             <div
               style={{
                 borderRadius: "2.5rem",
@@ -1113,45 +1119,16 @@ export default function HomePage() {
                 marginBottom: "2rem",
               }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  top: "15%",
-                  right: "8%",
-                  fontSize: "4rem",
-                  opacity: 0.4,
-                  animation: "floatParticle 4s ease-in-out infinite",
-                }}
-              >
-                🌟
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "15%",
-                  left: "8%",
-                  fontSize: "3rem",
-                  opacity: 0.4,
-                  animation: "floatParticle 6s ease-in-out infinite 1s",
-                }}
-              >
-                💜
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "30%",
-                  left: "12%",
-                  fontSize: "2rem",
-                  opacity: 0.3,
-                  animation: "floatParticle 5s ease-in-out infinite 0.5s",
-                }}
-              >
-                ✨
-              </div>
-
               <div style={{ position: "relative", zIndex: 1 }}>
-                <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🏘️</div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <Building2 size={48} color="white" opacity={0.9} />
+                </div>
                 <h2
                   style={{
                     fontFamily: "'Sora', sans-serif",
@@ -1159,7 +1136,6 @@ export default function HomePage() {
                     fontWeight: 800,
                     color: "white",
                     marginBottom: "1rem",
-                    textShadow: "0 2px 8px rgba(0,0,0,0.1)",
                   }}
                 >
                   Ready to Make a Difference?
@@ -1192,6 +1168,9 @@ export default function HomePage() {
                     fontFamily: "'Nunito', sans-serif",
                     boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
                     transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform =
@@ -1205,7 +1184,7 @@ export default function HomePage() {
                       "0 8px 24px rgba(0,0,0,0.2)";
                   }}
                 >
-                  🚀 Join Locora Free
+                  <Rocket size={18} /> Join Locora Free
                 </button>
               </div>
             </div>
@@ -1215,18 +1194,6 @@ export default function HomePage() {
 
         <style jsx global>{`
           @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
-          @keyframes floatParticle {
-            0%,
-            100% {
-              transform: translateY(0) rotate(0deg);
-            }
-            33% {
-              transform: translateY(-18px) rotate(8deg);
-            }
-            66% {
-              transform: translateY(-8px) rotate(-5deg);
-            }
-          }
           @keyframes cardFloat1 {
             0%,
             100% {

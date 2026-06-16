@@ -3,26 +3,39 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import {
+  Megaphone,
+  Handshake,
+  MessageCircle,
+  ShieldCheck,
+  Globe,
+  Users,
+  Wrench,
+  Rocket,
+  Mail,
+  Sparkles,
+  Home,
+} from "lucide-react";
 
 export default function AboutPage() {
   const howItWorks = [
     {
-      icon: "📢",
+      icon: <Megaphone size={22} color="white" />,
       title: "Post Requests",
       desc: "If you need assistance — whether it's borrowing a tool, finding a tutor, or needing urgent help — you can post your request in seconds.",
     },
     {
-      icon: "🤝",
+      icon: <Handshake size={22} color="white" />,
       title: "Offer Help",
       desc: "Browse requests around you and choose how you can contribute — no effort is too small. Every act of kindness counts.",
     },
     {
-      icon: "💬",
+      icon: <MessageCircle size={22} color="white" />,
       title: "Real-time Chat",
       desc: "Communicate instantly, stay updated, and respond quickly using our built-in chat and real-time alerts.",
     },
     {
-      icon: "✅",
+      icon: <ShieldCheck size={22} color="white" />,
       title: "Verified Community",
       desc: "Every user is part of a trusted space built on accountability, empathy, and mutual respect.",
     },
@@ -98,7 +111,7 @@ export default function AboutPage() {
         <div
           style={{ maxWidth: "1100px", margin: "0 auto", padding: "4rem 2rem" }}
         >
-          {/* ── Hero ── */}
+          {/* Hero */}
           <div
             style={{
               textAlign: "center",
@@ -108,7 +121,9 @@ export default function AboutPage() {
           >
             <div
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
                 padding: "0.4rem 1.25rem",
                 borderRadius: "2rem",
                 background:
@@ -120,7 +135,7 @@ export default function AboutPage() {
                 marginBottom: "1.5rem",
               }}
             >
-              🏘️ About Locora
+              <Home size={14} /> About Locora
             </div>
 
             <h1
@@ -131,9 +146,14 @@ export default function AboutPage() {
                 color: "#2d1b69",
                 lineHeight: 1.1,
                 marginBottom: "0.75rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.75rem",
               }}
             >
-              🧩 Building Communities
+              <Users size={42} color="#7c6fe0" strokeWidth={2} /> Building
+              Communities
             </h1>
 
             <h2
@@ -149,9 +169,13 @@ export default function AboutPage() {
                 backgroundClip: "text",
                 backgroundSize: "200% 200%",
                 animation: "gradientShift 4s ease infinite",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.6rem",
               }}
             >
-              Through Kindness ✨
+              Through Kindness <Sparkles size={32} color="#ff7eb3" />
             </h2>
 
             <p
@@ -172,7 +196,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* ── Mission ── */}
+          {/* Mission */}
           <ClaySection delay="0.1s">
             <div
               style={{
@@ -191,12 +215,11 @@ export default function AboutPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "2rem",
                   boxShadow: "0 8px 20px rgba(124,111,224,0.35)",
                   animation: "iconFloat 5s ease-in-out infinite",
                 }}
               >
-                🌍
+                <Globe size={26} color="white" strokeWidth={2} />
               </div>
               <h2
                 style={{
@@ -225,7 +248,7 @@ export default function AboutPage() {
             </p>
           </ClaySection>
 
-          {/* ── How It Works ── */}
+          {/* How It Works */}
           <div
             style={{
               borderRadius: "2.5rem",
@@ -244,12 +267,11 @@ export default function AboutPage() {
                 position: "absolute",
                 top: "8%",
                 right: "4%",
-                fontSize: "5rem",
                 opacity: 0.15,
                 animation: "iconFloat 7s ease-in-out infinite",
               }}
             >
-              🔧
+              <Wrench size={80} color="white" />
             </div>
             <div style={{ position: "relative", zIndex: 1 }}>
               <div
@@ -270,10 +292,9 @@ export default function AboutPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "1.75rem",
                   }}
                 >
-                  🔧
+                  <Wrench size={22} color="white" strokeWidth={2} />
                 </div>
                 <h2
                   style={{
@@ -315,17 +336,39 @@ export default function AboutPage() {
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
-                    <h3
+                    <div
                       style={{
-                        fontFamily: "'Sora', sans-serif",
-                        fontWeight: 700,
-                        fontSize: "1.2rem",
-                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.65rem",
                         marginBottom: "0.75rem",
                       }}
                     >
-                      {item.icon} {item.title}
-                    </h3>
+                      <div
+                        style={{
+                          width: "2.2rem",
+                          height: "2.2rem",
+                          borderRadius: "0.6rem",
+                          background: "rgba(255,255,255,0.2)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        {item.icon}
+                      </div>
+                      <h3
+                        style={{
+                          fontFamily: "'Sora', sans-serif",
+                          fontWeight: 700,
+                          fontSize: "1.2rem",
+                          color: "white",
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+                    </div>
                     <p
                       style={{
                         color: "rgba(255,255,255,0.88)",
@@ -342,7 +385,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* ── Why Locora ── */}
+          {/* Why Locora */}
           <ClaySection delay="0.2s">
             <div
               style={{
@@ -361,12 +404,11 @@ export default function AboutPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "2rem",
                   boxShadow: "0 8px 20px rgba(255,126,179,0.35)",
                   animation: "iconFloat 6s ease-in-out infinite 0.5s",
                 }}
               >
-                🙌
+                <Users size={26} color="white" strokeWidth={2} />
               </div>
               <h2
                 style={{
@@ -452,13 +494,16 @@ export default function AboutPage() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
               }}
             >
-              Locora is here to remind you that you're not alone. 💜
+              Locora is here to remind you that you're not alone.
             </p>
           </ClaySection>
 
-          {/* ── Community Built ── */}
+          {/* Community Built */}
           <div
             style={{
               borderRadius: "2.5rem",
@@ -475,12 +520,11 @@ export default function AboutPage() {
                 position: "absolute",
                 bottom: "8%",
                 right: "5%",
-                fontSize: "5rem",
                 opacity: 0.12,
                 animation: "iconFloat 8s ease-in-out infinite",
               }}
             >
-              🚀
+              <Rocket size={80} color="white" />
             </div>
             <div style={{ position: "relative", zIndex: 1 }}>
               <div
@@ -501,10 +545,9 @@ export default function AboutPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "1.75rem",
                   }}
                 >
-                  🚀
+                  <Rocket size={22} color="white" strokeWidth={2} />
                 </div>
                 <h2
                   style={{
@@ -533,7 +576,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* ── Let's Connect CTA ── */}
+          {/* Let's Connect CTA */}
           <div
             style={{
               background:
@@ -548,12 +591,26 @@ export default function AboutPage() {
           >
             <div
               style={{
-                fontSize: "4rem",
+                display: "flex",
+                justifyContent: "center",
                 marginBottom: "1.5rem",
                 animation: "iconFloat 4s ease-in-out infinite",
               }}
             >
-              📫
+              <div
+                style={{
+                  width: "5rem",
+                  height: "5rem",
+                  borderRadius: "1.5rem",
+                  background: "linear-gradient(145deg, #a89cf7, #7c6fe0)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 8px 24px rgba(124,111,224,0.35)",
+                }}
+              >
+                <Mail size={30} color="white" strokeWidth={2} />
+              </div>
             </div>
             <h2
               style={{
@@ -593,6 +650,9 @@ export default function AboutPage() {
                 boxShadow:
                   "0 8px 24px rgba(124,111,224,0.45), inset 0 1px 0 rgba(255,255,255,0.3)",
                 transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform =
@@ -606,7 +666,7 @@ export default function AboutPage() {
                   "0 8px 24px rgba(124,111,224,0.45), inset 0 1px 0 rgba(255,255,255,0.3)";
               }}
             >
-              ✉️ Get in Touch
+              <Mail size={18} /> Get in Touch
             </button>
           </div>
         </div>
